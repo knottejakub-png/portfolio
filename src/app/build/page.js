@@ -99,7 +99,7 @@ export default function BuildPage() {
               Build your own app
             </span>
             <h1 className="text-4xl md:text-6xl font-light leading-tight mb-4">
-              Let's spec<br />
+              Let's build<br />
               <span className="text-[rgba(255,255,255,0.15)]">your app.</span>
             </h1>
             <p className="text-[rgba(255,255,255,0.45)] font-light leading-relaxed max-w-md mb-16">
