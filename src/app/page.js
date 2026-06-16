@@ -161,7 +161,7 @@ function Hero() {
           transition={{ delay: 0.2, duration: 1 }}
           className="mb-6"
         >
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(201,168,76,0.7)]">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(74,144,217,0.7)]">
             Portfolio — 2025
           </span>
         </motion.div>
@@ -247,7 +247,7 @@ function About() {
     <section id="about" className="py-32 px-8 md:px-20">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(201,168,76,0.5)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(74,144,217,0.5)] block mb-16">
             001 / About
           </span>
         </FadeIn>
@@ -305,7 +305,7 @@ function Projects() {
     <section id="projects" className="py-32 px-8 md:px-20">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(201,168,76,0.5)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(74,144,217,0.5)] block mb-16">
             002 / Projects
           </span>
         </FadeIn>
@@ -323,7 +323,7 @@ function Projects() {
               <div className="project-card p-8 md:p-10">
                 <div className="flex justify-between items-start mb-6">
                   <div>
-                    <span className="text-xs tracking-[0.2em] text-[rgba(201,168,76,0.5)] uppercase block mb-2">
+                    <span className="text-xs tracking-[0.2em] text-[rgba(74,144,217,0.5)] uppercase block mb-2">
                       {p.id} — {p.category}
                     </span>
                     <h3 className="text-2xl md:text-3xl font-light">{p.name}</h3>
@@ -358,7 +358,7 @@ function Skills() {
     <section id="skills" className="py-32 px-8 md:px-20">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(201,168,76,0.5)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(74,144,217,0.5)] block mb-16">
             003 / Skills
           </span>
         </FadeIn>
@@ -406,7 +406,7 @@ function Contact() {
     <section id="contact" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(201,168,76,0.5)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(74,144,217,0.5)] block mb-16">
             004 / Contact
           </span>
         </FadeIn>
