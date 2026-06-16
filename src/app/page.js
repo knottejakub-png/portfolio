@@ -83,7 +83,7 @@ function LoadingScreen({ onDone }) {
             />
           </div>
         </div>
-        <p className="text-xs tracking-[0.2em] text-[rgba(245,240,232,0.3)] uppercase">{text}</p>
+        <p className="text-xs tracking-[0.2em] text-[rgba(255,255,255,0.28)] uppercase">{text}</p>
       </div>
     </motion.div>
   );
@@ -124,7 +124,7 @@ function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.8 }}
       className={`fixed top-0 left-0 right-0 z-40 px-8 py-5 flex justify-between items-center transition-all duration-500 ${
-        scrolled ? 'bg-[rgba(10,10,10,0.9)] backdrop-blur-md border-b border-[rgba(201,168,76,0.08)]' : ''
+        scrolled ? 'bg-[rgba(10,10,10,0.9)] backdrop-blur-md border-b border-[rgba(74,144,217,0.08)]' : ''
       }`}
     >
       <span className="text-xs tracking-[0.3em] uppercase text-[#4a90d9] font-light">JK</span>
@@ -215,7 +215,7 @@ function Hero() {
         >
           <a
             href="#projects"
-            className="text-xs tracking-[0.2em] uppercase text-[#4a90d9] border border-[rgba(201,168,76,0.3)] px-8 py-3 hover:bg-[rgba(201,168,76,0.08)] transition-all duration-300"
+            className="text-xs tracking-[0.2em] uppercase text-[#4a90d9] border border-[rgba(255,255,255,0.12)] px-8 py-3 hover:bg-[rgba(74,144,217,0.08)] transition-all duration-300"
           >
             View Work
           </a>
@@ -288,7 +288,7 @@ function About() {
             ].map(stat => (
               <div key={stat.label}>
                 <div className="text-3xl font-light text-[#4a90d9] mb-1">{stat.num}</div>
-                <div className="text-xs tracking-[0.1em] uppercase text-[rgba(245,240,232,0.3)]">{stat.label}</div>
+                <div className="text-xs tracking-[0.1em] uppercase text-[rgba(255,255,255,0.28)]">{stat.label}</div>
               </div>
             ))}
           </div>
