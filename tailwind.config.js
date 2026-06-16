@@ -12,8 +12,8 @@ module.exports = {
         mono: ['var(--font-mono)', 'monospace'],
       },
       colors: {
-        gold: '#c9a84c',
-        cream: '#f5f0e8',
+        blue: '#4a90d9',
+        
       },
       animation: {
         'fade-in': 'fadeIn 1s ease forwards',
