@@ -142,7 +142,7 @@ function Navbar() {
 // ─── HERO ─────────────────────────────────────────────────────────────────
 
 function Hero() {
-  const words = ['developer.', 'builder.', 'creator.'];
+  const words = ['developer.', 'builder.', 'app builder.', 'web app developer.'];
   const [wordIndex, setWordIndex] = useState(0);
 
   useEffect(() => {
