@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { ArrowUpRight, Mail, ChevronDown, X } from 'lucide-react';
 import { ParticleBackground } from './shared';
 import { RentalDemo, HubDemo } from './demos';
@@ -39,6 +39,48 @@ const phrases = [
   { prefix: 'Web app', suffix: 'developer.' },
 ];
 
+
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.2 });
+  return (
+    <motion.div
+      style={{ scaleX }}
+      className="fixed top-0 left-0 right-0 h-[2px] bg-[#4a90d9] origin-left z-50"
+    />
+  );
+}
+
+function Aurora() {
+  return (
+    <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+      <motion.div
+        className="absolute rounded-full"
+        style={{
+          width: 600,
+          height: 600,
+          left: '-10%',
+          top: '-15%',
+          background: 'radial-gradient(circle, rgba(74,144,217,0.16), transparent 70%)',
+        }}
+        animate={{ x: ['-5%', '20%', '-5%'], y: ['0%', '12%', '0%'] }}
+        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div
+        className="absolute rounded-full"
+        style={{
+          width: 500,
+          height: 500,
+          right: '-10%',
+          bottom: '-10%',
+          background: 'radial-gradient(circle, rgba(74,144,217,0.12), transparent 70%)',
+        }}
+        animate={{ x: ['5%', '-15%', '5%'], y: ['0%', '-10%', '0%'] }}
+        transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
+      />
+    </div>
+  );
+}
 
 function LoadingScreen({ onDone }) {
   const [progress, setProgress] = useState(0);
@@ -171,7 +213,7 @@ function Hero() {
           className="text-6xl md:text-8xl font-light leading-[1.05] tracking-tight mb-4"
         >
           Make it<br />
-          <span className="text-[rgba(255,255,255,0.15)]">work.</span>
+          <span className="text-shimmer">work.</span>
         </motion.h1>
 
         <motion.div
@@ -435,6 +477,7 @@ function Skills() {
                 className="skill-pill cursor-default"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
+                whileHover={{ scale: 1.08, y: -2 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05, duration: 0.4 }}
               >
@@ -460,7 +503,7 @@ function Contact() {
         <FadeIn delay={0.1}>
           <h2 className="text-5xl md:text-7xl font-light leading-tight mb-12">
             Let's work<br />
-            <span className="text-[rgba(255,255,255,0.15)]">together.</span>
+            <span className="text-shimmer">together.</span>
           </h2>
         </FadeIn>
         <FadeIn delay={0.2}>
@@ -497,6 +540,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   return (
     <>
+      <Aurora />
       <ParticleBackground />
       <AnimatePresence>
         {loading && <LoadingScreen onDone={() => setLoading(false)} />}
@@ -507,6 +551,7 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
+          <ScrollProgress />
           <Navbar />
           <Hero />
           <About />
