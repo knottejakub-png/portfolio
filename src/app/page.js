@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Mail, ChevronDown, X } from 'lucide-react';
 import { ParticleBackground } from './shared';
+import { RentalDemo, HubDemo } from './demos';
 
 const skills = [
   'Next.js', 'React', 'TypeScript', 'JavaScript',
@@ -304,130 +305,6 @@ function About() {
   );
 }
 
-function BrowserBar() {
-  return (
-    <div className="flex items-center gap-2 px-4 py-3 border-b border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
-      <span className="w-3 h-3 rounded-full bg-[rgba(255,255,255,0.12)]" />
-      <span className="w-3 h-3 rounded-full bg-[rgba(255,255,255,0.12)]" />
-      <span className="w-3 h-3 rounded-full bg-[rgba(255,255,255,0.12)]" />
-      <div className="ml-3 h-5 flex-1 max-w-xs rounded-full shimmer" />
-    </div>
-  );
-}
-
-// Rental Property Manager — sidebar + topbar + filters + stat cards + guest table
-function RentalPreview() {
-  return (
-    <div className="rounded-lg overflow-hidden border border-[rgba(255,255,255,0.1)] bg-[#0c0c0c]">
-      <BrowserBar />
-      <div className="flex blur-[1px] select-none">
-        {/* Sidebar with grouped nav */}
-        <div className="hidden sm:block w-40 shrink-0 border-r border-[rgba(255,255,255,0.06)] p-4 space-y-5">
-          <div className="h-5 w-24 rounded shimmer mb-2" />
-          {[3, 2, 4].map((count, g) => (
-            <div key={g} className="space-y-2">
-              <div className="h-2 w-12 rounded shimmer opacity-60" />
-              {Array.from({ length: count }).map((_, i) => (
-                <div key={i} className="h-3 rounded shimmer" style={{ width: `${55 + ((i * 13) % 35)}%` }} />
-              ))}
-            </div>
-          ))}
-        </div>
-
-        {/* Main */}
-        <div className="flex-1 p-5 space-y-4">
-          <div className="flex justify-between items-center">
-            <div className="h-5 w-28 rounded shimmer" />
-            <div className="h-8 w-28 rounded-md shimmer" />
-          </div>
-
-          {/* Filter pills */}
-          <div className="flex flex-wrap gap-2">
-            {[16, 14, 12, 20, 14].map((w, i) => (
-              <div key={i} className="h-6 rounded-full shimmer" style={{ width: `${w * 4}px` }} />
-            ))}
-          </div>
-
-          {/* Stat cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[0, 1, 2, 3].map(i => (
-              <div key={i} className="h-20 rounded-lg border border-[rgba(255,255,255,0.06)] p-3 space-y-2">
-                <div className="h-2 w-2/3 rounded shimmer opacity-60" />
-                <div className="h-6 w-1/2 rounded shimmer" />
-              </div>
-            ))}
-          </div>
-
-          {/* Guest table */}
-          <div className="border border-[rgba(255,255,255,0.06)] rounded-lg p-3 space-y-3">
-            <div className="grid grid-cols-6 gap-3">
-              {[0, 1, 2, 3, 4, 5].map(i => (
-                <div key={i} className="h-2 rounded shimmer opacity-60" />
-              ))}
-            </div>
-            {[0, 1, 2, 3, 4].map(r => (
-              <div key={r} className="grid grid-cols-6 gap-3 items-center">
-                <div className="h-3 rounded shimmer" />
-                <div className="h-5 w-12 rounded-full shimmer" />
-                <div className="h-3 rounded shimmer" />
-                <div className="h-3 rounded shimmer" />
-                <div className="h-5 w-12 rounded-full shimmer" />
-                <div className="flex gap-1">
-                  <div className="h-5 w-10 rounded shimmer" />
-                  <div className="h-5 w-10 rounded shimmer" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Enterprise Admin Platform — application hub with app tiles
-function HubPreview() {
-  return (
-    <div className="rounded-lg overflow-hidden border border-[rgba(255,255,255,0.1)] bg-[#0c0c0c]">
-      <BrowserBar />
-      <div className="blur-[1px] select-none">
-        {/* Hub top bar */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[rgba(255,255,255,0.06)]">
-          <div className="flex items-center gap-3">
-            <div className="h-6 w-10 rounded shimmer" />
-            <div className="space-y-1">
-              <div className="h-3 w-20 rounded shimmer" />
-              <div className="h-2 w-14 rounded shimmer opacity-60" />
-            </div>
-          </div>
-          <div className="h-8 w-8 rounded-full shimmer" />
-        </div>
-
-        {/* Heading */}
-        <div className="px-6 md:px-8 pt-8 pb-2">
-          <div className="h-7 w-44 rounded shimmer mb-3" />
-          <div className="h-3 w-60 rounded shimmer opacity-60" />
-        </div>
-
-        {/* App tiles grid */}
-        <div className="px-6 md:px-8 py-6 grid grid-cols-2 md:grid-cols-3 gap-4">
-          {[0, 1, 2, 3].map(i => (
-            <div key={i} className="rounded-lg border border-[rgba(255,255,255,0.06)] p-5 space-y-3">
-              <div className="h-12 w-12 rounded-lg shimmer" />
-              <div className="h-4 w-2/3 rounded shimmer" />
-              <div className="h-2 w-1/2 rounded shimmer opacity-60" />
-            </div>
-          ))}
-        </div>
-
-        <div className="pb-8 flex justify-center">
-          <div className="h-2 w-40 rounded shimmer opacity-40" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Projects() {
   const [active, setActive] = useState(null);
 
@@ -472,7 +349,7 @@ function Projects() {
                   ))}
                 </div>
                 <span className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#4a90d9]">
-                  View preview
+                  Open live demo
                   <ArrowUpRight className="w-3 h-3" />
                 </span>
               </button>
@@ -496,7 +373,7 @@ function Projects() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 20 }}
               transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="w-full max-w-3xl max-h-[90vh] overflow-auto bg-[#0a0a0a] border border-[rgba(255,255,255,0.1)] rounded-xl p-5 md:p-8"
+              className="w-full max-w-4xl max-h-[90vh] overflow-auto bg-[#0a0a0a] border border-[rgba(255,255,255,0.1)] rounded-xl p-5 md:p-8"
             >
               <div className="flex justify-between items-start mb-6">
                 <div>
@@ -514,10 +391,10 @@ function Projects() {
                 </button>
               </div>
 
-              {active.preview === 'hub' ? <HubPreview /> : <RentalPreview />}
+              {active.preview === 'hub' ? <HubDemo /> : <RentalDemo />}
 
               <p className="text-xs text-[rgba(255,255,255,0.35)] font-light mt-5 text-center">
-                Interface preview — a non-interactive mockup. Real client data is kept private.
+                Interactive demo — click around to explore. Sample data only; real client data is kept private.
               </p>
             </motion.div>
           </motion.div>
