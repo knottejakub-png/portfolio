@@ -18,7 +18,7 @@ const projects = [
     category: 'Full-Stack Web App',
     description:
       'A comprehensive management platform for short-term rental properties. Built for a private client — handles reservations, guest communication, cleaning schedules, invoicing, and reporting across multiple properties.',
-    tech: ['Next.js 14', 'Supabase', 'PostgreSQL', 'Tailwind CSS', 'PWA'],
+    tech: ['Next.js 14', 'PostgreSQL', 'Tailwind CSS', 'PWA', 'REST API'],
     status: 'Live',
   },
   {
@@ -27,7 +27,7 @@ const projects = [
     category: 'Internal Business Tool',
     description:
       'An internal web application built for a technology company. Covers task management, order tracking, team communication, market data dashboards, and role-based access control for multiple user levels.',
-    tech: ['Next.js 14', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Vercel'],
+    tech: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Cloud Deploy'],
     status: 'Live',
   },
 ];
