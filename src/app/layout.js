@@ -8,14 +8,16 @@ const siteUrl = 'https://portfolio-ashen-nine-29.vercel.app'
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Jakub Knotte — Web Developer',
-    template: '%s · Jakub Knotte',
+    default: 'Buildary — Digital Product Builder',
+    template: '%s · Buildary',
   },
   description:
-    'Web developer & IT student building modern, functional web applications — from first idea to a finished product that works.',
+    'Buildary — I design and build web & mobile applications, from the first idea to a finished product that works.',
   keywords: [
+    'Buildary',
     'web developer',
-    'web application',
+    'app developer',
+    'digital products',
     'Next.js',
     'React',
     'full-stack',
@@ -28,16 +30,16 @@ export const metadata = {
   openGraph: {
     type: 'website',
     url: siteUrl,
-    siteName: 'Jakub Knotte',
-    title: 'Jakub Knotte — Web Developer',
+    siteName: 'Buildary',
+    title: 'Buildary — Digital Product Builder',
     description:
-      'I turn your ideas into real, working products. Full-stack web apps from concept to launch.',
+      'I turn your ideas into real, working products — web & mobile apps from concept to launch.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jakub Knotte — Web Developer',
+    title: 'Buildary — Digital Product Builder',
     description:
-      'I turn your ideas into real, working products. Full-stack web apps from concept to launch.',
+      'I turn your ideas into real, working products — web & mobile apps from concept to launch.',
   },
   robots: {
     index: true,

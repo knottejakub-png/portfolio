@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'Jakub Knotte — Web Developer';
+export const alt = 'Buildary — Digital Product Builder';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -21,7 +21,7 @@ export default function Image() {
         }}
       >
         <div style={{ display: 'flex', color: '#4a90d9', fontSize: 28, letterSpacing: 8 }}>
-          PORTFOLIO — JK
+          BUILDARY
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', fontSize: 110, color: '#ffffff', lineHeight: 1 }}>
@@ -32,7 +32,7 @@ export default function Image() {
           </div>
         </div>
         <div style={{ display: 'flex', fontSize: 30, color: 'rgba(255,255,255,0.55)' }}>
-          Jakub Knotte — Web Developer
+          Digital product builder · Jakub Knotte
         </div>
       </div>
     ),

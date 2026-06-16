@@ -16,13 +16,13 @@ export default function Icon() {
           justifyContent: 'center',
           background: '#080808',
           color: '#4a90d9',
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: 700,
           fontFamily: 'sans-serif',
           borderRadius: 6,
         }}
       >
-        JK
+        B
       </div>
     ),
     { ...size }

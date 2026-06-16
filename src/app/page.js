@@ -129,7 +129,7 @@ function Navbar() {
         scrolled ? 'bg-[rgba(8,8,8,0.9)] backdrop-blur-md border-b border-[rgba(255,255,255,0.06)]' : ''
       }`}
     >
-      <span className="text-xs tracking-[0.3em] uppercase text-[#4a90d9] font-light">JK</span>
+      <span className="text-xs tracking-[0.3em] uppercase text-[#4a90d9] font-light">Buildary</span>
       <div className="flex gap-8">
         {['About', 'Build', 'Projects', 'Skills', 'Contact'].map(link => (
           <a
@@ -169,7 +169,7 @@ function Hero() {
           className="mb-6"
         >
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(74,144,217,0.6)]">
-            Portfolio — 2025
+            Buildary — 2026
           </span>
         </motion.div>
 
@@ -524,10 +524,10 @@ function Footer() {
     <footer className="py-10 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto flex justify-between items-center">
         <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.2)]">
-          Portfolio
+          Buildary
         </span>
         <span className="text-xs tracking-[0.1em] text-[rgba(255,255,255,0.2)]">
-          © 2025
+          © 2026 · Jakub Knotte
         </span>
       </div>
     </footer>
