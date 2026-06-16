@@ -142,13 +142,18 @@ function Navbar() {
 // ─── HERO ─────────────────────────────────────────────────────────────────
 
 function Hero() {
-  const words = ['developer.', 'builder.', 'app builder.', 'web app developer.'];
-  const [wordIndex, setWordIndex] = useState(0);
+  const phrases = [
+  { prefix: 'Web', suffix: 'developer.' },
+  { prefix: 'Web', suffix: 'builder.' },
+  { prefix: 'App', suffix: 'builder.' },
+  { prefix: 'Web app', suffix: 'developer.' },
+];
+  const [phraseIndex, setPhraseIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setWordIndex(i => (i + 1) % words.length);
-    }, 2200);
+      setPhraseIndex(i => (i + 1) % phrases.length);
+    }, 2400);
     return () => clearInterval(interval);
   }, []);
 
