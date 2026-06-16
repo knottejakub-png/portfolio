@@ -3,8 +3,13 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, ArrowLeft, Plus, X, Phone, Check } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import emailjs from '@emailjs/browser';
 import { ParticleBackground } from '../shared';
 import { db } from '../firebase';
+
+const EMAILJS_SERVICE_ID = 'service_d916iek';
+const EMAILJS_TEMPLATE_ID = 'template_tl54q86';
+const EMAILJS_PUBLIC_KEY = 'rUytQhCFYQc6WeuFy';
 
 const appTypes = [
   { id: 'website', label: 'Business Website', desc: 'A site for your company' },
@@ -71,10 +76,31 @@ export default function BuildPage() {
         status: 'new',
         createdAt: serverTimestamp(),
       });
-      setStatus('sent');
     } catch (err) {
       console.error('Failed to send request:', err);
       setStatus('error');
+      return;
+    }
+
+    setStatus('sent');
+
+    // Notify by email (fire-and-forget — the request is already saved either way)
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          type: typeLabel,
+          features: allFeatures.length ? allFeatures.join(', ') : '—',
+          reply_email: email.trim() || '—',
+          phone: phone.trim() || '—',
+          wants_call: wantsCall ? 'Yes' : 'No',
+          time: new Date().toLocaleString('en-GB'),
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      );
+    } catch (err) {
+      console.error('Email notification failed:', err);
     }
   };
 
