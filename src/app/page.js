@@ -185,19 +185,19 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.8 }}
-          className="flex items-baseline gap-3 text-3xl md:text-5xl font-light mb-12"
+          className="text-3xl md:text-5xl font-light mb-12 h-[1.2em]"
         >
-          <span className="text-[rgba(245,240,232,0.4)]">Web</span>
           <AnimatePresence mode="wait">
             <motion.span
-              key={wordIndex}
+              key={phraseIndex}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4 }}
-              className="text-[#4a90d9]"
+              className="inline-flex items-baseline gap-3"
             >
-              {words[wordIndex]}
+              <span className="text-[rgba(245,240,232,0.4)]">{phrases[phraseIndex].prefix}</span>
+              <span className="text-[#4a90d9]">{phrases[phraseIndex].suffix}</span>
             </motion.span>
           </AnimatePresence>
         </motion.div>
@@ -208,8 +208,8 @@ function Hero() {
           transition={{ delay: 1, duration: 0.8 }}
           className="text-base md:text-lg text-[rgba(245,240,232,0.45)] max-w-md leading-relaxed font-light"
         >
-          IT student & web developer building modern, functional applications 
-          from concept to deployment.
+          You bring the idea — I build the app. From the first concept
+          to a finished product that's live and working.
         </motion.p>
 
         <motion.div
