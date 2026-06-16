@@ -66,18 +66,18 @@ function LoadingScreen({ onDone }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0a0a0a]"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#080808]"
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
       <div className="w-64 text-center">
         <div className="mb-8">
-          <span className="text-xs tracking-[0.3em] uppercase text-[#c9a84c]">JK</span>
+          <span className="text-xs tracking-[0.3em] uppercase text-[#4a90d9]">JK</span>
         </div>
         <div className="mb-6">
           <div className="h-px bg-[#1a1a1a] w-full relative overflow-hidden">
             <motion.div
-              className="h-full bg-[#c9a84c]"
+              className="h-full bg-[#4a90d9]"
               style={{ width: `${Math.min(progress, 100)}%` }}
               transition={{ ease: 'easeOut' }}
             />
@@ -127,7 +127,7 @@ function Navbar() {
         scrolled ? 'bg-[rgba(10,10,10,0.9)] backdrop-blur-md border-b border-[rgba(201,168,76,0.08)]' : ''
       }`}
     >
-      <span className="text-xs tracking-[0.3em] uppercase text-[#c9a84c] font-light">JK</span>
+      <span className="text-xs tracking-[0.3em] uppercase text-[#4a90d9] font-light">JK</span>
       <div className="flex gap-8">
         {['About', 'Projects', 'Skills', 'Contact'].map(link => (
           <a key={link} href={`#${link.toLowerCase()}`} className="nav-link">
@@ -190,7 +190,7 @@ function Hero() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4 }}
-              className="text-[#c9a84c]"
+              className="text-[#4a90d9]"
             >
               {words[wordIndex]}
             </motion.span>
@@ -215,7 +215,7 @@ function Hero() {
         >
           <a
             href="#projects"
-            className="text-xs tracking-[0.2em] uppercase text-[#c9a84c] border border-[rgba(201,168,76,0.3)] px-8 py-3 hover:bg-[rgba(201,168,76,0.08)] transition-all duration-300"
+            className="text-xs tracking-[0.2em] uppercase text-[#4a90d9] border border-[rgba(201,168,76,0.3)] px-8 py-3 hover:bg-[rgba(201,168,76,0.08)] transition-all duration-300"
           >
             View Work
           </a>
@@ -234,7 +234,7 @@ function Hero() {
         transition={{ delay: 2, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
-        <ChevronDown className="w-4 h-4 text-[rgba(201,168,76,0.4)] animate-bounce" />
+        <ChevronDown className="w-4 h-4 text-[rgba(74, 144, 217, 0.4)] animate-bounce" />
       </motion.div>
     </section>
   );
@@ -287,7 +287,7 @@ function About() {
               { num: 'CZ', label: 'Based in Czech Republic' },
             ].map(stat => (
               <div key={stat.label}>
-                <div className="text-3xl font-light text-[#c9a84c] mb-1">{stat.num}</div>
+                <div className="text-3xl font-light text-[#4a90d9] mb-1">{stat.num}</div>
                 <div className="text-xs tracking-[0.1em] uppercase text-[rgba(245,240,232,0.3)]">{stat.label}</div>
               </div>
             ))}
@@ -421,9 +421,9 @@ function Contact() {
         <FadeIn delay={0.2}>
           <a
             href="mailto:jakubknotte17@gmail.com"
-            className="group inline-flex items-center gap-4 text-xl md:text-2xl font-light text-[rgba(245,240,232,0.6)] hover:text-[#c9a84c] transition-colors duration-300"
+            className="group inline-flex items-center gap-4 text-xl md:text-2xl font-light text-[rgba(245,240,232,0.6)] hover:text-[#4a90d9] transition-colors duration-300"
           >
-            <Mail className="w-5 h-5 text-[#c9a84c]" />
+            <Mail className="w-5 h-5 text-[#4a90d9]" />
             jakubknotte17@gmail.com
             <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </a>
