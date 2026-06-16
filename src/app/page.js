@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Mail, ChevronDown } from 'lucide-react';
+import { ParticleBackground } from './shared';
 
 const skills = [
   'Next.js', 'React', 'TypeScript', 'JavaScript',
@@ -35,87 +36,6 @@ const phrases = [
   { prefix: 'Web app', suffix: 'developer.' },
 ];
 
-
-function ParticleBackground() {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let animId;
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const COUNT = 80;
-    const particles = Array.from({ length: COUNT }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      r: Math.random() * 1.5 + 0.5,
-      alpha: Math.random() * 0.4 + 0.1,
-    }));
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 140) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(74,144,217,${0.12 * (1 - dist / 140)})`;
-            ctx.lineWidth = 0.5;
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Draw particles
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(74,144,217,${p.alpha})`;
-        ctx.fill();
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-      });
-
-      animId = requestAnimationFrame(draw);
-    };
-
-    draw();
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none"
-      style={{ opacity: 0.6 }}
-    />
-  );
-}
 
 function LoadingScreen({ onDone }) {
   const [progress, setProgress] = useState(0);
@@ -205,7 +125,13 @@ function Navbar() {
       <span className="text-xs tracking-[0.3em] uppercase text-[#4a90d9] font-light">JK</span>
       <div className="flex gap-8">
         {['About', 'Build', 'Projects', 'Skills', 'Contact'].map(link => (
-          <a key={link} href={`#${link.toLowerCase()}`} className="nav-link">{link}</a>
+          <a
+            key={link}
+            href={link === 'Build' ? '/build' : `#${link.toLowerCase()}`}
+            className={`nav-link ${link === 'Build' ? 'text-[#4a90d9]' : ''}`}
+          >
+            {link}
+          </a>
         ))}
       </div>
     </motion.nav>
@@ -290,20 +216,39 @@ function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.3, duration: 0.8 }}
-          className="mt-12 flex gap-6 items-center"
+          className="mt-12 flex flex-col sm:flex-row gap-6 sm:items-center"
         >
-          <a
-            href="#projects"
-            className="text-xs tracking-[0.2em] uppercase text-[#4a90d9] border border-[rgba(255,255,255,0.12)] px-8 py-3 hover:bg-[rgba(74,144,217,0.08)] transition-all duration-300"
+          <motion.a
+            href="/build"
+            animate={{
+              boxShadow: [
+                '0 0 0 0 rgba(74,144,217,0)',
+                '0 0 30px 4px rgba(74,144,217,0.45)',
+                '0 0 0 0 rgba(74,144,217,0)',
+              ],
+            }}
+            transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className="group inline-flex items-center justify-center gap-3 text-xs md:text-sm tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-8 py-4 rounded-full font-medium"
           >
-            View Work
-          </a>
-          <a
-            href="#contact"
-            className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.38)] hover:text-[rgba(255,255,255,0.8)] transition-colors duration-300"
-          >
-            Get in touch →
-          </a>
+            Build your own app
+            <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </motion.a>
+          <div className="flex gap-6 items-center">
+            <a
+              href="#projects"
+              className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.6)] hover:text-white transition-colors duration-300"
+            >
+              View Work
+            </a>
+            <a
+              href="#contact"
+              className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.38)] hover:text-[rgba(255,255,255,0.8)] transition-colors duration-300"
+            >
+              Get in touch →
+            </a>
+          </div>
         </motion.div>
       </div>
 
@@ -363,7 +308,7 @@ function Projects() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
-            003 / Projects
+            002 / Projects
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
@@ -410,7 +355,7 @@ function Skills() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
-            004 / Skills
+            003 / Skills
           </span>
         </FadeIn>
         <div className="grid md:grid-cols-2 gap-20 mb-20">
@@ -448,192 +393,13 @@ function Skills() {
   );
 }
 
-const appTypes = [
-  { id: 'web', label: 'Web App', desc: 'A custom web application' },
-  { id: 'ecommerce', label: 'E-commerce', desc: 'Online store & payments' },
-  { id: 'internal', label: 'Internal Tool', desc: 'Dashboard for your team' },
-  { id: 'pwa', label: 'Mobile / PWA', desc: 'Installable, mobile-first' },
-];
-
-const featureOptions = [
-  'User accounts & login',
-  'Payments / subscriptions',
-  'Admin dashboard',
-  'Notifications',
-  'Multi-language',
-  'Analytics & reporting',
-  'API integration',
-  'File uploads',
-  'Booking / reservations',
-  'Real-time updates',
-];
-
-const scopeOptions = [
-  { id: 'mvp', label: 'MVP', desc: 'A quick first version' },
-  { id: 'full', label: 'Full product', desc: 'Complete, polished build' },
-  { id: 'ongoing', label: 'Ongoing', desc: 'Build + maintenance' },
-];
-
-function Configurator() {
-  const [appType, setAppType] = useState(null);
-  const [features, setFeatures] = useState([]);
-  const [scope, setScope] = useState(null);
-
-  const toggleFeature = f =>
-    setFeatures(prev => (prev.includes(f) ? prev.filter(x => x !== f) : [...prev, f]));
-
-  const typeLabel = appTypes.find(t => t.id === appType)?.label;
-  const scopeLabel = scopeOptions.find(s => s.id === scope)?.label;
-  const ready = appType && scope;
-
-  const mailHref = () => {
-    const lines = [
-      'Hi Jakub,',
-      '',
-      "I'd like to build an application. Here's what I have in mind:",
-      '',
-      `• Type: ${typeLabel || '—'}`,
-      `• Scope: ${scopeLabel || '—'}`,
-      `• Features: ${features.length ? features.join(', ') : '—'}`,
-      '',
-      'Looking forward to hearing from you.',
-    ];
-    const subject = `App request${typeLabel ? ' — ' + typeLabel : ''}`;
-    return `mailto:jakubknotte17@gmail.com?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(lines.join('\n'))}`;
-  };
-
-  const cardClass = selected =>
-    `text-left p-6 border transition-all duration-300 ${
-      selected
-        ? 'border-[#4a90d9] bg-[rgba(74,144,217,0.08)]'
-        : 'border-[rgba(255,255,255,0.07)] bg-[rgba(255,255,255,0.02)] hover:border-[rgba(255,255,255,0.18)]'
-    }`;
-
-  const pillClass = selected =>
-    `px-4 py-2 rounded-full border text-xs uppercase tracking-[0.06em] transition-all duration-300 ${
-      selected
-        ? 'border-[#4a90d9] bg-[rgba(74,144,217,0.15)] text-white'
-        : 'border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.7)] hover:border-[rgba(74,144,217,0.4)]'
-    }`;
-
-  return (
-    <section id="build" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
-      <div className="max-w-5xl mx-auto">
-        <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
-            002 / Build
-          </span>
-        </FadeIn>
-
-        <FadeIn delay={0.1}>
-          <h2 className="text-4xl md:text-5xl font-light leading-tight mb-4">
-            Build your own<br />
-            <span className="text-[rgba(255,255,255,0.15)]">app.</span>
-          </h2>
-          <p className="text-[rgba(255,255,255,0.45)] font-light leading-relaxed max-w-md mb-16">
-            Pick what you need and I'll send you back a tailored plan. No commitment — just a starting point.
-          </p>
-        </FadeIn>
-
-        {/* Step 1 — type */}
-        <FadeIn delay={0.15}>
-          <span className="text-xs tracking-[0.2em] uppercase text-[rgba(74,144,217,0.6)] block mb-5">
-            01 — What are you building?
-          </span>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-16">
-            {appTypes.map(t => (
-              <button key={t.id} onClick={() => setAppType(t.id)} className={cardClass(appType === t.id)}>
-                <span className="block text-lg font-light mb-1">{t.label}</span>
-                <span className="block text-xs text-[rgba(255,255,255,0.4)] font-light">{t.desc}</span>
-              </button>
-            ))}
-          </div>
-        </FadeIn>
-
-        {/* Step 2 — features */}
-        <FadeIn delay={0.2}>
-          <span className="text-xs tracking-[0.2em] uppercase text-[rgba(74,144,217,0.6)] block mb-5">
-            02 — Which features do you need?
-          </span>
-          <div className="flex flex-wrap gap-3 mb-16">
-            {featureOptions.map(f => (
-              <button key={f} onClick={() => toggleFeature(f)} className={pillClass(features.includes(f))}>
-                {f}
-              </button>
-            ))}
-          </div>
-        </FadeIn>
-
-        {/* Step 3 — scope */}
-        <FadeIn delay={0.25}>
-          <span className="text-xs tracking-[0.2em] uppercase text-[rgba(74,144,217,0.6)] block mb-5">
-            03 — What's the scope?
-          </span>
-          <div className="grid sm:grid-cols-3 gap-3 mb-16">
-            {scopeOptions.map(s => (
-              <button key={s.id} onClick={() => setScope(s.id)} className={cardClass(scope === s.id)}>
-                <span className="block text-lg font-light mb-1">{s.label}</span>
-                <span className="block text-xs text-[rgba(255,255,255,0.4)] font-light">{s.desc}</span>
-              </button>
-            ))}
-          </div>
-        </FadeIn>
-
-        {/* Summary */}
-        <FadeIn delay={0.3}>
-          <div className="project-card p-8 md:p-10">
-            <span className="text-xs tracking-[0.2em] uppercase text-[rgba(74,144,217,0.6)] block mb-6">
-              Your configuration
-            </span>
-            <div className="space-y-3 text-sm font-light mb-8">
-              <div className="flex gap-3">
-                <span className="text-[rgba(255,255,255,0.4)] w-24 shrink-0">Type</span>
-                <span className="text-white">{typeLabel || '—'}</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="text-[rgba(255,255,255,0.4)] w-24 shrink-0">Scope</span>
-                <span className="text-white">{scopeLabel || '—'}</span>
-              </div>
-              <div className="flex gap-3">
-                <span className="text-[rgba(255,255,255,0.4)] w-24 shrink-0">Features</span>
-                <span className="text-white">{features.length ? features.join(', ') : '—'}</span>
-              </div>
-            </div>
-
-            <a
-              href={ready ? mailHref() : undefined}
-              aria-disabled={!ready}
-              onClick={e => !ready && e.preventDefault()}
-              className={`inline-flex items-center gap-3 text-xs tracking-[0.2em] uppercase px-8 py-3 border transition-all duration-300 ${
-                ready
-                  ? 'text-[#4a90d9] border-[rgba(74,144,217,0.4)] hover:bg-[rgba(74,144,217,0.08)]'
-                  : 'text-[rgba(255,255,255,0.25)] border-[rgba(255,255,255,0.08)] cursor-not-allowed'
-              }`}
-            >
-              Send my request
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-            {!ready && (
-              <p className="text-xs text-[rgba(255,255,255,0.3)] font-light mt-4">
-                Pick a type and a scope to continue.
-              </p>
-            )}
-          </div>
-        </FadeIn>
-      </div>
-    </section>
-  );
-}
-
 function Contact() {
   return (
     <section id="contact" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
-            005 / Contact
+            004 / Contact
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
@@ -689,7 +455,6 @@ export default function Home() {
           <Navbar />
           <Hero />
           <About />
-          <Configurator />
           <Projects />
           <Skills />
           <Contact />
