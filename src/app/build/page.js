@@ -1,8 +1,10 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, ArrowLeft, Plus, X, Phone } from 'lucide-react';
+import { ArrowUpRight, ArrowLeft, Plus, X, Phone, Check } from 'lucide-react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { ParticleBackground } from '../shared';
+import { db } from '../firebase';
 
 const appTypes = [
   { id: 'website', label: 'Business Website', desc: 'A site for your company' },
@@ -35,6 +37,7 @@ export default function BuildPage() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [wantsCall, setWantsCall] = useState(false);
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
 
   const toggleFeature = f =>
     setFeatures(prev => (prev.includes(f) ? prev.filter(x => x !== f) : [...prev, f]));
@@ -54,25 +57,25 @@ export default function BuildPage() {
   const typeReady = appType && (appType !== 'other' || otherText.trim());
   const ready = typeReady && (email.trim() || phone.trim());
 
-  const mailHref = () => {
-    const lines = [
-      'Hi Jakub,',
-      '',
-      "I'd like to build something. Here's what I have in mind:",
-      '',
-      `• Type: ${typeLabel || '—'}`,
-      `• Features: ${allFeatures.length ? allFeatures.join(', ') : '—'}`,
-      '',
-      'How to reach me:',
-      `• Email: ${email.trim() || '—'}`,
-      `• Phone: ${phone.trim() || '—'}`,
-    ];
-    if (wantsCall) lines.push("• I'd rather configure it together — feel free to give me a call.");
-    lines.push('', 'Looking forward to hearing from you.');
-    const subject = `App request${typeLabel ? ' — ' + typeLabel : ''}`;
-    return `mailto:jakubknotte17@gmail.com?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(lines.join('\n'))}`;
+  const handleSubmit = async () => {
+    if (!ready || status === 'sending') return;
+    setStatus('sending');
+    try {
+      await addDoc(collection(db, 'requests'), {
+        type: typeLabel,
+        typeId: appType,
+        features: allFeatures,
+        email: email.trim(),
+        phone: phone.trim(),
+        wantsCall,
+        status: 'new',
+        createdAt: serverTimestamp(),
+      });
+      setStatus('sent');
+    } catch (err) {
+      console.error('Failed to send request:', err);
+      setStatus('error');
+    }
   };
 
   const cardClass = selected =>
@@ -249,23 +252,40 @@ export default function BuildPage() {
               </div>
             </div>
 
-            <a
-              href={ready ? mailHref() : undefined}
-              aria-disabled={!ready}
-              onClick={e => !ready && e.preventDefault()}
-              className={`inline-flex items-center gap-3 text-xs tracking-[0.2em] uppercase px-8 py-3 border transition-all duration-300 ${
-                ready
-                  ? 'text-[#4a90d9] border-[rgba(74,144,217,0.4)] hover:bg-[rgba(74,144,217,0.08)]'
-                  : 'text-[rgba(255,255,255,0.25)] border-[rgba(255,255,255,0.08)] cursor-not-allowed'
-              }`}
-            >
-              Send my request
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-            {!ready && (
-              <p className="text-xs text-[rgba(255,255,255,0.3)] font-light mt-4">
-                Pick what you're building and leave an email or phone so I can get back to you.
-              </p>
+            {status === 'sent' ? (
+              <div className="flex items-center gap-3 text-[#4a90d9]">
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[rgba(74,144,217,0.15)] border border-[rgba(74,144,217,0.4)]">
+                  <Check className="w-4 h-4" />
+                </span>
+                <span className="text-sm font-light text-white">
+                  Request sent — I'll get back to you soon. Thanks!
+                </span>
+              </div>
+            ) : (
+              <>
+                <button
+                  onClick={handleSubmit}
+                  disabled={!ready || status === 'sending'}
+                  className={`inline-flex items-center gap-3 text-xs tracking-[0.2em] uppercase px-8 py-3 border transition-all duration-300 ${
+                    ready && status !== 'sending'
+                      ? 'text-[#4a90d9] border-[rgba(74,144,217,0.4)] hover:bg-[rgba(74,144,217,0.08)]'
+                      : 'text-[rgba(255,255,255,0.25)] border-[rgba(255,255,255,0.08)] cursor-not-allowed'
+                  }`}
+                >
+                  {status === 'sending' ? 'Sending…' : 'Send my request'}
+                  <ArrowUpRight className="w-4 h-4" />
+                </button>
+                {!ready && (
+                  <p className="text-xs text-[rgba(255,255,255,0.3)] font-light mt-4">
+                    Pick what you're building and leave an email or phone so I can get back to you.
+                  </p>
+                )}
+                {status === 'error' && (
+                  <p className="text-xs text-[#e0796b] font-light mt-4">
+                    Something went wrong sending your request. Please try again.
+                  </p>
+                )}
+              </>
             )}
           </div>
         </div>
