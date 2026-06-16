@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, ArrowLeft, Plus, X, Phone, Check } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -43,6 +43,8 @@ export default function BuildPage() {
   const [phone, setPhone] = useState('');
   const [wantsCall, setWantsCall] = useState(false);
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [botField, setBotField] = useState(''); // honeypot — must stay empty
+  const mountedAt = useRef(Date.now());
 
   const toggleFeature = f =>
     setFeatures(prev => (prev.includes(f) ? prev.filter(x => x !== f) : [...prev, f]));
@@ -64,6 +66,13 @@ export default function BuildPage() {
 
   const handleSubmit = async () => {
     if (!ready || status === 'sending') return;
+
+    // Anti-spam: honeypot filled, or form submitted suspiciously fast → silently drop.
+    if (botField || Date.now() - mountedAt.current < 2500) {
+      setStatus('sent');
+      return;
+    }
+
     setStatus('sending');
     try {
       await addDoc(collection(db, 'requests'), {
@@ -219,6 +228,17 @@ export default function BuildPage() {
               </button>
             </div>
           </div>
+
+          {/* Honeypot — hidden from humans, bots tend to fill it */}
+          <input
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={botField}
+            onChange={e => setBotField(e.target.value)}
+            aria-hidden="true"
+            className="absolute -left-[9999px] top-0 w-px h-px opacity-0"
+          />
 
           {/* Step 3 — contact */}
           <div className="mb-16">
