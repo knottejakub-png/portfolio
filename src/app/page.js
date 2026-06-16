@@ -145,6 +145,34 @@ function Navbar() {
   );
 }
 
+function BinaryText({ text, className }) {
+  const randomize = s =>
+    s
+      .split('')
+      .map(c => (c === ' ' ? ' ' : Math.random() > 0.5 ? '1' : '0'))
+      .join('');
+  const [display, setDisplay] = useState(() => randomize(text));
+
+  useEffect(() => {
+    let frame = 0;
+    const id = setInterval(() => {
+      frame++;
+      const revealed = Math.floor(frame / 2);
+      let out = '';
+      for (let i = 0; i < text.length; i++) {
+        if (text[i] === ' ') out += ' ';
+        else if (i < revealed) out += text[i];
+        else out += Math.random() > 0.5 ? '1' : '0';
+      }
+      setDisplay(out);
+      if (revealed >= text.length) clearInterval(id);
+    }, 45);
+    return () => clearInterval(id);
+  }, [text]);
+
+  return <span className={className}>{display}</span>;
+}
+
 function Hero() {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const heroRef = useRef(null);
@@ -187,32 +215,18 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.8 }}
-          className="text-3xl md:text-5xl font-light mb-12 h-[1.2em]"
+          className="text-3xl md:text-5xl font-light mb-12 h-[1.2em] flex items-baseline gap-3"
         >
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={phraseIndex + '-pre'}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35 }}
-              className="text-[rgba(255,255,255,0.38)]"
-            >
-              {phrases[phraseIndex].prefix}
-            </motion.span>
-          </AnimatePresence>
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={phraseIndex + '-suf'}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35, delay: 0.05 }}
-              className="text-[#4a90d9]"
-            >
-              {phrases[phraseIndex].suffix}
-            </motion.span>
-          </AnimatePresence>
+          <BinaryText
+            key={phraseIndex + '-pre'}
+            text={phrases[phraseIndex].prefix}
+            className="text-[rgba(255,255,255,0.38)]"
+          />
+          <BinaryText
+            key={phraseIndex + '-suf'}
+            text={phrases[phraseIndex].suffix}
+            className="text-[#4a90d9]"
+          />
         </motion.div>
 
         <motion.p
