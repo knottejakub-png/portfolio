@@ -1,8 +1,8 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { motion, useInView, AnimatePresence, useScroll, useSpring, useMotionValue } from 'framer-motion';
+import { motion, useInView, AnimatePresence, useScroll, useSpring, useMotionValue, useTransform } from 'framer-motion';
 import { ArrowUpRight, Mail, ChevronDown, X } from 'lucide-react';
-import { ParticleBackground } from './shared';
+import { ParticleBackground, BinaryRain } from './shared';
 import { RentalDemo, HubDemo } from './demos';
 
 const skills = [
@@ -39,6 +39,20 @@ const phrases = [
   { prefix: 'Web app', suffix: 'developer.' },
 ];
 
+
+function Spotlight() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const move = e => {
+      const el = ref.current;
+      if (!el) return;
+      el.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(74,144,217,0.07), transparent 70%)`;
+    };
+    window.addEventListener('pointermove', move);
+    return () => window.removeEventListener('pointermove', move);
+  }, []);
+  return <div ref={ref} className="fixed inset-0 z-0 pointer-events-none" />;
+}
 
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
@@ -79,58 +93,6 @@ function Aurora() {
         transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
       />
     </div>
-  );
-}
-
-function LoadingScreen({ onDone }) {
-  const [progress, setProgress] = useState(0);
-  const [text, setText] = useState('Initialising...');
-
-  useEffect(() => {
-    const texts = ['Initialising...', 'Loading portfolio...', 'Almost there...'];
-    let i = 0;
-    const textInterval = setInterval(() => {
-      i = (i + 1) % texts.length;
-      setText(texts[i]);
-    }, 700);
-
-    const progressInterval = setInterval(() => {
-      setProgress(p => {
-        if (p >= 100) {
-          clearInterval(progressInterval);
-          clearInterval(textInterval);
-          setTimeout(onDone, 400);
-          return 100;
-        }
-        return p + Math.random() * 8 + 2;
-      });
-    }, 60);
-
-    return () => { clearInterval(progressInterval); clearInterval(textInterval); };
-  }, [onDone]);
-
-  return (
-    <motion.div
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#080808]"
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="w-64 text-center">
-        <div className="mb-8">
-          <span className="text-xs tracking-[0.3em] uppercase text-[#4a90d9]">JK</span>
-        </div>
-        <div className="mb-6">
-          <div className="h-px bg-[#1a1a1a] w-full relative overflow-hidden">
-            <motion.div
-              className="h-full bg-[#4a90d9]"
-              style={{ width: `${Math.min(progress, 100)}%` }}
-              transition={{ ease: 'easeOut' }}
-            />
-          </div>
-        </div>
-        <p className="text-xs tracking-[0.2em] text-[rgba(255,255,255,0.3)] uppercase">{text}</p>
-      </div>
-    </motion.div>
   );
 }
 
@@ -185,6 +147,11 @@ function Navbar() {
 
 function Hero() {
   const [phraseIndex, setPhraseIndex] = useState(0);
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setPhraseIndex(i => (i + 1) % phrases.length);
@@ -193,8 +160,8 @@ function Hero() {
   }, []);
 
   return (
-    <section className="min-h-screen flex flex-col justify-center px-8 md:px-20 relative">
-      <div className="max-w-5xl mx-auto w-full pt-24">
+    <section ref={heroRef} className="min-h-screen flex flex-col justify-center px-8 md:px-20 relative">
+      <motion.div style={{ y, opacity }} className="max-w-5xl mx-auto w-full pt-24">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -295,7 +262,7 @@ function Hero() {
             </a>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -568,30 +535,26 @@ function Footer() {
 }
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
   return (
     <>
       <Aurora />
+      <BinaryRain />
+      <Spotlight />
       <ParticleBackground />
-      <AnimatePresence>
-        {loading && <LoadingScreen onDone={() => setLoading(false)} />}
-      </AnimatePresence>
-      {!loading && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <ScrollProgress />
-          <Navbar />
-          <Hero />
-          <About />
-          <Projects />
-          <Skills />
-          <Contact />
-          <Footer />
-        </motion.div>
-      )}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <ScrollProgress />
+        <Navbar />
+        <Hero />
+        <About />
+        <Projects />
+        <Skills />
+        <Contact />
+        <Footer />
+      </motion.div>
     </>
   );
 }
