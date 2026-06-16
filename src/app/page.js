@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Mail, ChevronDown } from 'lucide-react';
+import { ArrowUpRight, Mail, ChevronDown, X } from 'lucide-react';
 import { ParticleBackground } from './shared';
 
 const skills = [
@@ -302,7 +302,59 @@ function About() {
   );
 }
 
+function AppPreview() {
+  return (
+    <div className="rounded-lg overflow-hidden border border-[rgba(255,255,255,0.1)] bg-[#0c0c0c]">
+      {/* Browser top bar */}
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
+        <span className="w-3 h-3 rounded-full bg-[rgba(255,255,255,0.12)]" />
+        <span className="w-3 h-3 rounded-full bg-[rgba(255,255,255,0.12)]" />
+        <span className="w-3 h-3 rounded-full bg-[rgba(255,255,255,0.12)]" />
+        <div className="ml-3 h-5 flex-1 max-w-xs rounded-full shimmer" />
+      </div>
+
+      {/* App body (blurred skeleton) */}
+      <div className="flex blur-[1.5px] select-none">
+        {/* Sidebar */}
+        <div className="hidden sm:block w-44 shrink-0 border-r border-[rgba(255,255,255,0.06)] p-4 space-y-3">
+          <div className="h-8 w-8 rounded-md shimmer mb-6" />
+          {[70, 55, 80, 60, 75, 50].map((w, i) => (
+            <div key={i} className="h-3 rounded shimmer" style={{ width: `${w}%` }} />
+          ))}
+        </div>
+
+        {/* Main area */}
+        <div className="flex-1 p-5 space-y-5">
+          <div className="flex justify-between items-center">
+            <div className="h-5 w-40 rounded shimmer" />
+            <div className="h-8 w-24 rounded-md shimmer" />
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[0, 1, 2, 3].map(i => (
+              <div key={i} className="h-20 rounded-lg border border-[rgba(255,255,255,0.06)] p-3 space-y-2">
+                <div className="h-3 w-2/3 rounded shimmer" />
+                <div className="h-6 w-1/2 rounded shimmer" />
+              </div>
+            ))}
+          </div>
+
+          <div className="h-40 rounded-lg border border-[rgba(255,255,255,0.06)] shimmer" />
+
+          <div className="space-y-2">
+            {[0, 1, 2, 3].map(i => (
+              <div key={i} className="h-8 rounded shimmer" />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Projects() {
+  const [active, setActive] = useState(null);
+
   return (
     <section id="projects" className="py-32 px-8 md:px-20">
       <div className="max-w-5xl mx-auto">
@@ -320,7 +372,10 @@ function Projects() {
         <div className="space-y-6">
           {projects.map((p, i) => (
             <FadeIn key={p.id} delay={i * 0.15}>
-              <div className="project-card p-8 md:p-10">
+              <button
+                onClick={() => setActive(p)}
+                className="project-card p-8 md:p-10 w-full text-left cursor-pointer"
+              >
                 <div className="flex justify-between items-start mb-6">
                   <div>
                     <span className="text-xs tracking-[0.2em] text-[rgba(74,144,217,0.6)] uppercase block mb-2">
@@ -335,16 +390,63 @@ function Projects() {
                 <p className="text-[rgba(255,255,255,0.45)] font-light leading-relaxed mb-8 max-w-2xl">
                   {p.description}
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-6">
                   {p.tech.map(t => (
                     <span key={t} className="skill-pill">{t}</span>
                   ))}
                 </div>
-              </div>
+                <span className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#4a90d9]">
+                  View preview
+                  <ArrowUpRight className="w-3 h-3" />
+                </span>
+              </button>
             </FadeIn>
           ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {active && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActive(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-[rgba(0,0,0,0.8)] backdrop-blur-sm"
+          >
+            <motion.div
+              onClick={e => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.96, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 20 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="w-full max-w-3xl max-h-[90vh] overflow-auto bg-[#0a0a0a] border border-[rgba(255,255,255,0.1)] rounded-xl p-5 md:p-8"
+            >
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <span className="text-xs tracking-[0.2em] text-[rgba(74,144,217,0.6)] uppercase block mb-1">
+                    {active.id} — {active.category}
+                  </span>
+                  <h3 className="text-2xl font-light">{active.name}</h3>
+                </div>
+                <button
+                  onClick={() => setActive(null)}
+                  aria-label="Close"
+                  className="p-2 text-[rgba(255,255,255,0.5)] hover:text-white transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <AppPreview />
+
+              <p className="text-xs text-[rgba(255,255,255,0.35)] font-light mt-5 text-center">
+                Interface preview — a non-interactive mockup. Real client data is kept private.
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
