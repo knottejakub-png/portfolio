@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView, AnimatePresence, useScroll, useSpring, useMotionValue, useTransform } from 'framer-motion';
 import { ArrowUpRight, Mail, ChevronDown, X } from 'lucide-react';
-import { ParticleBackground, BinaryRain } from './shared';
+import { ParticleBackground } from './shared';
 import { RentalDemo, HubDemo } from './demos';
 
 const skills = [
@@ -538,7 +538,6 @@ export default function Home() {
   return (
     <>
       <Aurora />
-      <BinaryRain />
       <Spotlight />
       <ParticleBackground />
       <motion.div

@@ -1,62 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
 
-export function BinaryRain() {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let animId;
-    const fontSize = 14;
-    let cols, drops;
-
-    const setup = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      cols = Math.floor(canvas.width / fontSize);
-      drops = Array.from({ length: cols }, () => Math.random() * (canvas.height / fontSize));
-    };
-    setup();
-    window.addEventListener('resize', setup);
-
-    let last = 0;
-    const draw = t => {
-      animId = requestAnimationFrame(draw);
-      if (t - last < 70) return; // slow, calm rain
-      last = t;
-
-      // Fade previous frame for the trailing effect
-      ctx.fillStyle = 'rgba(8,8,8,0.16)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = 'rgba(74,144,217,0.22)';
-      ctx.font = `${fontSize}px monospace`;
-      for (let i = 0; i < cols; i++) {
-        const ch = Math.random() > 0.5 ? '1' : '0';
-        ctx.fillText(ch, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
-      }
-    };
-    animId = requestAnimationFrame(draw);
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('resize', setup);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none"
-      style={{ opacity: 0.4 }}
-    />
-  );
-}
-
 export function ParticleBackground() {
   const canvasRef = useRef(null);
 
@@ -133,7 +77,7 @@ export function ParticleBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 z-0 pointer-events-none"
-      style={{ opacity: 0.4 }}
+      style={{ opacity: 0.6 }}
     />
   );
 }
