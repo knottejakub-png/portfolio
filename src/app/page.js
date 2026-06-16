@@ -201,8 +201,7 @@ function Hero() {
           transition={{ delay: 1, duration: 0.8 }}
           className="text-base md:text-lg text-[rgba(255,255,255,0.45)] max-w-md leading-relaxed font-light"
         >
-          IT student & web developer building modern, functional applications
-          from concept to deployment.
+          I turn your ideas into real, working products.
         </motion.p>
 
         <motion.div
