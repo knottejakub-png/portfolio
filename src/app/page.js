@@ -352,21 +352,6 @@ function About() {
             </div>
           </FadeIn>
         </div>
-        <FadeIn delay={0.3} className="mt-20 pt-20 border-t border-[rgba(255,255,255,0.04)]">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
-            {[
-              { num: '2+', label: 'Years building' },
-              { num: '5+', label: 'Projects shipped' },
-              { num: '100%', label: 'Deployed & live' },
-              { num: 'CZ', label: 'Based in Czech Republic' },
-            ].map(stat => (
-              <div key={stat.label}>
-                <div className="text-3xl font-light text-[#4a90d9] mb-1">{stat.num}</div>
-                <div className="text-xs tracking-[0.1em] uppercase text-[rgba(255,255,255,0.28)]">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </FadeIn>
       </div>
     </section>
   );
