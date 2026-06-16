@@ -43,6 +43,7 @@ export default function BuildPage() {
   const [phone, setPhone] = useState('');
   const [wantsCall, setWantsCall] = useState(false);
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [emailError, setEmailError] = useState('');
 
   const toggleFeature = f =>
     setFeatures(prev => (prev.includes(f) ? prev.filter(x => x !== f) : [...prev, f]));
@@ -101,6 +102,8 @@ export default function BuildPage() {
       );
     } catch (err) {
       console.error('Email notification failed:', err);
+      const detail = err?.text || err?.message || JSON.stringify(err);
+      setEmailError(`Email notice failed (${err?.status || '?'}): ${detail}`);
     }
   };
 
@@ -279,13 +282,18 @@ export default function BuildPage() {
             </div>
 
             {status === 'sent' ? (
-              <div className="flex items-center gap-3 text-[#4a90d9]">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[rgba(74,144,217,0.15)] border border-[rgba(74,144,217,0.4)]">
-                  <Check className="w-4 h-4" />
-                </span>
-                <span className="text-sm font-light text-white">
-                  Request sent — I'll get back to you soon. Thanks!
-                </span>
+              <div>
+                <div className="flex items-center gap-3 text-[#4a90d9]">
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[rgba(74,144,217,0.15)] border border-[rgba(74,144,217,0.4)]">
+                    <Check className="w-4 h-4" />
+                  </span>
+                  <span className="text-sm font-light text-white">
+                    Request sent — I'll get back to you soon. Thanks!
+                  </span>
+                </div>
+                {emailError && (
+                  <p className="text-xs text-[#e0796b] font-light mt-4 break-all">{emailError}</p>
+                )}
               </div>
             ) : (
               <>
