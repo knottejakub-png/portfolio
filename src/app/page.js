@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Mail, Github, ChevronDown } from 'lucide-react';
+import { ArrowUpRight, Mail, ChevronDown } from 'lucide-react';
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
@@ -429,18 +429,7 @@ function Contact() {
           </a>
         </FadeIn>
 
-        <FadeIn delay={0.3} className="mt-6">
-          <a
-            href="https://github.com/knottejakub-png"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-4 text-xl md:text-2xl font-light text-[rgba(245,240,232,0.6)] hover:text-[#c9a84c] transition-colors duration-300"
-          >
-            <Github className="w-5 h-5 text-[#c9a84c]" />
-            github.com/knottejakub-png
-            <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </a>
-        </FadeIn>
+
       </div>
     </section>
   );
