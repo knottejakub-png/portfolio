@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { motion, useInView, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import { motion, useInView, AnimatePresence, useScroll, useSpring, useMotionValue } from 'framer-motion';
 import { ArrowUpRight, Mail, ChevronDown, X } from 'lucide-react';
 import { ParticleBackground } from './shared';
 import { RentalDemo, HubDemo } from './demos';
@@ -347,6 +347,64 @@ function About() {
   );
 }
 
+function TiltCard({ p, onOpen }) {
+  const ref = useRef(null);
+  const rx = useMotionValue(0);
+  const ry = useMotionValue(0);
+  const srx = useSpring(rx, { stiffness: 150, damping: 15 });
+  const sry = useSpring(ry, { stiffness: 150, damping: 15 });
+
+  const handleMove = e => {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    ry.set((px - 0.5) * 8);
+    rx.set((0.5 - py) * 8);
+  };
+
+  const reset = () => {
+    rx.set(0);
+    ry.set(0);
+  };
+
+  return (
+    <motion.button
+      ref={ref}
+      onMouseMove={handleMove}
+      onMouseLeave={reset}
+      onClick={() => onOpen(p)}
+      style={{ rotateX: srx, rotateY: sry, transformPerspective: 1000 }}
+      className="project-card p-8 md:p-10 w-full text-left cursor-pointer"
+    >
+      <div className="flex justify-between items-start mb-6">
+        <div>
+          <span className="text-xs tracking-[0.2em] text-[rgba(74,144,217,0.6)] uppercase block mb-2">
+            {p.id} — {p.category}
+          </span>
+          <h3 className="text-2xl md:text-3xl font-light">{p.name}</h3>
+        </div>
+        <span className="text-xs tracking-[0.15em] uppercase text-[rgba(255,255,255,0.25)] border border-[rgba(255,255,255,0.06)] px-3 py-1 mt-1">
+          {p.status}
+        </span>
+      </div>
+      <p className="text-[rgba(255,255,255,0.45)] font-light leading-relaxed mb-8 max-w-2xl">
+        {p.description}
+      </p>
+      <div className="flex flex-wrap gap-2 mb-6">
+        {p.tech.map(t => (
+          <span key={t} className="skill-pill">{t}</span>
+        ))}
+      </div>
+      <span className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#4a90d9]">
+        Open live demo
+        <ArrowUpRight className="w-3 h-3" />
+      </span>
+    </motion.button>
+  );
+}
+
 function Projects() {
   const [active, setActive] = useState(null);
 
@@ -367,34 +425,7 @@ function Projects() {
         <div className="space-y-6">
           {projects.map((p, i) => (
             <FadeIn key={p.id} delay={i * 0.15}>
-              <button
-                onClick={() => setActive(p)}
-                className="project-card p-8 md:p-10 w-full text-left cursor-pointer"
-              >
-                <div className="flex justify-between items-start mb-6">
-                  <div>
-                    <span className="text-xs tracking-[0.2em] text-[rgba(74,144,217,0.6)] uppercase block mb-2">
-                      {p.id} — {p.category}
-                    </span>
-                    <h3 className="text-2xl md:text-3xl font-light">{p.name}</h3>
-                  </div>
-                  <span className="text-xs tracking-[0.15em] uppercase text-[rgba(255,255,255,0.25)] border border-[rgba(255,255,255,0.06)] px-3 py-1 mt-1">
-                    {p.status}
-                  </span>
-                </div>
-                <p className="text-[rgba(255,255,255,0.45)] font-light leading-relaxed mb-8 max-w-2xl">
-                  {p.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {p.tech.map(t => (
-                    <span key={t} className="skill-pill">{t}</span>
-                  ))}
-                </div>
-                <span className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#4a90d9]">
-                  Open live demo
-                  <ArrowUpRight className="w-3 h-3" />
-                </span>
-              </button>
+              <TiltCard p={p} onOpen={setActive} />
             </FadeIn>
           ))}
         </div>
