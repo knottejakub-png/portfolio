@@ -204,7 +204,7 @@ function Navbar() {
     >
       <span className="text-xs tracking-[0.3em] uppercase text-[#4a90d9] font-light">JK</span>
       <div className="flex gap-8">
-        {['About', 'Projects', 'Skills', 'Build', 'Contact'].map(link => (
+        {['About', 'Build', 'Projects', 'Skills', 'Contact'].map(link => (
           <a key={link} href={`#${link.toLowerCase()}`} className="nav-link">{link}</a>
         ))}
       </div>
@@ -363,7 +363,7 @@ function Projects() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
-            002 / Projects
+            003 / Projects
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
@@ -410,7 +410,7 @@ function Skills() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
-            003 / Skills
+            004 / Skills
           </span>
         </FadeIn>
         <div className="grid md:grid-cols-2 gap-20 mb-20">
@@ -523,13 +523,13 @@ function Configurator() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
-            004 / Build
+            002 / Build
           </span>
         </FadeIn>
 
         <FadeIn delay={0.1}>
           <h2 className="text-4xl md:text-5xl font-light leading-tight mb-4">
-            Configure your<br />
+            Build your own<br />
             <span className="text-[rgba(255,255,255,0.15)]">app.</span>
           </h2>
           <p className="text-[rgba(255,255,255,0.45)] font-light leading-relaxed max-w-md mb-16">
@@ -689,9 +689,9 @@ export default function Home() {
           <Navbar />
           <Hero />
           <About />
+          <Configurator />
           <Projects />
           <Skills />
-          <Configurator />
           <Contact />
           <Footer />
         </motion.div>
