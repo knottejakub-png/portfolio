@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView, AnimatePresence, useScroll, useSpring, useMotionValue, useTransform } from 'framer-motion';
-import { ArrowUpRight, Mail, ChevronDown, X } from 'lucide-react';
+import { ArrowUpRight, Mail, ChevronDown, X, LayoutDashboard, Smartphone, ShoppingBag, Wrench } from 'lucide-react';
 import { ParticleBackground } from './shared';
 import { RentalDemo, HubDemo } from './demos';
 
@@ -145,6 +145,60 @@ function Navbar() {
   );
 }
 
+function HeroMockup() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.6, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="hidden lg:block [perspective:1400px]"
+    >
+      <motion.div
+        animate={{ y: [0, -14, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ transform: 'rotateY(-16deg) rotateX(8deg)' }}
+        className="rounded-xl border border-[rgba(255,255,255,0.1)] bg-[#0c0c0c] overflow-hidden shadow-[0_40px_90px_-20px_rgba(74,144,217,0.3)]"
+      >
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
+          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.15)]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.15)]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.15)]" />
+          <div className="ml-3 h-4 w-40 rounded-full bg-[rgba(255,255,255,0.05)]" />
+        </div>
+        <div className="flex">
+          <div className="w-24 shrink-0 border-r border-[rgba(255,255,255,0.06)] p-3 space-y-3">
+            <div className="h-4 w-14 rounded bg-[rgba(74,144,217,0.4)] mb-4" />
+            {[0, 1, 2, 3, 4].map(i => (
+              <div key={i} className="h-2.5 rounded bg-[rgba(255,255,255,0.08)]" style={{ width: `${60 + (i % 3) * 15}%` }} />
+            ))}
+          </div>
+          <div className="flex-1 p-4 space-y-4">
+            <div className="flex justify-between items-center">
+              <div className="h-3 w-24 rounded bg-[rgba(255,255,255,0.12)]" />
+              <div className="h-7 w-20 rounded-md bg-[#4a90d9]" />
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              {[0, 1, 2].map(i => (
+                <div key={i} className="rounded-lg border border-[rgba(255,255,255,0.06)] p-2.5 space-y-2">
+                  <div className="h-2 w-2/3 rounded bg-[rgba(255,255,255,0.08)]" />
+                  <div className="h-4 w-1/2 rounded bg-[rgba(74,144,217,0.5)]" />
+                </div>
+              ))}
+            </div>
+            <div className="rounded-lg border border-[rgba(255,255,255,0.06)] p-3">
+              <div className="flex items-end gap-1.5 h-24">
+                {[40, 65, 50, 80, 60, 75, 90, 55, 70].map((h, i) => (
+                  <div key={i} className="flex-1 rounded-t bg-[rgba(74,144,217,0.55)]" style={{ height: `${h}%` }} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 function Hero() {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const heroRef = useRef(null);
@@ -161,107 +215,120 @@ function Hero() {
 
   return (
     <section ref={heroRef} className="min-h-screen flex flex-col justify-center px-8 md:px-20 relative">
-      <motion.div style={{ y, opacity }} className="max-w-5xl mx-auto w-full pt-24">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 1 }}
-          className="mb-6"
-        >
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(74,144,217,0.6)]">
-            Buildary — 2026
-          </span>
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-6xl md:text-8xl font-light leading-[1.05] tracking-tight mb-4"
-        >
-          Make it<br />
-          <span className="text-shimmer">work.</span>
-        </motion.h1>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.8 }}
-          className="text-3xl md:text-5xl font-light mb-12 h-[1.2em] flex items-baseline gap-3"
-        >
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={phraseIndex + '-pre'}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35 }}
-              className="text-[rgba(255,255,255,0.38)]"
-            >
-              {phrases[phraseIndex].prefix}
-            </motion.span>
-          </AnimatePresence>
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={phraseIndex + '-suf'}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35, delay: 0.05 }}
-              className="text-[#4a90d9]"
-            >
-              {phrases[phraseIndex].suffix}
-            </motion.span>
-          </AnimatePresence>
-        </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          className="text-base md:text-lg text-[rgba(255,255,255,0.45)] max-w-md leading-relaxed font-light"
-        >
-          I turn your ideas into real, working products.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.3, duration: 0.8 }}
-          className="mt-12 flex flex-col sm:flex-row gap-6 sm:items-center"
-        >
-          <motion.a
-            href="/build"
-            animate={{
-              boxShadow: [
-                '0 0 0 0 rgba(74,144,217,0)',
-                '0 0 30px 4px rgba(74,144,217,0.45)',
-                '0 0 0 0 rgba(74,144,217,0)',
-              ],
-            }}
-            transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-            className="group inline-flex items-center justify-center gap-3 text-xs md:text-sm tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-8 py-4 rounded-full font-medium"
+      <motion.div
+        style={{ y, opacity }}
+        className="max-w-6xl mx-auto w-full pt-24 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+      >
+        {/* Left — copy */}
+        <div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 1 }}
+            className="mb-6"
           >
-            Build your own app
-            <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </motion.a>
-          <div className="flex gap-6 items-center">
-            <a
-              href="#projects"
-              className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.6)] hover:text-white transition-colors duration-300"
+            <span className="text-xs tracking-[0.3em] uppercase text-[rgba(74,144,217,0.6)]">
+              Buildary — Digital product studio
+            </span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="text-5xl md:text-7xl font-light leading-[1.05] tracking-tight mb-6"
+          >
+            We build web<br />
+            &amp; apps that <span className="text-shimmer">work.</span>
+          </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+            className="text-xl md:text-2xl font-light mb-6 h-[1.4em] flex items-baseline gap-2"
+          >
+            <span className="text-[rgba(255,255,255,0.3)]">→</span>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={phraseIndex + '-pre'}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35 }}
+                className="text-[rgba(255,255,255,0.5)]"
+              >
+                {phrases[phraseIndex].prefix}
+              </motion.span>
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={phraseIndex + '-suf'}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35, delay: 0.05 }}
+                className="text-[#4a90d9]"
+              >
+                {phrases[phraseIndex].suffix}
+              </motion.span>
+            </AnimatePresence>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="text-base md:text-lg text-[rgba(255,255,255,0.5)] max-w-md leading-relaxed font-light"
+          >
+            Buildary turns your idea into a finished product — custom web apps,
+            dashboards, internal tools and e-commerce. Database, design and
+            deployment handled end-to-end, so you get something fast, reliable
+            and actually used.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.3, duration: 0.8 }}
+            className="mt-10 flex flex-col sm:flex-row gap-6 sm:items-center"
+          >
+            <motion.a
+              href="/build"
+              animate={{
+                boxShadow: [
+                  '0 0 0 0 rgba(74,144,217,0)',
+                  '0 0 30px 4px rgba(74,144,217,0.45)',
+                  '0 0 0 0 rgba(74,144,217,0)',
+                ],
+              }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="group inline-flex items-center justify-center gap-3 text-xs md:text-sm tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-8 py-4 rounded-full font-medium"
             >
-              View Work
-            </a>
-            <a
-              href="#contact"
-              className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.38)] hover:text-[rgba(255,255,255,0.8)] transition-colors duration-300"
-            >
-              Get in touch →
-            </a>
-          </div>
-        </motion.div>
+              Build your own app
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </motion.a>
+            <div className="flex gap-6 items-center">
+              <a
+                href="#projects"
+                className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.6)] hover:text-white transition-colors duration-300"
+              >
+                View Work
+              </a>
+              <a
+                href="#contact"
+                className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.38)] hover:text-[rgba(255,255,255,0.8)] transition-colors duration-300"
+              >
+                Get in touch →
+              </a>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Right — 3D app mockup */}
+        <HeroMockup />
       </motion.div>
 
       <motion.div
@@ -276,13 +343,79 @@ function Hero() {
   );
 }
 
+const services = [
+  {
+    title: 'Web applications',
+    desc: 'Custom, full-stack web apps built around your exact workflow — fast, secure and ready to scale.',
+    icon: LayoutDashboard,
+  },
+  {
+    title: 'Dashboards & internal tools',
+    desc: 'Admin panels, reporting and team tools that replace messy spreadsheets and manual work.',
+    icon: Wrench,
+  },
+  {
+    title: 'Mobile / PWA',
+    desc: 'Installable, mobile-first apps that feel native and work great on any device.',
+    icon: Smartphone,
+  },
+  {
+    title: 'E-commerce & booking',
+    desc: 'Online stores, reservations and payments wired up end-to-end and ready to sell.',
+    icon: ShoppingBag,
+  },
+];
+
+function Services() {
+  return (
+    <section id="services" className="py-32 px-8 md:px-20 relative">
+      <div className="max-w-5xl mx-auto">
+        <FadeIn>
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
+            001 / What we build
+          </span>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <h2 className="text-4xl md:text-5xl font-light mb-6">
+            From idea to<br />
+            <span className="text-[rgba(255,255,255,0.15)]">launched product.</span>
+          </h2>
+          <p className="text-[rgba(255,255,255,0.5)] font-light leading-relaxed max-w-xl mb-16">
+            Buildary takes your concept and turns it into a working application —
+            handling everything from database and APIs to a polished interface and
+            deployment. No half-finished demos; real products people use every day.
+          </p>
+        </FadeIn>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {services.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <FadeIn key={s.title} delay={i * 0.1}>
+                <div className="project-card p-6 md:p-8 h-full">
+                  <div className="w-10 h-10 rounded-lg bg-[rgba(74,144,217,0.12)] flex items-center justify-center mb-5">
+                    <Icon className="w-5 h-5 text-[#4a90d9]" />
+                  </div>
+                  <h3 className="text-xl font-light mb-2">{s.title}</h3>
+                  <p className="text-[rgba(255,255,255,0.45)] font-light leading-relaxed text-sm">
+                    {s.desc}
+                  </p>
+                </div>
+              </FadeIn>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function About() {
   return (
     <section id="about" className="py-32 px-8 md:px-20">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
-            001 / About
+            002 / About
           </span>
         </FadeIn>
         <div className="grid md:grid-cols-2 gap-20">
@@ -380,7 +513,7 @@ function Projects() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
-            002 / Projects
+            003 / Projects
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
@@ -450,7 +583,7 @@ function Skills() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
-            003 / Skills
+            004 / Skills
           </span>
         </FadeIn>
         <div className="grid md:grid-cols-2 gap-20 mb-20">
@@ -495,7 +628,7 @@ function Contact() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
-            004 / Contact
+            005 / Contact
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
@@ -548,6 +681,7 @@ export default function Home() {
         <ScrollProgress />
         <Navbar />
         <Hero />
+        <Services />
         <About />
         <Projects />
         <Skills />
