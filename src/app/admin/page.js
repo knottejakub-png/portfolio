@@ -177,6 +177,13 @@ function Dashboard({ user }) {
                   </div>
                 )}
 
+                {r.message && (
+                  <p className="text-sm font-light text-[rgba(255,255,255,0.7)] leading-relaxed mb-4 border-l-2 border-[rgba(74,144,217,0.4)] pl-4">
+                    {r.name ? <span className="text-[rgba(255,255,255,0.4)]">{r.name}: </span> : null}
+                    {r.message}
+                  </p>
+                )}
+
                 <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-light text-[rgba(255,255,255,0.6)]">
                   {r.email && (
                     <a href={`mailto:${r.email}`} className="inline-flex items-center gap-2 hover:text-[#4a90d9] transition-colors">
