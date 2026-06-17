@@ -152,7 +152,7 @@ export default function BuildPage() {
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <span className="text-xs tracking-[0.3em] uppercase text-[rgba(74,144,217,0.6)] block mb-6">
-              Build your own app
+              Start your project
             </span>
             <h1 className="text-4xl md:text-6xl font-light leading-tight mb-4">
               Let's build<br />

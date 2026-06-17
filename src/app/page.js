@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView, AnimatePresence, useScroll, useSpring, useMotionValue, useTransform } from 'framer-motion';
-import { ArrowUpRight, Mail, ChevronDown, X, LayoutDashboard, Smartphone, ShoppingBag, Wrench } from 'lucide-react';
+import { ArrowUpRight, Mail, ChevronDown, X, LayoutDashboard, Smartphone, ShoppingBag, Wrench, Globe } from 'lucide-react';
 import { ParticleBackground } from './shared';
 import { RentalDemo, HubDemo } from './demos';
 
@@ -239,7 +239,7 @@ function Hero() {
             className="text-5xl md:text-7xl font-light leading-[1.05] tracking-tight mb-6"
           >
             We build apps<br />
-            &amp; web that <span className="text-shimmer">work.</span>
+            &amp; webs that <span className="text-shimmer">work.</span>
           </motion.h1>
 
           <motion.div
@@ -281,10 +281,10 @@ function Hero() {
             transition={{ delay: 1, duration: 0.8 }}
             className="text-base md:text-lg text-[rgba(255,255,255,0.62)] max-w-md leading-relaxed font-light"
           >
-            Buildary turns your idea into a finished product — custom web apps,
-            dashboards, internal tools and e-commerce. Database, design and
-            deployment handled end-to-end, so you get something fast, reliable
-            and actually used.
+            Buildary turns your idea into a finished product — professional
+            websites, custom web apps, dashboards, internal tools and e-commerce.
+            We design, build and deploy it for you, end-to-end, so you get
+            something fast, reliable and actually used.
           </motion.p>
 
           <motion.div
@@ -307,7 +307,7 @@ function Hero() {
               whileTap={{ scale: 0.97 }}
               className="group inline-flex items-center justify-center gap-3 text-xs md:text-sm tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-8 py-4 rounded-full font-medium"
             >
-              Build your own app
+              Start your project
               <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </motion.a>
             <div className="flex gap-6 items-center">
@@ -344,6 +344,11 @@ function Hero() {
 }
 
 const services = [
+  {
+    title: 'Professional websites',
+    desc: 'Modern, fast company websites and landing pages — designed and built to make a strong first impression.',
+    icon: Globe,
+  },
   {
     title: 'Web applications',
     desc: 'Custom, full-stack web apps built around your exact workflow — fast, secure and ready to scale.',
@@ -415,7 +420,7 @@ function About() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
-            002 / About
+            003 / About
           </span>
         </FadeIn>
         <div className="grid md:grid-cols-2 gap-20">
@@ -513,7 +518,7 @@ function Projects() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
-            003 / Projects
+            002 / Projects
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
@@ -685,8 +690,8 @@ export default function Home() {
         <Navbar />
         <Hero />
         <Services />
-        <About />
         <Projects />
+        <About />
         <Skills />
         <Contact />
         <Footer />
