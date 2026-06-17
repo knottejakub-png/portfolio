@@ -160,9 +160,9 @@ function HeroMockup() {
         className="rounded-xl border border-[rgba(255,255,255,0.1)] bg-[#0c0c0c] overflow-hidden shadow-[0_40px_90px_-20px_rgba(74,144,217,0.3)]"
       >
         <div className="flex items-center gap-2 px-4 py-3 border-b border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
-          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.15)]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.15)]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.15)]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.3)]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.3)]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.3)]" />
           <div className="ml-3 h-4 w-40 rounded-full bg-[rgba(255,255,255,0.05)]" />
         </div>
         <div className="flex">
@@ -248,7 +248,7 @@ function Hero() {
             transition={{ delay: 0.7, duration: 0.8 }}
             className="text-xl md:text-2xl font-light mb-6 h-[1.4em] flex items-baseline gap-2"
           >
-            <span className="text-[rgba(255,255,255,0.3)]">→</span>
+            <span className="text-[rgba(255,255,255,0.45)]">→</span>
             <AnimatePresence mode="wait">
               <motion.span
                 key={phraseIndex + '-pre'}
@@ -256,7 +256,7 @@ function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.35 }}
-                className="text-[rgba(255,255,255,0.5)]"
+                className="text-[rgba(255,255,255,0.62)]"
               >
                 {phrases[phraseIndex].prefix}
               </motion.span>
@@ -279,7 +279,7 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
-            className="text-base md:text-lg text-[rgba(255,255,255,0.5)] max-w-md leading-relaxed font-light"
+            className="text-base md:text-lg text-[rgba(255,255,255,0.62)] max-w-md leading-relaxed font-light"
           >
             Buildary turns your idea into a finished product — custom web apps,
             dashboards, internal tools and e-commerce. Database, design and
@@ -319,7 +319,7 @@ function Hero() {
               </a>
               <a
                 href="#contact"
-                className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.38)] hover:text-[rgba(255,255,255,0.8)] transition-colors duration-300"
+                className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.52)] hover:text-[rgba(255,255,255,0.8)] transition-colors duration-300"
               >
                 Get in touch →
               </a>
@@ -371,16 +371,16 @@ function Services() {
     <section id="services" className="py-32 px-8 md:px-20 relative">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
             001 / What we build
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
           <h2 className="text-4xl md:text-5xl font-light mb-6">
-            From idea to<br />
-            <span className="text-[rgba(255,255,255,0.15)]">launched product.</span>
+            From your idea to<br />
+            <span className="text-[rgba(255,255,255,0.3)]">launched product.</span>
           </h2>
-          <p className="text-[rgba(255,255,255,0.5)] font-light leading-relaxed max-w-xl mb-16">
+          <p className="text-[rgba(255,255,255,0.62)] font-light leading-relaxed max-w-xl mb-16">
             Buildary takes your concept and turns it into a working application —
             handling everything from database and APIs to a polished interface and
             deployment. No half-finished demos; real products people use every day.
@@ -396,7 +396,7 @@ function Services() {
                     <Icon className="w-5 h-5 text-[#4a90d9]" />
                   </div>
                   <h3 className="text-xl font-light mb-2">{s.title}</h3>
-                  <p className="text-[rgba(255,255,255,0.45)] font-light leading-relaxed text-sm">
+                  <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed text-sm">
                     {s.desc}
                   </p>
                 </div>
@@ -414,7 +414,7 @@ function About() {
     <section id="about" className="py-32 px-8 md:px-20">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
             002 / About
           </span>
         </FadeIn>
@@ -422,11 +422,11 @@ function About() {
           <FadeIn delay={0.1}>
             <h2 className="text-4xl md:text-5xl font-light leading-tight">
               Building things<br />
-              <span className="text-[rgba(255,255,255,0.15)]">that work.</span>
+              <span className="text-[rgba(255,255,255,0.3)]">that work.</span>
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <div className="space-y-6 text-[rgba(255,255,255,0.55)] font-light leading-relaxed">
+            <div className="space-y-6 text-[rgba(255,255,255,0.66)] font-light leading-relaxed">
               <p>
                 I'm an IT student and self-taught web developer from the Czech Republic.
                 I combine academic knowledge with real-world project experience.
@@ -485,11 +485,11 @@ function TiltCard({ p, onOpen }) {
           </span>
           <h3 className="text-2xl md:text-3xl font-light">{p.name}</h3>
         </div>
-        <span className="text-xs tracking-[0.15em] uppercase text-[rgba(255,255,255,0.25)] border border-[rgba(255,255,255,0.06)] px-3 py-1 mt-1">
+        <span className="text-xs tracking-[0.15em] uppercase text-[rgba(255,255,255,0.4)] border border-[rgba(255,255,255,0.06)] px-3 py-1 mt-1">
           {p.status}
         </span>
       </div>
-      <p className="text-[rgba(255,255,255,0.45)] font-light leading-relaxed mb-8 max-w-2xl">
+      <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed mb-8 max-w-2xl">
         {p.description}
       </p>
       <div className="flex flex-wrap gap-2 mb-6">
@@ -512,14 +512,14 @@ function Projects() {
     <section id="projects" className="py-32 px-8 md:px-20">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
             003 / Projects
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
           <h2 className="text-4xl md:text-5xl font-light mb-20">
             Selected<br />
-            <span className="text-[rgba(255,255,255,0.15)]">work.</span>
+            <span className="text-[rgba(255,255,255,0.3)]">work.</span>
           </h2>
         </FadeIn>
         <div className="space-y-6">
@@ -558,7 +558,7 @@ function Projects() {
                 <button
                   onClick={() => setActive(null)}
                   aria-label="Close"
-                  className="p-2 text-[rgba(255,255,255,0.5)] hover:text-white transition-colors"
+                  className="p-2 text-[rgba(255,255,255,0.62)] hover:text-white transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -566,7 +566,7 @@ function Projects() {
 
               {active.preview === 'hub' ? <HubDemo /> : <RentalDemo />}
 
-              <p className="text-xs text-[rgba(255,255,255,0.35)] font-light mt-5 text-center">
+              <p className="text-xs text-[rgba(255,255,255,0.5)] font-light mt-5 text-center">
                 Interactive demo — click around to explore. Sample data only; real client data is kept private.
               </p>
             </motion.div>
@@ -582,7 +582,7 @@ function Skills() {
     <section id="skills" className="py-32 px-8 md:px-20">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
             004 / Skills
           </span>
         </FadeIn>
@@ -590,11 +590,11 @@ function Skills() {
           <FadeIn delay={0.1}>
             <h2 className="text-4xl md:text-5xl font-light leading-tight">
               Tech I<br />
-              <span className="text-[rgba(255,255,255,0.15)]">work with.</span>
+              <span className="text-[rgba(255,255,255,0.3)]">work with.</span>
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <p className="text-[rgba(255,255,255,0.45)] font-light leading-relaxed">
+            <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed">
               My stack is centered around the modern JavaScript ecosystem.
               I focus on tools that let me ship fast and build things that scale.
             </p>
@@ -627,7 +627,7 @@ function Contact() {
     <section id="contact" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.3)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
             005 / Contact
           </span>
         </FadeIn>
@@ -656,10 +656,10 @@ function Footer() {
   return (
     <footer className="py-10 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto flex justify-between items-center">
-        <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.2)]">
+        <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.35)]">
           Buildary
         </span>
-        <span className="text-xs tracking-[0.1em] text-[rgba(255,255,255,0.2)]">
+        <span className="text-xs tracking-[0.1em] text-[rgba(255,255,255,0.35)]">
           © 2026 · Jakub Knotte
         </span>
       </div>
