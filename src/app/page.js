@@ -497,9 +497,9 @@ function TiltCard({ p, onOpen }) {
           <span key={t} className="skill-pill">{t}</span>
         ))}
       </div>
-      <span className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#4a90d9]">
+      <span className="group/btn inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-6 py-3 rounded-full font-medium shadow-[0_0_25px_-4px_rgba(74,144,217,0.6)]">
         Open live demo
-        <ArrowUpRight className="w-3 h-3" />
+        <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </span>
     </motion.button>
   );
@@ -517,6 +517,9 @@ function Projects() {
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
+          <p className="text-sm md:text-base tracking-[0.2em] uppercase text-[#4a90d9] mb-4">
+            Building things that work
+          </p>
           <h2 className="text-4xl md:text-5xl font-light mb-20">
             Selected<br />
             <span className="text-[rgba(255,255,255,0.3)]">work.</span>
