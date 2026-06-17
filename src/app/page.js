@@ -420,29 +420,32 @@ function About() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
-            003 / About
+            003 / About us
           </span>
         </FadeIn>
         <div className="grid md:grid-cols-2 gap-20">
           <FadeIn delay={0.1}>
             <h2 className="text-4xl md:text-5xl font-light leading-tight">
-              Building things<br />
-              <span className="text-[rgba(255,255,255,0.3)]">that work.</span>
+              Who we<br />
+              <span className="text-[rgba(255,255,255,0.3)]">are.</span>
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
             <div className="space-y-6 text-[rgba(255,255,255,0.66)] font-light leading-relaxed">
               <p>
-                I'm an IT student and self-taught web developer from the Czech Republic.
-                I combine academic knowledge with real-world project experience.
+                Buildary is a software studio from the Czech Republic. We design and
+                build websites, web and mobile applications for businesses that want
+                software which actually works.
               </p>
               <p>
-                I build full-stack web applications end-to-end: from database design and API development
-                to polished user interfaces.
+                We handle the whole product end-to-end — from database and API design
+                to a polished interface and deployment. Our work is built around the
+                modern Next.js and React ecosystem.
               </p>
               <p>
-                Alongside my studies, I've delivered production applications for real clients —
-                handling everything from requirements gathering to deployment and maintenance.
+                Whether it's a professional website, a custom web app, an internal tool
+                or an online store, we turn the idea into a reliable product your team
+                and customers use every day.
               </p>
             </div>
           </FadeIn>
