@@ -4,11 +4,14 @@ import { motion, useInView, AnimatePresence, useScroll, useSpring, useMotionValu
 import { ArrowUpRight, Mail, ChevronDown, X, LayoutDashboard, Smartphone, ShoppingBag, Wrench, Globe } from 'lucide-react';
 import { ParticleBackground } from './shared';
 import { RentalDemo, HubDemo } from './demos';
+import ContactForm from './contact-form';
 
-const skills = [
-  'Next.js', 'React', 'TypeScript', 'JavaScript',
-  'Tailwind CSS', 'PostgreSQL', 'Node.js', 'REST API',
-  'Git', 'Framer Motion', 'PWA', 'Cloud Deploy',
+const coreStack = ['Next.js', 'React', 'PostgreSQL'];
+
+const skillGroups = [
+  { label: 'Frontend', items: ['Next.js', 'React', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Framer Motion'] },
+  { label: 'Backend & data', items: ['Node.js', 'PostgreSQL', 'REST API', 'Firebase'] },
+  { label: 'Tooling & delivery', items: ['Git', 'Vercel', 'Cloud Deploy', 'PWA'] },
 ];
 
 const projects = [
@@ -125,21 +128,35 @@ function Navbar() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.8 }}
-      className={`fixed top-0 left-0 right-0 z-40 px-8 py-5 flex justify-between items-center transition-all duration-500 ${
-        scrolled ? 'bg-[rgba(8,8,8,0.9)] backdrop-blur-md border-b border-[rgba(255,255,255,0.06)]' : ''
+      className={`fixed top-0 left-0 right-0 z-40 px-6 md:px-10 py-4 flex justify-between items-center transition-all duration-500 ${
+        scrolled
+          ? 'bg-[rgba(8,8,8,0.85)] backdrop-blur-md border-b border-[rgba(74,144,217,0.12)]'
+          : 'bg-[rgba(8,8,8,0.4)] backdrop-blur-sm'
       }`}
     >
-      <span className="text-xs tracking-[0.3em] uppercase text-[#4a90d9] font-light">Buildary</span>
-      <div className="flex gap-8">
-        {['About', 'Build', 'Projects', 'Skills', 'Contact'].map(link => (
-          <a
-            key={link}
-            href={link === 'Build' ? '/build' : `#${link.toLowerCase()}`}
-            className={`nav-link ${link === 'Build' ? 'text-[#4a90d9]' : ''}`}
-          >
-            {link}
-          </a>
-        ))}
+      <a href="/" className="text-base md:text-lg tracking-[0.22em] uppercase text-white font-semibold">
+        Build<span className="text-[#4a90d9]">ary</span>
+      </a>
+      <div className="flex items-center gap-5 md:gap-7">
+        <div className="hidden md:flex gap-7">
+          {['Projects', 'About', 'Skills'].map(link => (
+            <a key={link} href={`#${link.toLowerCase()}`} className="nav-link">
+              {link}
+            </a>
+          ))}
+        </div>
+        <a
+          href="/build"
+          className="hidden sm:inline-flex text-xs tracking-[0.2em] uppercase text-[#4a90d9] border border-[rgba(74,144,217,0.5)] px-4 py-2 rounded-full hover:bg-[rgba(74,144,217,0.1)] transition-all duration-300"
+        >
+          Build
+        </a>
+        <a
+          href="#contact"
+          className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-4 py-2 rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_-4px_rgba(74,144,217,0.7)]"
+        >
+          Contact us
+        </a>
       </div>
     </motion.nav>
   );
@@ -597,37 +614,68 @@ function Skills() {
             004 / Skills
           </span>
         </FadeIn>
-        <div className="grid md:grid-cols-2 gap-20 mb-20">
+        <div className="grid md:grid-cols-2 gap-20 mb-16">
           <FadeIn delay={0.1}>
             <h2 className="text-4xl md:text-5xl font-light leading-tight">
-              Tech I<br />
+              Tech we<br />
               <span className="text-[rgba(255,255,255,0.3)]">work with.</span>
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed">
-              My stack is centered around the modern JavaScript ecosystem.
-              I focus on tools that let me ship fast and build things that scale.
+              Our stack is built around the modern JavaScript ecosystem — proven,
+              battle-tested tools that let us ship fast and build products that scale.
+              Next.js and React are at the core of everything we make.
             </p>
           </FadeIn>
         </div>
-        <FadeIn delay={0.3}>
-          <div className="flex flex-wrap gap-3">
-            {skills.map((skill, i) => (
-              <motion.span
-                key={skill}
-                className="skill-pill cursor-default"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                whileHover={{ scale: 1.08, y: -2 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05, duration: 0.4 }}
-              >
-                {skill}
-              </motion.span>
-            ))}
+
+        {/* Core stack highlight */}
+        <FadeIn delay={0.25}>
+          <div className="project-card p-6 md:p-8 mb-12 flex flex-col sm:flex-row sm:items-center gap-5">
+            <span className="text-xs tracking-[0.25em] uppercase text-[#4a90d9] shrink-0">
+              Core stack
+            </span>
+            <div className="flex flex-wrap gap-3">
+              {coreStack.map(t => (
+                <span
+                  key={t}
+                  className="px-5 py-2.5 rounded-full border border-[#4a90d9] bg-[rgba(74,144,217,0.12)] text-white text-sm tracking-wide"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
           </div>
         </FadeIn>
+
+        {/* Grouped skills */}
+        <div className="space-y-10">
+          {skillGroups.map((g, gi) => (
+            <FadeIn key={g.label} delay={0.1 + gi * 0.08}>
+              <div className="grid md:grid-cols-[180px_1fr] gap-4 md:gap-8 items-start">
+                <span className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.45)] pt-1">
+                  {g.label}
+                </span>
+                <div className="flex flex-wrap gap-3">
+                  {g.items.map((skill, i) => (
+                    <motion.span
+                      key={skill}
+                      className="skill-pill cursor-default"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      whileHover={{ scale: 1.08, y: -2 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.04, duration: 0.4 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -639,24 +687,21 @@ function Contact() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
-            005 / Contact
+            005 / Contact us
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <h2 className="text-5xl md:text-7xl font-light leading-tight mb-12">
+          <h2 className="text-5xl md:text-7xl font-light leading-tight mb-6">
             Let's work<br />
             <span className="text-shimmer">together.</span>
           </h2>
+          <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed max-w-xl mb-12">
+            Tell us what you'd like to build and we'll get back to you with a plan.
+            No commitment — just a starting point.
+          </p>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <a
-            href="mailto:jakubknotte17@gmail.com"
-            className="group inline-flex items-center gap-4 text-xl md:text-2xl font-light text-[rgba(255,255,255,0.6)] hover:text-[#4a90d9] transition-colors duration-300"
-          >
-            <Mail className="w-5 h-5 text-[#4a90d9]" />
-            jakubknotte17@gmail.com
-            <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </a>
+          <ContactForm />
         </FadeIn>
       </div>
     </section>
