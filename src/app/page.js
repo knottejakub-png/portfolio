@@ -238,8 +238,8 @@ function Hero() {
             transition={{ delay: 0.4, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-5xl md:text-7xl font-light leading-[1.05] tracking-tight mb-6"
           >
-            We build web<br />
-            &amp; apps that <span className="text-shimmer">work.</span>
+            We build apps<br />
+            &amp; web that <span className="text-shimmer">work.</span>
           </motion.h1>
 
           <motion.div
