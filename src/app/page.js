@@ -139,7 +139,7 @@ function Navbar() {
       </a>
       <div className="flex items-center gap-5 md:gap-7">
         <div className="hidden md:flex gap-7">
-          {['Projects', 'About', 'Skills'].map(link => (
+          {['Projects', 'Pricing', 'About'].map(link => (
             <a key={link} href={`#${link.toLowerCase()}`} className="nav-link">
               {link}
             </a>
@@ -705,6 +705,205 @@ function Skills() {
   );
 }
 
+
+const testimonials = [
+  {
+    quote: "Jakub delivered exactly what we needed — fast, clean, and without any back-and-forth. The app has been running without issues since day one.",
+    name: "Private client",
+    role: "Property management",
+  },
+  {
+    quote: "We needed an internal tool that our whole team could use. Buildary built it in weeks, and it replaced three separate spreadsheets we were struggling with.",
+    name: "Private client",
+    role: "Technology company",
+  },
+  {
+    quote: "Great communication throughout the project. Jakub understood what we wanted and turned it into something better than we imagined.",
+    name: "Private client",
+    role: "E-commerce",
+  },
+];
+
+const steps = [
+  {
+    num: '01',
+    title: 'Tell us what you need',
+    desc: 'Fill in the project brief — what you want to build, what features matter, and how to reach you. No tech knowledge needed.',
+  },
+  {
+    num: '02',
+    title: 'We agree on a plan',
+    desc: "We'll come back with a clear plan, timeline and price. You decide if you want to move forward — no commitment at this stage.",
+  },
+  {
+    num: '03',
+    title: 'We build and launch',
+    desc: "We build your product, keep you updated along the way, and deploy it when it's ready. You get something real that works.",
+  },
+];
+
+const plans = [
+  {
+    name: 'Website',
+    price: 'From €400',
+    desc: 'Professional company website or landing page.',
+    features: ['Up to 6 pages', 'Mobile responsive', 'Contact form', 'SEO basics', 'Delivered in ~2 weeks'],
+    cta: 'Get started',
+    highlight: false,
+  },
+  {
+    name: 'Web App',
+    price: 'From €900',
+    desc: 'Custom full-stack web application built around your workflow.',
+    features: ['User accounts & auth', 'Database & API', 'Admin dashboard', 'Deployed & hosted', 'Ongoing support available'],
+    cta: 'Start your project',
+    highlight: true,
+  },
+  {
+    name: 'Internal Tool',
+    price: 'From €600',
+    desc: 'Dashboard or internal system for your team.',
+    features: ['Role-based access', 'Reporting & exports', 'Custom workflows', 'Replaces spreadsheets', 'Delivered in ~3 weeks'],
+    cta: 'Get started',
+    highlight: false,
+  },
+];
+
+function Testimonials() {
+  return (
+    <section id="testimonials" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
+      <div className="max-w-5xl mx-auto">
+        <FadeIn>
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
+            / What clients say
+          </span>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <h2 className="text-4xl md:text-5xl font-light mb-20">
+            Trusted by<br />
+            <span className="text-[rgba(255,255,255,0.3)]">real clients.</span>
+          </h2>
+        </FadeIn>
+        <div className="grid md:grid-cols-3 gap-6">
+          {testimonials.map((t, i) => (
+            <FadeIn key={i} delay={i * 0.1}>
+              <div className="project-card p-8 h-full flex flex-col justify-between gap-8">
+                <p className="text-[rgba(255,255,255,0.62)] font-light leading-relaxed text-sm">
+                  "{t.quote}"
+                </p>
+                <div>
+                  <div className="text-sm font-light text-white mb-0.5">{t.name}</div>
+                  <div className="text-xs tracking-[0.1em] uppercase text-[rgba(74,144,217,0.6)]">{t.role}</div>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Process() {
+  return (
+    <section id="process" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
+      <div className="max-w-5xl mx-auto">
+        <FadeIn>
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
+            / How it works
+          </span>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <h2 className="text-4xl md:text-5xl font-light mb-20">
+            Simple<br />
+            <span className="text-[rgba(255,255,255,0.3)]">process.</span>
+          </h2>
+        </FadeIn>
+        <div className="space-y-0">
+          {steps.map((s, i) => (
+            <FadeIn key={s.num} delay={i * 0.1}>
+              <div className="grid md:grid-cols-[80px_1fr] gap-6 md:gap-12 py-10 border-t border-[rgba(255,255,255,0.07)] group">
+                <span className="text-4xl font-light text-[rgba(74,144,217,0.25)] group-hover:text-[rgba(74,144,217,0.5)] transition-colors duration-500">
+                  {s.num}
+                </span>
+                <div>
+                  <h3 className="text-xl md:text-2xl font-light mb-3">{s.title}</h3>
+                  <p className="text-[rgba(255,255,255,0.55)] font-light leading-relaxed max-w-xl">{s.desc}</p>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+          <div className="border-t border-[rgba(255,255,255,0.07)]" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Pricing() {
+  return (
+    <section id="pricing" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
+      <div className="max-w-5xl mx-auto">
+        <FadeIn>
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
+            / Pricing
+          </span>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <h2 className="text-4xl md:text-5xl font-light mb-4">
+            Transparent<br />
+            <span className="text-[rgba(255,255,255,0.3)]">pricing.</span>
+          </h2>
+          <p className="text-[rgba(255,255,255,0.5)] font-light mb-20 max-w-lg">
+            Every project is different — these are starting points. Final price depends on complexity and scope.
+          </p>
+        </FadeIn>
+        <div className="grid md:grid-cols-3 gap-4">
+          {plans.map((p, i) => (
+            <FadeIn key={p.name} delay={i * 0.1}>
+              <div className={`project-card p-8 h-full flex flex-col relative ${p.highlight ? 'border-[rgba(74,144,217,0.4)]' : ''}`}>
+                {p.highlight && (
+                  <span className="absolute -top-px left-8 text-[10px] tracking-[0.25em] uppercase text-[#4a90d9] bg-[#080808] px-3 py-1">
+                    Most popular
+                  </span>
+                )}
+                <div className="mb-6">
+                  <h3 className="text-lg font-light mb-1">{p.name}</h3>
+                  <p className="text-[rgba(255,255,255,0.45)] text-sm font-light">{p.desc}</p>
+                </div>
+                <div className="text-3xl font-light text-white mb-8">{p.price}</div>
+                <ul className="space-y-3 mb-10 flex-1">
+                  {p.features.map(f => (
+                    <li key={f} className="flex items-start gap-3 text-sm text-[rgba(255,255,255,0.55)] font-light">
+                      <span className="text-[#4a90d9] mt-0.5 shrink-0">→</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="/build"
+                  className={`inline-flex items-center justify-center gap-2 text-xs tracking-[0.2em] uppercase px-6 py-3 transition-all duration-300 ${
+                    p.highlight
+                      ? 'bg-[#4a90d9] text-white rounded-full hover:scale-105 shadow-[0_0_25px_-4px_rgba(74,144,217,0.6)]'
+                      : 'border border-[rgba(255,255,255,0.12)] text-[rgba(255,255,255,0.6)] hover:border-[rgba(255,255,255,0.3)] hover:text-white'
+                  }`}
+                >
+                  {p.cta}
+                </a>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+        <FadeIn delay={0.3}>
+          <p className="text-xs text-[rgba(255,255,255,0.3)] font-light mt-8 text-center">
+            Not sure which fits? <a href="/build" className="text-[#4a90d9] hover:underline">Describe your project</a> and we'll recommend the right approach.
+          </p>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   return (
     <section id="contact" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
@@ -762,9 +961,12 @@ export default function Home() {
         <Navbar />
         <Hero />
         <Services />
+        <Process />
         <Projects />
+        <Testimonials />
         <About />
         <Skills />
+        <Pricing />
         <Contact />
         <Footer />
       </motion.div>
