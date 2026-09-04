@@ -749,7 +749,7 @@ const plans = [
     desc: 'Professional company website or landing page.',
     features: ['Clean, modern design', 'Mobile responsive', 'Contact form', 'SEO ready', 'Fast delivery'],
     cta: 'Get started',
-    highlight: true,
+    highlight: false,
     demo: null,
   },
   {
@@ -758,7 +758,7 @@ const plans = [
     desc: 'Custom full-stack web application built around your workflow.',
     features: ['Reservations & calendar', 'Invoicing & reporting', 'Multi-property support', 'PWA — works offline', 'Deployed & hosted'],
     cta: 'Start your project',
-    highlight: false,
+    highlight: true,
     demo: 'rental',
   },
   {
