@@ -718,7 +718,7 @@ const testimonials = [
     role: "Technology company",
   },
   {
-    quote: "Great communication throughout the project. Jakub understood what we wanted and turned it into something better than we imagined.",
+    quote: "Great communication throughout the project. They understood what we wanted and turned it into something better than we imagined.",
     name: "Private client",
     role: "E-commerce",
   },
