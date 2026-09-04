@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView, AnimatePresence, useScroll, useSpring, useMotionValue, useTransform } from 'framer-motion';
-import { ArrowUpRight, Mail, ChevronDown, X, LayoutDashboard, Smartphone, ShoppingBag, Wrench, Globe } from 'lucide-react';
+import { ArrowUpRight, Mail, ChevronDown, X } from 'lucide-react';
 import { ParticleBackground } from './shared';
 import { RentalDemo, HubDemo } from './demos';
 import ContactForm from './contact-form';
@@ -362,29 +362,29 @@ function Hero() {
 
 const services = [
   {
+    num: '01',
     title: 'Professional websites',
     desc: 'Modern, fast company websites and landing pages — designed and built to make a strong first impression.',
-    icon: Globe,
   },
   {
+    num: '02',
     title: 'Web applications',
     desc: 'Custom, full-stack web apps built around your exact workflow — fast, secure and ready to scale.',
-    icon: LayoutDashboard,
   },
   {
+    num: '03',
     title: 'Dashboards & internal tools',
     desc: 'Admin panels, reporting and team tools that replace messy spreadsheets and manual work.',
-    icon: Wrench,
   },
   {
+    num: '04',
     title: 'Mobile / PWA',
     desc: 'Installable, mobile-first apps that feel native and work great on any device.',
-    icon: Smartphone,
   },
   {
+    num: '05',
     title: 'E-commerce & booking',
     desc: 'Online stores, reservations and payments wired up end-to-end and ready to sell.',
-    icon: ShoppingBag,
   },
 ];
 
@@ -410,14 +410,11 @@ function Services() {
         </FadeIn>
         <div className="grid sm:grid-cols-2 gap-4">
           {services.map((s, i) => {
-            const Icon = s.icon;
             return (
               <FadeIn key={s.title} delay={i * 0.1}>
                 <div className="project-card p-6 md:p-8 h-full">
-                  <div className="w-10 h-10 rounded-lg bg-[rgba(74,144,217,0.12)] flex items-center justify-center mb-5">
-                    <Icon className="w-5 h-5 text-[#4a90d9]" />
-                  </div>
-                  <h3 className="text-xl font-light mb-2">{s.title}</h3>
+                  <span className="text-xs tracking-[0.25em] text-[rgba(74,144,217,0.5)] uppercase block mb-5">{s.num}</span>
+                  <h3 className="text-xl font-light mb-3">{s.title}</h3>
                   <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed text-sm">
                     {s.desc}
                   </p>
