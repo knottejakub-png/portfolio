@@ -1013,11 +1013,11 @@ export default function Home() {
         <Hero />
         <Services />
         <Process />
+        <Pricing />
         <Projects />
         <Testimonials />
         <About />
         <Skills />
-        <Pricing />
         <Contact />
         <Footer />
       </motion.div>
