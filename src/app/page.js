@@ -747,25 +747,28 @@ const plans = [
     name: 'Website',
     price: 'From €189',
     desc: 'Professional company website or landing page.',
-    features: ['Up to 6 pages', 'Mobile responsive', 'Contact form', 'SEO basics', 'Delivered in ~2 weeks'],
+    features: ['Clean, modern design', 'Mobile responsive', 'Contact form', 'SEO ready', 'Fast delivery'],
     cta: 'Get started',
     highlight: true,
+    demo: null,
   },
   {
     name: 'Web App',
     price: 'From €499',
     desc: 'Custom full-stack web application built around your workflow.',
-    features: ['User accounts & auth', 'Database & API', 'Admin dashboard', 'Deployed & hosted', 'Ongoing support available'],
+    features: ['Reservations & calendar', 'Invoicing & reporting', 'Multi-property support', 'PWA — works offline', 'Deployed & hosted'],
     cta: 'Start your project',
     highlight: false,
+    demo: 'rental',
   },
   {
     name: 'Internal Tool',
     price: 'From €699',
     desc: 'Dashboard or internal system for your team.',
-    features: ['Role-based access', 'Reporting & exports', 'Custom workflows', 'Replaces spreadsheets', 'Delivered in ~3 weeks'],
+    features: ['Role-based access', 'Task & order management', 'Market data dashboards', 'Team communication', 'Real-time updates'],
     cta: 'Get started',
     highlight: false,
+    demo: 'hub',
   },
 ];
 
@@ -841,6 +844,7 @@ function Process() {
 }
 
 function Pricing() {
+  const [activeDemo, setActiveDemo] = useState(null);
   return (
     <section id="pricing" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
@@ -880,16 +884,26 @@ function Pricing() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="/build"
-                  className={`inline-flex items-center justify-center gap-2 text-xs tracking-[0.2em] uppercase px-6 py-3 transition-all duration-300 ${
-                    p.highlight
-                      ? 'bg-[#4a90d9] text-white rounded-full hover:scale-105 shadow-[0_0_25px_-4px_rgba(74,144,217,0.6)]'
-                      : 'border border-[rgba(255,255,255,0.12)] text-[rgba(255,255,255,0.6)] hover:border-[rgba(255,255,255,0.3)] hover:text-white'
-                  }`}
-                >
-                  {p.cta}
-                </a>
+                <div className="flex flex-col gap-3">
+                  <a
+                    href="/build"
+                    className={`inline-flex items-center justify-center gap-2 text-xs tracking-[0.2em] uppercase px-6 py-3 transition-all duration-300 ${
+                      p.highlight
+                        ? 'bg-[#4a90d9] text-white rounded-full hover:scale-105 shadow-[0_0_25px_-4px_rgba(74,144,217,0.6)]'
+                        : 'border border-[rgba(255,255,255,0.12)] text-[rgba(255,255,255,0.6)] hover:border-[rgba(255,255,255,0.3)] hover:text-white'
+                    }`}
+                  >
+                    {p.cta}
+                  </a>
+                  {p.demo && (
+                    <button
+                      onClick={() => setActiveDemo(p.demo)}
+                      className="inline-flex items-center justify-center gap-2 text-xs tracking-[0.2em] uppercase text-[rgba(74,144,217,0.7)] hover:text-[#4a90d9] transition-colors duration-300"
+                    >
+                      See demo →
+                    </button>
+                  )}
+                </div>
               </div>
             </FadeIn>
           ))}
@@ -900,6 +914,43 @@ function Pricing() {
           </p>
         </FadeIn>
       </div>
+
+      <AnimatePresence>
+        {activeDemo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveDemo(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-[rgba(0,0,0,0.8)] backdrop-blur-sm"
+          >
+            <motion.div
+              onClick={e => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.96, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 20 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="w-full max-w-4xl max-h-[90vh] overflow-auto bg-[#0a0a0a] border border-[rgba(255,255,255,0.1)] rounded-xl p-5 md:p-8"
+            >
+              <div className="flex justify-between items-start mb-6">
+                <h3 className="text-xl font-light">
+                  {activeDemo === 'hub' ? 'Enterprise Admin Platform' : 'Rental Property Manager'}
+                </h3>
+                <button
+                  onClick={() => setActiveDemo(null)}
+                  className="p-2 text-[rgba(255,255,255,0.62)] hover:text-white transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              {activeDemo === 'hub' ? <HubDemo /> : <RentalDemo />}
+              <p className="text-xs text-[rgba(255,255,255,0.5)] font-light mt-5 text-center">
+                Interactive demo — sample data only; real client data is kept private.
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
