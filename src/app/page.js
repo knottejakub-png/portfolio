@@ -389,6 +389,8 @@ const services = [
 ];
 
 function Services() {
+  const [active, setActive] = useState(null);
+
   return (
     <section id="services" className="py-32 px-8 md:px-20 relative">
       <div className="max-w-5xl mx-auto">
@@ -398,30 +400,55 @@ function Services() {
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <h2 className="text-4xl md:text-5xl font-light mb-6">
+          <h2 className="text-4xl md:text-5xl font-light mb-16">
             From your idea to<br />
             <span className="text-[rgba(255,255,255,0.3)]">launched product.</span>
           </h2>
-          <p className="text-[rgba(255,255,255,0.62)] font-light leading-relaxed max-w-xl mb-16">
-            Buildary takes your concept and turns it into a working application —
-            handling everything from database and APIs to a polished interface and
-            deployment. No half-finished demos; real products people use every day.
-          </p>
         </FadeIn>
-        <div className="grid sm:grid-cols-2 gap-4">
-          {services.map((s, i) => {
-            return (
-              <FadeIn key={s.title} delay={i * 0.1}>
-                <div className="project-card p-6 md:p-8 h-full">
-                  <span className="text-xs tracking-[0.25em] text-[rgba(74,144,217,0.5)] uppercase block mb-5">{s.num}</span>
-                  <h3 className="text-xl font-light mb-3">{s.title}</h3>
-                  <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed text-sm">
-                    {s.desc}
-                  </p>
+
+        <div className="space-y-0">
+          {services.map((s, i) => (
+            <FadeIn key={s.title} delay={i * 0.07}>
+              <motion.div
+                className="border-t border-[rgba(255,255,255,0.07)] cursor-pointer group overflow-hidden"
+                onClick={() => setActive(active === i ? null : i)}
+              >
+                <div className="flex items-center justify-between py-6 md:py-8">
+                  <div className="flex items-baseline gap-6 md:gap-10">
+                    <span className="text-xs tracking-[0.25em] text-[rgba(74,144,217,0.45)] w-6 shrink-0">{s.num}</span>
+                    <motion.h3
+                      className="text-2xl md:text-4xl font-light text-[rgba(255,255,255,0.55)] group-hover:text-white transition-colors duration-300"
+                    >
+                      {s.title}
+                    </motion.h3>
+                  </div>
+                  <motion.span
+                    animate={{ rotate: active === i ? 45 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-[rgba(74,144,217,0.6)] text-2xl font-light ml-4 shrink-0"
+                  >
+                    +
+                  </motion.span>
                 </div>
-              </FadeIn>
-            );
-          })}
+
+                <AnimatePresence>
+                  {active === i && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    >
+                      <p className="text-[rgba(255,255,255,0.55)] font-light leading-relaxed pb-8 pl-12 md:pl-16 max-w-2xl">
+                        {s.desc}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            </FadeIn>
+          ))}
+          <div className="border-t border-[rgba(255,255,255,0.07)]" />
         </div>
       </div>
     </section>
