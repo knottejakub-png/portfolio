@@ -745,23 +745,23 @@ const steps = [
 const plans = [
   {
     name: 'Website',
-    price: 'From €400',
+    price: 'From €189',
     desc: 'Professional company website or landing page.',
     features: ['Up to 6 pages', 'Mobile responsive', 'Contact form', 'SEO basics', 'Delivered in ~2 weeks'],
     cta: 'Get started',
-    highlight: false,
-  },
-  {
-    name: 'Web App',
-    price: 'From €900',
-    desc: 'Custom full-stack web application built around your workflow.',
-    features: ['User accounts & auth', 'Database & API', 'Admin dashboard', 'Deployed & hosted', 'Ongoing support available'],
-    cta: 'Start your project',
     highlight: true,
   },
   {
+    name: 'Web App',
+    price: 'From €499',
+    desc: 'Custom full-stack web application built around your workflow.',
+    features: ['User accounts & auth', 'Database & API', 'Admin dashboard', 'Deployed & hosted', 'Ongoing support available'],
+    cta: 'Start your project',
+    highlight: false,
+  },
+  {
     name: 'Internal Tool',
-    price: 'From €600',
+    price: 'From €699',
     desc: 'Dashboard or internal system for your team.',
     features: ['Role-based access', 'Reporting & exports', 'Custom workflows', 'Replaces spreadsheets', 'Delivered in ~3 weeks'],
     cta: 'Get started',
