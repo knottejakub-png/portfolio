@@ -23,7 +23,7 @@ export default function ContactForm() {
   const ready = name.trim() && email.trim() && message.trim();
 
   const inputClass =
-    'w-full bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)] focus:border-[#4a90d9] outline-none px-4 py-3 text-sm text-white placeholder:text-[rgba(255,255,255,0.35)] transition-colors duration-300 font-light';
+    'w-full bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)] rounded-lg focus:border-[#4a90d9] outline-none px-4 py-3 text-sm text-white placeholder:text-[rgba(255,255,255,0.35)] transition-colors duration-300 font-light';
 
   const handleSubmit = async e => {
     e.preventDefault();

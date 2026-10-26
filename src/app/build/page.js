@@ -97,7 +97,7 @@ function BuildPageInner() {
   };
 
   const cardClass = selected =>
-    `text-left p-6 border transition-all duration-300 ${
+    `text-left p-6 border rounded-xl transition-all duration-300 ${
       selected
         ? 'border-[#4a90d9] bg-[rgba(74,144,217,0.08)]'
         : 'border-[rgba(255,255,255,0.07)] bg-[rgba(255,255,255,0.02)] hover:border-[rgba(255,255,255,0.18)]'
@@ -111,7 +111,7 @@ function BuildPageInner() {
     }`;
 
   const inputClass =
-    'w-full bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)] focus:border-[#4a90d9] outline-none px-4 py-3 text-sm text-white placeholder:text-[rgba(255,255,255,0.3)] transition-colors duration-300 font-light';
+    'w-full bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)] rounded-lg focus:border-[#4a90d9] outline-none px-4 py-3 text-sm text-white placeholder:text-[rgba(255,255,255,0.3)] transition-colors duration-300 font-light';
 
   return (
     <>
@@ -213,7 +213,7 @@ function BuildPageInner() {
               />
               <button
                 onClick={addCustomFeature}
-                className="shrink-0 inline-flex items-center gap-2 px-5 border border-[rgba(74,144,217,0.4)] text-[#4a90d9] text-xs uppercase tracking-[0.15em] hover:bg-[rgba(74,144,217,0.08)] transition-all duration-300"
+                className="shrink-0 inline-flex items-center gap-2 px-5 rounded-lg border border-[rgba(74,144,217,0.4)] text-[#4a90d9] text-xs uppercase tracking-[0.15em] hover:bg-[rgba(74,144,217,0.08)] transition-all duration-300"
               >
                 <Plus className="w-4 h-4" />
                 {tb.add}
@@ -304,7 +304,7 @@ function BuildPageInner() {
                 <button
                   onClick={handleSubmit}
                   disabled={!ready || status === 'sending'}
-                  className={`inline-flex items-center gap-3 text-xs tracking-[0.2em] uppercase px-8 py-3 border transition-all duration-300 ${
+                  className={`inline-flex items-center gap-3 text-xs tracking-[0.2em] uppercase px-8 py-3 rounded-full border transition-all duration-300 ${
                     ready && status !== 'sending'
                       ? 'text-[#4a90d9] border-[rgba(74,144,217,0.4)] hover:bg-[rgba(74,144,217,0.08)]'
                       : 'text-[rgba(255,255,255,0.25)] border-[rgba(255,255,255,0.08)] cursor-not-allowed'

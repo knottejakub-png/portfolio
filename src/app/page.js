@@ -239,7 +239,7 @@ function HeroMockup() {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.6, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="hidden lg:block [perspective:1400px]"
+      className="block w-full max-w-sm mx-auto lg:max-w-none mt-8 lg:mt-0 [perspective:1400px]"
     >
       <motion.div
         animate={{ y: [0, -14, 0] }}
@@ -304,7 +304,7 @@ function Hero() {
   }, []);
 
   return (
-    <section ref={heroRef} className="min-h-screen flex flex-col justify-center px-8 md:px-20 relative">
+    <section ref={heroRef} className="min-h-screen flex flex-col justify-center px-8 md:px-20 relative overflow-hidden">
       <motion.div
         style={{ y, opacity }}
         className="max-w-6xl mx-auto w-full pt-24 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
@@ -463,7 +463,7 @@ function Services() {
   const [active, setActive] = useState(null);
 
   return (
-    <section id="services" className="py-32 px-8 md:px-20 relative">
+    <section id="services" className="py-32 px-8 md:px-20 relative bg-[rgba(255,255,255,0.02)] border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
@@ -529,7 +529,7 @@ function Services() {
 function About() {
   const { t } = useLang();
   return (
-    <section id="about" className="py-32 px-8 md:px-20">
+    <section id="about" className="py-32 px-8 md:px-20 bg-[rgba(255,255,255,0.02)] border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
@@ -620,7 +620,7 @@ function Projects() {
   const [active, setActive] = useState(null);
 
   return (
-    <section id="projects" className="py-32 px-8 md:px-20">
+    <section id="projects" className="py-32 px-8 md:px-20 bg-[rgba(255,255,255,0.02)] border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
@@ -694,7 +694,7 @@ function Projects() {
 function Skills() {
   const { t } = useLang();
   return (
-    <section id="skills" className="py-32 px-8 md:px-20">
+    <section id="skills" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
@@ -1021,7 +1021,7 @@ function Pricing() {
 function Contact() {
   const { t } = useLang();
   return (
-    <section id="contact" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
+    <section id="contact" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)] bg-[rgba(255,255,255,0.02)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
