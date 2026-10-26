@@ -1,4 +1,4 @@
-const siteUrl = 'https://portfolio-ashen-nine-29.vercel.app';
+const siteUrl = 'https://buildary.cz';
 
 export default function robots() {
   return {

@@ -1,9 +1,10 @@
 import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
-const siteUrl = 'https://portfolio-ashen-nine-29.vercel.app'
+const siteUrl = 'https://buildary.cz'
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
@@ -52,6 +53,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={inter.variable}>
       <body className="bg-[#0a0a0a] text-cream">
         {children}
+        <Analytics />
       </body>
     </html>
   )
