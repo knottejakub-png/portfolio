@@ -129,13 +129,20 @@ function BuildPageInner() {
               <ArrowLeft className="w-4 h-4" />
               {tb.back}
             </motion.a>
-            <button
-              onClick={() => setLang(lang === 'en' ? 'cs' : 'en')}
-              aria-label="Switch language"
-              className="text-xs tracking-[0.15em] uppercase text-[rgba(255,255,255,0.6)] hover:text-white transition-colors duration-300"
-            >
-              {lang === 'en' ? 'CZ' : 'EN'}
-            </button>
+            <div className="flex items-center gap-0.5 border border-[rgba(255,255,255,0.14)] rounded-full p-0.5">
+              {['cs', 'en'].map(l => (
+                <button
+                  key={l}
+                  onClick={() => setLang(l)}
+                  aria-label={l === 'cs' ? 'Čeština' : 'English'}
+                  className={`px-2.5 py-1 rounded-full text-[11px] tracking-[0.1em] uppercase transition-colors duration-300 ${
+                    lang === l ? 'bg-[#4a90d9] text-white' : 'text-[rgba(255,255,255,0.5)] hover:text-white'
+                  }`}
+                >
+                  {l === 'cs' ? 'CZ' : 'EN'}
+                </button>
+              ))}
+            </div>
           </div>
 
           <motion.div
