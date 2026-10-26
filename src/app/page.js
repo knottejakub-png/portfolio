@@ -139,7 +139,7 @@ function Navbar() {
       </a>
       <div className="flex items-center gap-5 md:gap-7">
         <div className="hidden md:flex gap-7">
-          {['Projects', 'Pricing', 'About'].map(link => (
+          {['Projects', 'About', 'Skills'].map(link => (
             <a key={link} href={`#${link.toLowerCase()}`} className="nav-link">
               {link}
             </a>
@@ -733,7 +733,7 @@ const steps = [
   {
     num: '02',
     title: 'We agree on a plan',
-    desc: "We'll come back with a clear plan, timeline and price. You decide if you want to move forward — no commitment at this stage.",
+    desc: "We'll come back with a clear plan and timeline. You decide if you want to move forward — no commitment at this stage.",
   },
   {
     num: '03',
@@ -1013,7 +1013,6 @@ export default function Home() {
         <Hero />
         <Services />
         <Process />
-        <Pricing />
         <Projects />
         <Testimonials />
         <About />
