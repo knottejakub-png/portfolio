@@ -6,34 +6,17 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import emailjs from '@emailjs/browser';
 import { ParticleBackground } from '../shared';
 import { db } from '../firebase';
+import { LangProvider, useLang } from '../i18n';
 
 const EMAILJS_SERVICE_ID = 'service_d916iek';
 const EMAILJS_TEMPLATE_ID = 'template_fjtsc0s';
 const EMAILJS_PUBLIC_KEY = 'rUytQhCFYQc6WeuFy';
 
-const appTypes = [
-  { id: 'website', label: 'Business Website', desc: 'A site for your company' },
-  { id: 'web', label: 'Web App', desc: 'A custom web application' },
-  { id: 'ecommerce', label: 'E-commerce', desc: 'Online store & payments' },
-  { id: 'internal', label: 'Internal Tool', desc: 'Dashboard for your team' },
-  { id: 'pwa', label: 'Mobile / PWA', desc: 'Installable, mobile-first' },
-  { id: 'other', label: 'Something else', desc: 'Tell me what you need' },
-];
-
-const featureOptions = [
-  'User accounts & login',
-  'Payments / subscriptions',
-  'Admin dashboard',
-  'Notifications',
-  'Multi-language',
-  'Analytics & reporting',
-  'API integration',
-  'File uploads',
-  'Booking / reservations',
-  'Real-time updates',
-];
-
-export default function BuildPage() {
+function BuildPageInner() {
+  const { t, lang, setLang } = useLang();
+  const tb = t.build;
+  const appTypes = tb.types;
+  const featureOptions = tb.features;
   const [appType, setAppType] = useState(null);
   const [otherText, setOtherText] = useState('');
   const [features, setFeatures] = useState([]);
@@ -57,7 +40,7 @@ export default function BuildPage() {
 
   const removeCustomFeature = f => setCustomFeatures(prev => prev.filter(x => x !== f));
 
-  const baseType = appTypes.find(t => t.id === appType)?.label;
+  const baseType = appTypes.find(at => at.id === appType)?.label;
   const typeLabel = appType === 'other' ? otherText.trim() : baseType;
   const allFeatures = [...features, ...customFeatures];
 
@@ -135,16 +118,25 @@ export default function BuildPage() {
       <ParticleBackground />
       <main className="relative z-10 min-h-screen px-8 md:px-20 py-20">
         <div className="max-w-5xl mx-auto">
-          <motion.a
-            href="/"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.4)] hover:text-white transition-colors duration-300 mb-16"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back
-          </motion.a>
+          <div className="flex items-center justify-between mb-16">
+            <motion.a
+              href="/"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.4)] hover:text-white transition-colors duration-300"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              {tb.back}
+            </motion.a>
+            <button
+              onClick={() => setLang(lang === 'en' ? 'cs' : 'en')}
+              aria-label="Switch language"
+              className="text-xs tracking-[0.15em] uppercase text-[rgba(255,255,255,0.6)] hover:text-white transition-colors duration-300"
+            >
+              {lang === 'en' ? 'CZ' : 'EN'}
+            </button>
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -152,27 +144,27 @@ export default function BuildPage() {
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <span className="text-xs tracking-[0.3em] uppercase text-[rgba(74,144,217,0.6)] block mb-6">
-              Start your project
+              {tb.eyebrow}
             </span>
             <h1 className="text-4xl md:text-6xl font-light leading-tight mb-4">
-              Let's build<br />
-              <span className="text-[rgba(255,255,255,0.15)]">your app.</span>
+              {tb.h1a}<br />
+              <span className="text-[rgba(255,255,255,0.15)]">{tb.h1b}</span>
             </h1>
             <p className="text-[rgba(255,255,255,0.45)] font-light leading-relaxed max-w-md mb-16">
-              Pick what you need and I'll send you back a tailored plan. No commitment — just a starting point.
+              {tb.intro}
             </p>
           </motion.div>
 
           {/* Step 1 — type */}
           <div className="mb-16">
             <span className="text-xs tracking-[0.2em] uppercase text-[rgba(74,144,217,0.6)] block mb-5">
-              01 — What are you building?
+              {tb.step1}
             </span>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {appTypes.map(t => (
-                <button key={t.id} onClick={() => setAppType(t.id)} className={cardClass(appType === t.id)}>
-                  <span className="block text-lg font-light mb-1">{t.label}</span>
-                  <span className="block text-xs text-[rgba(255,255,255,0.4)] font-light">{t.desc}</span>
+              {appTypes.map(at => (
+                <button key={at.id} onClick={() => setAppType(at.id)} className={cardClass(appType === at.id)}>
+                  <span className="block text-lg font-light mb-1">{at.label}</span>
+                  <span className="block text-xs text-[rgba(255,255,255,0.4)] font-light">{at.desc}</span>
                 </button>
               ))}
             </div>
@@ -181,7 +173,7 @@ export default function BuildPage() {
                 type="text"
                 value={otherText}
                 onChange={e => setOtherText(e.target.value)}
-                placeholder="Describe what you'd like to build…"
+                placeholder={tb.otherPlaceholder}
                 className={`${inputClass} mt-3`}
               />
             )}
@@ -190,7 +182,7 @@ export default function BuildPage() {
           {/* Step 2 — features */}
           <div className="mb-16">
             <span className="text-xs tracking-[0.2em] uppercase text-[rgba(74,144,217,0.6)] block mb-5">
-              02 — Which features do you need?
+              {tb.step2}
             </span>
             <div className="flex flex-wrap gap-3 mb-5">
               {featureOptions.map(f => (
@@ -216,7 +208,7 @@ export default function BuildPage() {
                 value={newFeature}
                 onChange={e => setNewFeature(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addCustomFeature())}
-                placeholder="Add something else…"
+                placeholder={tb.addPlaceholder}
                 className={inputClass}
               />
               <button
@@ -224,7 +216,7 @@ export default function BuildPage() {
                 className="shrink-0 inline-flex items-center gap-2 px-5 border border-[rgba(74,144,217,0.4)] text-[#4a90d9] text-xs uppercase tracking-[0.15em] hover:bg-[rgba(74,144,217,0.08)] transition-all duration-300"
               >
                 <Plus className="w-4 h-4" />
-                Add
+                {tb.add}
               </button>
             </div>
           </div>
@@ -243,21 +235,21 @@ export default function BuildPage() {
           {/* Step 3 — contact */}
           <div className="mb-16">
             <span className="text-xs tracking-[0.2em] uppercase text-[rgba(74,144,217,0.6)] block mb-5">
-              03 — How can I reach you?
+              {tb.step3}
             </span>
             <div className="grid sm:grid-cols-2 gap-3 max-w-2xl mb-3">
               <input
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="Your email"
+                placeholder={tb.emailPlaceholder}
                 className={inputClass}
               />
               <input
                 type="tel"
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
-                placeholder="Your phone (optional)"
+                placeholder={tb.phonePlaceholder}
                 className={inputClass}
               />
             </div>
@@ -267,9 +259,9 @@ export default function BuildPage() {
             >
               <Phone className="w-5 h-5 text-[#4a90d9] shrink-0" />
               <span>
-                <span className="block text-base font-light mb-1">Let's configure it together</span>
+                <span className="block text-base font-light mb-1">{tb.callTitle}</span>
                 <span className="block text-xs text-[rgba(255,255,255,0.4)] font-light">
-                  Prefer a call? I'll reach out and we'll plan it step by step.
+                  {tb.callDesc}
                 </span>
               </span>
             </button>
@@ -278,22 +270,22 @@ export default function BuildPage() {
           {/* Summary */}
           <div className="project-card p-8 md:p-10">
             <span className="text-xs tracking-[0.2em] uppercase text-[rgba(74,144,217,0.6)] block mb-6">
-              Your configuration
+              {tb.summary}
             </span>
             <div className="space-y-3 text-sm font-light mb-8">
               <div className="flex gap-3">
-                <span className="text-[rgba(255,255,255,0.4)] w-24 shrink-0">Type</span>
+                <span className="text-[rgba(255,255,255,0.4)] w-24 shrink-0">{tb.typeField}</span>
                 <span className="text-white">{typeLabel || '—'}</span>
               </div>
               <div className="flex gap-3">
-                <span className="text-[rgba(255,255,255,0.4)] w-24 shrink-0">Features</span>
+                <span className="text-[rgba(255,255,255,0.4)] w-24 shrink-0">{tb.featuresField}</span>
                 <span className="text-white">{allFeatures.length ? allFeatures.join(', ') : '—'}</span>
               </div>
               <div className="flex gap-3">
-                <span className="text-[rgba(255,255,255,0.4)] w-24 shrink-0">Contact</span>
+                <span className="text-[rgba(255,255,255,0.4)] w-24 shrink-0">{tb.contactField}</span>
                 <span className="text-white">
                   {[email.trim(), phone.trim()].filter(Boolean).join(' · ') || '—'}
-                  {wantsCall && ' · prefers a call'}
+                  {wantsCall && tb.prefersCall}
                 </span>
               </div>
             </div>
@@ -304,7 +296,7 @@ export default function BuildPage() {
                   <Check className="w-4 h-4" />
                 </span>
                 <span className="text-sm font-light text-white">
-                  Request sent — I'll get back to you soon. Thanks!
+                  {tb.sent}
                 </span>
               </div>
             ) : (
@@ -318,17 +310,20 @@ export default function BuildPage() {
                       : 'text-[rgba(255,255,255,0.25)] border-[rgba(255,255,255,0.08)] cursor-not-allowed'
                   }`}
                 >
-                  {status === 'sending' ? 'Sending…' : 'Send my request'}
+                  {status === 'sending' ? tb.sending : tb.send}
                   <ArrowUpRight className="w-4 h-4" />
                 </button>
+                <p className="text-xs text-[rgba(255,255,255,0.3)] font-light mt-4">
+                  {tb.consent}
+                </p>
                 {!ready && (
-                  <p className="text-xs text-[rgba(255,255,255,0.3)] font-light mt-4">
-                    Pick what you're building and leave an email or phone so I can get back to you.
+                  <p className="text-xs text-[rgba(255,255,255,0.3)] font-light mt-2">
+                    {tb.needInfo}
                   </p>
                 )}
                 {status === 'error' && (
                   <p className="text-xs text-[#e0796b] font-light mt-4">
-                    Something went wrong sending your request. Please try again.
+                    {tb.error}
                   </p>
                 )}
               </>
@@ -337,5 +332,13 @@ export default function BuildPage() {
         </div>
       </main>
     </>
+  );
+}
+
+export default function BuildPage() {
+  return (
+    <LangProvider>
+      <BuildPageInner />
+    </LangProvider>
   );
 }
