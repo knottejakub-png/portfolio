@@ -4,12 +4,15 @@ import { ArrowUpRight, Check } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import emailjs from '@emailjs/browser';
 import { db } from './firebase';
+import { useLang } from './i18n';
 
 const EMAILJS_SERVICE_ID = 'service_d916iek';
 const EMAILJS_TEMPLATE_ID = 'template_fjtsc0s';
 const EMAILJS_PUBLIC_KEY = 'rUytQhCFYQc6WeuFy';
 
 export default function ContactForm() {
+  const { t } = useLang();
+  const tf = t.contactForm;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -78,7 +81,7 @@ export default function ContactForm() {
           <Check className="w-4 h-4" />
         </span>
         <span className="text-base font-light text-white">
-          Thanks! Your message is on its way — we'll get back to you soon.
+          {tf.success}
         </span>
       </div>
     );
@@ -100,21 +103,21 @@ export default function ContactForm() {
           type="text"
           value={name}
           onChange={e => setName(e.target.value)}
-          placeholder="Your name"
+          placeholder={tf.name}
           className={inputClass}
         />
         <input
           type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          placeholder="Your email"
+          placeholder={tf.email}
           className={inputClass}
         />
       </div>
       <textarea
         value={message}
         onChange={e => setMessage(e.target.value)}
-        placeholder="Tell us what you'd like to build…"
+        placeholder={tf.message}
         rows={4}
         className={`${inputClass} resize-none`}
       />
@@ -127,12 +130,15 @@ export default function ContactForm() {
             : 'text-[rgba(255,255,255,0.4)] bg-[rgba(255,255,255,0.06)] cursor-not-allowed'
         }`}
       >
-        {status === 'sending' ? 'Sending…' : 'Send message'}
+        {status === 'sending' ? tf.sending : tf.send}
         <ArrowUpRight className="w-4 h-4" />
       </button>
+      <p className="text-xs text-[rgba(255,255,255,0.3)] font-light">
+        {tf.consent}
+      </p>
       {status === 'error' && (
         <p className="text-xs text-[#e0796b] font-light">
-          Something went wrong. Please try again.
+          {tf.error}
         </p>
       )}
     </form>

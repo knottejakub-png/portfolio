@@ -5,6 +5,7 @@ import { ArrowUpRight, Mail, ChevronDown, X, Menu } from 'lucide-react';
 import { ParticleBackground } from './shared';
 import { RentalDemo, HubDemo } from './demos';
 import ContactForm from './contact-form';
+import { LangProvider, useLang } from './i18n';
 
 const coreStack = ['Next.js', 'React', 'PostgreSQL'];
 
@@ -118,13 +119,28 @@ function FadeIn({ children, delay = 0, className = '' }) {
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { lang, setLang, t } = useLang();
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const links = ['Projects', 'About', 'Skills'];
+  const links = [
+    { href: '#projects', label: t.nav.projects },
+    { href: '#about', label: t.nav.about },
+    { href: '#skills', label: t.nav.skills },
+  ];
+
+  const LangToggle = ({ className = '' }) => (
+    <button
+      onClick={() => setLang(lang === 'en' ? 'cs' : 'en')}
+      aria-label="Switch language"
+      className={`text-xs tracking-[0.15em] uppercase text-[rgba(255,255,255,0.6)] hover:text-white transition-colors duration-300 ${className}`}
+    >
+      {lang === 'en' ? 'CZ' : 'EN'}
+    </button>
+  );
 
   return (
     <motion.nav
@@ -144,32 +160,34 @@ function Navbar() {
       {/* Desktop menu */}
       <div className="hidden md:flex items-center gap-7">
         {links.map(link => (
-          <a key={link} href={`#${link.toLowerCase()}`} className="nav-link">
-            {link}
+          <a key={link.href} href={link.href} className="nav-link">
+            {link.label}
           </a>
         ))}
+        <LangToggle />
         <a
           href="/build"
           className="text-xs tracking-[0.2em] uppercase text-[#4a90d9] border border-[rgba(74,144,217,0.5)] px-4 py-2 rounded-full hover:bg-[rgba(74,144,217,0.1)] transition-all duration-300"
         >
-          Build
+          {t.nav.build}
         </a>
         <a
           href="#contact"
           className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-4 py-2 rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_-4px_rgba(74,144,217,0.7)]"
         >
-          Contact us
+          {t.nav.contact}
         </a>
       </div>
 
       {/* Mobile controls */}
       <div className="flex md:hidden items-center gap-3">
+        <LangToggle />
         <a
           href="#contact"
           onClick={() => setOpen(false)}
           className="inline-flex items-center text-[11px] tracking-[0.15em] uppercase text-white bg-[#4a90d9] px-3.5 py-2 rounded-full shadow-[0_0_20px_-4px_rgba(74,144,217,0.7)]"
         >
-          Contact
+          {t.nav.contactShort}
         </a>
         <button
           onClick={() => setOpen(o => !o)}
@@ -192,12 +210,12 @@ function Navbar() {
           >
             {links.map(link => (
               <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
+                key={link.href}
+                href={link.href}
                 onClick={() => setOpen(false)}
                 className="nav-link text-sm"
               >
-                {link}
+                {link.label}
               </a>
             ))}
             <a
@@ -205,7 +223,7 @@ function Navbar() {
               onClick={() => setOpen(false)}
               className="inline-flex w-fit items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#4a90d9] border border-[rgba(74,144,217,0.5)] px-5 py-2.5 rounded-full"
             >
-              Start your project
+              {t.nav.startProject}
               <ArrowUpRight className="w-4 h-4" />
             </a>
           </motion.div>
@@ -270,6 +288,8 @@ function HeroMockup() {
 }
 
 function Hero() {
+  const { t } = useLang();
+  const phrases = t.hero.phrases;
   const [phraseIndex, setPhraseIndex] = useState(0);
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
@@ -298,7 +318,7 @@ function Hero() {
             className="mb-6"
           >
             <span className="text-xs tracking-[0.3em] uppercase text-[rgba(74,144,217,0.6)]">
-              Buildary — Digital product studio
+              {t.hero.eyebrow}
             </span>
           </motion.div>
 
@@ -308,8 +328,8 @@ function Hero() {
             transition={{ delay: 0.4, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-5xl md:text-7xl font-light leading-[1.05] tracking-tight mb-6"
           >
-            We build apps<br />
-            &amp; webs that <span className="text-shimmer">work.</span>
+            {t.hero.h1a}<br />
+            {t.hero.h1b} <span className="text-shimmer">{t.hero.h1c}</span>
           </motion.h1>
 
           <motion.div
@@ -351,10 +371,7 @@ function Hero() {
             transition={{ delay: 1, duration: 0.8 }}
             className="text-base md:text-lg text-[rgba(255,255,255,0.62)] max-w-md leading-relaxed font-light"
           >
-            Buildary turns your idea into a finished product — professional
-            websites, custom web apps, dashboards, internal tools and e-commerce.
-            We design, build and deploy it for you, end-to-end, so you get
-            something fast, reliable and actually used.
+            {t.hero.sub}
           </motion.p>
 
           <motion.div
@@ -377,7 +394,7 @@ function Hero() {
               whileTap={{ scale: 0.97 }}
               className="group inline-flex items-center justify-center gap-3 text-xs md:text-sm tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-8 py-4 rounded-full font-medium"
             >
-              Start your project
+              {t.hero.cta}
               <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </motion.a>
             <div className="flex gap-6 items-center">
@@ -385,13 +402,13 @@ function Hero() {
                 href="#projects"
                 className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.6)] hover:text-white transition-colors duration-300"
               >
-                View Work
+                {t.hero.viewWork}
               </a>
               <a
                 href="#contact"
                 className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.52)] hover:text-[rgba(255,255,255,0.8)] transition-colors duration-300"
               >
-                Get in touch →
+                {t.hero.getInTouch}
               </a>
             </div>
           </motion.div>
@@ -442,6 +459,7 @@ const services = [
 ];
 
 function Services() {
+  const { t } = useLang();
   const [active, setActive] = useState(null);
 
   return (
@@ -449,19 +467,19 @@ function Services() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
-            001 / What we build
+            {t.services.eyebrow}
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
           <h2 className="text-4xl md:text-5xl font-light mb-16">
-            From your idea to<br />
-            <span className="text-[rgba(255,255,255,0.3)]">launched product.</span>
+            {t.services.h2a}<br />
+            <span className="text-[rgba(255,255,255,0.3)]">{t.services.h2b}</span>
           </h2>
         </FadeIn>
 
         <div className="space-y-0">
-          {services.map((s, i) => (
-            <FadeIn key={s.title} delay={i * 0.07}>
+          {t.services.items.map((s, i) => (
+            <FadeIn key={s.num} delay={i * 0.07}>
               <motion.div
                 className="border-t border-[rgba(255,255,255,0.07)] cursor-pointer group overflow-hidden"
                 onClick={() => setActive(active === i ? null : i)}
@@ -509,38 +527,27 @@ function Services() {
 }
 
 function About() {
+  const { t } = useLang();
   return (
     <section id="about" className="py-32 px-8 md:px-20">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
-            003 / About us
+            {t.about.eyebrow}
           </span>
         </FadeIn>
         <div className="grid md:grid-cols-2 gap-20">
           <FadeIn delay={0.1}>
             <h2 className="text-4xl md:text-5xl font-light leading-tight">
-              Who we<br />
-              <span className="text-[rgba(255,255,255,0.3)]">are.</span>
+              {t.about.h2a}<br />
+              <span className="text-[rgba(255,255,255,0.3)]">{t.about.h2b}</span>
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
             <div className="space-y-6 text-[rgba(255,255,255,0.66)] font-light leading-relaxed">
-              <p>
-                Buildary is a software studio from the Czech Republic. We design and
-                build websites, web and mobile applications for businesses that want
-                software which actually works.
-              </p>
-              <p>
-                We handle the whole product end-to-end — from database and API design
-                to a polished interface and deployment. Our work is built around the
-                modern Next.js and React ecosystem.
-              </p>
-              <p>
-                Whether it's a professional website, a custom web app, an internal tool
-                or an online store, we turn the idea into a reliable product your team
-                and customers use every day.
-              </p>
+              {t.about.p.map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
             </div>
           </FadeIn>
         </div>
@@ -550,6 +557,7 @@ function About() {
 }
 
 function TiltCard({ p, onOpen }) {
+  const { t } = useLang();
   const ref = useRef(null);
   const rx = useMotionValue(0);
   const ry = useMotionValue(0);
@@ -600,7 +608,7 @@ function TiltCard({ p, onOpen }) {
         ))}
       </div>
       <span className="group/btn inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-6 py-3 rounded-full font-medium shadow-[0_0_25px_-4px_rgba(74,144,217,0.6)]">
-        Open live demo
+        {t.projects.openDemo}
         <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </span>
     </motion.button>
@@ -608,6 +616,7 @@ function TiltCard({ p, onOpen }) {
 }
 
 function Projects() {
+  const { t } = useLang();
   const [active, setActive] = useState(null);
 
   return (
@@ -615,20 +624,20 @@ function Projects() {
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
-            002 / Projects
+            {t.projects.eyebrow}
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
           <p className="text-sm md:text-base tracking-[0.2em] uppercase text-[#4a90d9] mb-4">
-            Building things that work
+            {t.projects.tagline}
           </p>
           <h2 className="text-4xl md:text-5xl font-light mb-20">
-            Selected<br />
-            <span className="text-[rgba(255,255,255,0.3)]">work.</span>
+            {t.projects.h2a}<br />
+            <span className="text-[rgba(255,255,255,0.3)]">{t.projects.h2b}</span>
           </h2>
         </FadeIn>
         <div className="space-y-6">
-          {projects.map((p, i) => (
+          {t.projects.items.map((p, i) => (
             <FadeIn key={p.id} delay={i * 0.15}>
               <TiltCard p={p} onOpen={setActive} />
             </FadeIn>
@@ -672,7 +681,7 @@ function Projects() {
               {active.preview === 'hub' ? <HubDemo /> : <RentalDemo />}
 
               <p className="text-xs text-[rgba(255,255,255,0.5)] font-light mt-5 text-center">
-                Interactive demo — click around to explore. Sample data only; real client data is kept private.
+                {t.projects.demoCaption}
               </p>
             </motion.div>
           </motion.div>
@@ -683,26 +692,25 @@ function Projects() {
 }
 
 function Skills() {
+  const { t } = useLang();
   return (
     <section id="skills" className="py-32 px-8 md:px-20">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
-            004 / Skills
+            {t.skills.eyebrow}
           </span>
         </FadeIn>
         <div className="grid md:grid-cols-2 gap-20 mb-16">
           <FadeIn delay={0.1}>
             <h2 className="text-4xl md:text-5xl font-light leading-tight">
-              Tech we<br />
-              <span className="text-[rgba(255,255,255,0.3)]">work with.</span>
+              {t.skills.h2a}<br />
+              <span className="text-[rgba(255,255,255,0.3)]">{t.skills.h2b}</span>
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed">
-              Our stack is built around the modern JavaScript ecosystem — proven,
-              battle-tested tools that let us ship fast and build products that scale.
-              Next.js and React are at the core of everything we make.
+              {t.skills.intro}
             </p>
           </FadeIn>
         </div>
@@ -711,7 +719,7 @@ function Skills() {
         <FadeIn delay={0.25}>
           <div className="project-card p-6 md:p-8 mb-12 flex flex-col sm:flex-row sm:items-center gap-5">
             <span className="text-xs tracking-[0.25em] uppercase text-[#4a90d9] shrink-0">
-              Core stack
+              {t.skills.core}
             </span>
             <div className="flex flex-wrap gap-3">
               {coreStack.map(t => (
@@ -728,7 +736,7 @@ function Skills() {
 
         {/* Grouped skills */}
         <div className="space-y-10">
-          {skillGroups.map((g, gi) => (
+          {t.skills.groups.map((g, gi) => (
             <FadeIn key={g.label} delay={0.1 + gi * 0.08}>
               <div className="grid md:grid-cols-[180px_1fr] gap-4 md:gap-8 items-start">
                 <span className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.45)] pt-1">
@@ -826,30 +834,31 @@ const plans = [
 ];
 
 function Testimonials() {
+  const { t } = useLang();
   return (
     <section id="testimonials" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
-            / What clients say
+            {t.testimonials.eyebrow}
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
           <h2 className="text-4xl md:text-5xl font-light mb-20">
-            Trusted by<br />
-            <span className="text-[rgba(255,255,255,0.3)]">real clients.</span>
+            {t.testimonials.h2a}<br />
+            <span className="text-[rgba(255,255,255,0.3)]">{t.testimonials.h2b}</span>
           </h2>
         </FadeIn>
         <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
+          {t.testimonials.items.map((item, i) => (
             <FadeIn key={i} delay={i * 0.1}>
               <div className="project-card p-8 h-full flex flex-col justify-between gap-8">
                 <p className="text-[rgba(255,255,255,0.62)] font-light leading-relaxed text-sm">
-                  "{t.quote}"
+                  "{item.quote}"
                 </p>
                 <div>
-                  <div className="text-sm font-light text-white mb-0.5">{t.name}</div>
-                  <div className="text-xs tracking-[0.1em] uppercase text-[rgba(74,144,217,0.6)]">{t.role}</div>
+                  <div className="text-sm font-light text-white mb-0.5">{item.name}</div>
+                  <div className="text-xs tracking-[0.1em] uppercase text-[rgba(74,144,217,0.6)]">{item.role}</div>
                 </div>
               </div>
             </FadeIn>
@@ -861,22 +870,23 @@ function Testimonials() {
 }
 
 function Process() {
+  const { t } = useLang();
   return (
     <section id="process" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
-            / How it works
+            {t.process.eyebrow}
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
           <h2 className="text-4xl md:text-5xl font-light mb-20">
-            Simple<br />
-            <span className="text-[rgba(255,255,255,0.3)]">process.</span>
+            {t.process.h2a}<br />
+            <span className="text-[rgba(255,255,255,0.3)]">{t.process.h2b}</span>
           </h2>
         </FadeIn>
         <div className="space-y-0">
-          {steps.map((s, i) => (
+          {t.process.steps.map((s, i) => (
             <FadeIn key={s.num} delay={i * 0.1}>
               <div className="grid md:grid-cols-[80px_1fr] gap-6 md:gap-12 py-10 border-t border-[rgba(255,255,255,0.07)] group">
                 <span className="text-4xl font-light text-[rgba(74,144,217,0.25)] group-hover:text-[rgba(74,144,217,0.5)] transition-colors duration-500">
@@ -1009,22 +1019,22 @@ function Pricing() {
 }
 
 function Contact() {
+  const { t } = useLang();
   return (
     <section id="contact" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
           <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
-            005 / Contact us
+            {t.contact.eyebrow}
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
           <h2 className="text-5xl md:text-7xl font-light leading-tight mb-6">
-            Let's work<br />
-            <span className="text-shimmer">together.</span>
+            {t.contact.h2a}<br />
+            <span className="text-shimmer">{t.contact.h2b}</span>
           </h2>
           <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed max-w-xl mb-12">
-            Tell us what you'd like to build and we'll get back to you with a plan.
-            No commitment — just a starting point.
+            {t.contact.sub}
           </p>
         </FadeIn>
         <FadeIn delay={0.2}>
@@ -1052,7 +1062,7 @@ function Footer() {
 
 export default function Home() {
   return (
-    <>
+    <LangProvider>
       <Aurora />
       <Spotlight />
       <ParticleBackground />
@@ -1073,6 +1083,6 @@ export default function Home() {
         <Contact />
         <Footer />
       </motion.div>
-    </>
+    </LangProvider>
   );
 }
