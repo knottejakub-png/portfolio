@@ -54,13 +54,13 @@ const en = {
     ],
   },
   testimonials: {
-    eyebrow: '/ What clients say',
-    h2a: 'Trusted by',
-    h2b: 'real clients.',
+    eyebrow: '/ Results',
+    h2a: 'Real projects,',
+    h2b: 'real results.',
     items: [
-      { quote: 'Jakub delivered exactly what we needed — fast, clean, and without any back-and-forth. The app has been running without issues since day one.', name: 'Private client', role: 'Property management' },
-      { quote: 'We needed an internal tool that our whole team could use. Buildary built it in weeks, and it replaced three separate spreadsheets we were struggling with.', name: 'Private client', role: 'Technology company' },
-      { quote: 'Great communication throughout the project. They understood what we wanted and turned it into something better than we imagined.', name: 'Private client', role: 'E-commerce' },
+      { stat: 'All-in-one platform', desc: 'Reservations, guest communication, cleaning schedules, invoicing and reporting — unified in a single platform.', tag: 'Rental management' },
+      { stat: 'Spreadsheets → one tool', desc: 'Task management, order tracking and dashboards replaced several manual spreadsheets for the whole team.', tag: 'Internal business tool' },
+      { stat: 'Concept → live', desc: 'Designed, built and deployed end-to-end — with ongoing updates and support after launch.', tag: 'Full-stack delivery' },
     ],
   },
   about: {
@@ -193,13 +193,13 @@ const cs = {
     ],
   },
   testimonials: {
-    eyebrow: '/ Co říkají klienti',
-    h2a: 'Důvěřují nám',
-    h2b: 'reální klienti.',
+    eyebrow: '/ Výsledky',
+    h2a: 'Reálné projekty,',
+    h2b: 'reálné výsledky.',
     items: [
-      { quote: 'Jakub dodal přesně to, co jsme potřebovali — rychle, čistě a bez zbytečného dohadování. Aplikace běží bez problémů od prvního dne.', name: 'Soukromý klient', role: 'Správa nemovitostí' },
-      { quote: 'Potřebovali jsme interní nástroj pro celý tým. Buildary ho postavil během pár týdnů a nahradil tři oddělené tabulky, se kterými jsme se trápili.', name: 'Soukromý klient', role: 'Technologická firma' },
-      { quote: 'Skvělá komunikace po celou dobu projektu. Pochopili, co jsme chtěli, a udělali z toho něco lepšího, než jsme si představovali.', name: 'Soukromý klient', role: 'E-commerce' },
+      { stat: 'Vše na jednom místě', desc: 'Rezervace, komunikace s hosty, úklidové harmonogramy, fakturace i reporting — sjednocené v jedné platformě.', tag: 'Správa pronájmů' },
+      { stat: 'Tabulky → jeden nástroj', desc: 'Správa úkolů, sledování objednávek a dashboardy nahradily několik ručních tabulek pro celý tým.', tag: 'Interní firemní nástroj' },
+      { stat: 'Od nápadu po spuštění', desc: 'Navrženo, postaveno a nasazeno od A do Z — s průběžnými aktualizacemi a podporou po spuštění.', tag: 'Full-stack dodávka' },
     ],
   },
   about: {

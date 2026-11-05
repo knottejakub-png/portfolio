@@ -133,7 +133,7 @@ export default function ContactForm() {
         {status === 'sending' ? tf.sending : tf.send}
         <ArrowUpRight className="w-4 h-4" />
       </button>
-      <p className="text-xs text-[rgba(255,255,255,0.3)] font-light">
+      <p className="text-xs text-[rgba(255,255,255,0.5)] font-light">
         {tf.consent}
       </p>
       {status === 'error' && (

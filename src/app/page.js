@@ -489,7 +489,7 @@ function Services() {
                   <div className="flex items-baseline gap-6 md:gap-10">
                     <span className="text-xs tracking-[0.25em] text-[rgba(74,144,217,0.45)] w-6 shrink-0">{s.num}</span>
                     <motion.h3
-                      className="text-2xl md:text-4xl font-light text-[rgba(255,255,255,0.55)] group-hover:text-white transition-colors duration-300"
+                      className="text-2xl md:text-4xl font-light text-[rgba(255,255,255,0.68)] group-hover:text-white transition-colors duration-300"
                     >
                       {s.title}
                     </motion.h3>
@@ -853,14 +853,12 @@ function Testimonials() {
         <div className="grid md:grid-cols-3 gap-6">
           {t.testimonials.items.map((item, i) => (
             <FadeIn key={i} delay={i * 0.1}>
-              <div className="project-card p-8 h-full flex flex-col justify-between gap-8">
-                <p className="text-[rgba(255,255,255,0.62)] font-light leading-relaxed text-sm">
-                  "{item.quote}"
+              <div className="project-card p-8 h-full flex flex-col gap-5">
+                <div className="text-2xl font-light text-white leading-snug">{item.stat}</div>
+                <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed text-sm flex-1">
+                  {item.desc}
                 </p>
-                <div>
-                  <div className="text-sm font-light text-white mb-0.5">{item.name}</div>
-                  <div className="text-xs tracking-[0.1em] uppercase text-[rgba(74,144,217,0.6)]">{item.role}</div>
-                </div>
+                <div className="text-xs tracking-[0.1em] uppercase text-[rgba(74,144,217,0.7)]">{item.tag}</div>
               </div>
             </FadeIn>
           ))}
