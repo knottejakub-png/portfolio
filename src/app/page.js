@@ -173,12 +173,6 @@ function Navbar() {
         ))}
         <LangToggle />
         <a
-          href="/build"
-          className="text-xs tracking-[0.2em] uppercase text-[#4a90d9] border border-[rgba(74,144,217,0.5)] px-4 py-2 rounded-full hover:bg-[rgba(74,144,217,0.1)] transition-all duration-300"
-        >
-          {t.nav.build}
-        </a>
-        <a
           href="#contact"
           className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-4 py-2 rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_-4px_rgba(74,144,217,0.7)]"
         >
@@ -226,7 +220,7 @@ function Navbar() {
               </a>
             ))}
             <a
-              href="/build"
+              href="#contact"
               onClick={() => setOpen(false)}
               className="inline-flex w-fit items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#4a90d9] border border-[rgba(74,144,217,0.5)] px-5 py-2.5 rounded-full"
             >
@@ -388,7 +382,7 @@ function Hero() {
             className="mt-10 flex flex-col sm:flex-row gap-6 sm:items-center"
           >
             <motion.a
-              href="/build"
+              href="#contact"
               animate={{
                 boxShadow: [
                   '0 0 0 0 rgba(74,144,217,0)',
@@ -956,7 +950,7 @@ function Pricing() {
                 </ul>
                 <div className="flex flex-col gap-3">
                   <a
-                    href="/build"
+                    href="#contact"
                     className={`inline-flex items-center justify-center gap-2 text-xs tracking-[0.2em] uppercase px-6 py-3 transition-all duration-300 ${
                       p.highlight
                         ? 'bg-[#4a90d9] text-white rounded-full hover:scale-105 shadow-[0_0_25px_-4px_rgba(74,144,217,0.6)]'
@@ -980,7 +974,7 @@ function Pricing() {
         </div>
         <FadeIn delay={0.3}>
           <p className="text-xs text-[rgba(255,255,255,0.3)] font-light mt-8 text-center">
-            Not sure which fits? <a href="/build" className="text-[#4a90d9] hover:underline">Describe your project</a> and we'll recommend the right approach.
+            Not sure which fits? <a href="#contact" className="text-[#4a90d9] hover:underline">Describe your project</a> and we'll recommend the right approach.
           </p>
         </FadeIn>
       </div>
