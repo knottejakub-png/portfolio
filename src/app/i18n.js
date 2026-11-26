@@ -91,6 +91,7 @@ const en = {
     h2b: 'together.',
     sub: "Tell us what you'd like to build and we'll get back to you with a plan. No commitment — just a starting point.",
   },
+  footer: { privacy: 'Privacy policy', operator: 'Operated by' },
   contactForm: {
     name: 'Your name',
     email: 'Your email',
@@ -230,6 +231,7 @@ const cs = {
     h2b: 'spolu.',
     sub: 'Napište nám, co byste chtěli postavit, a ozveme se vám s plánem. Žádný závazek — jen první krok.',
   },
+  footer: { privacy: 'Zásady ochrany osobních údajů', operator: 'Provozovatel' },
   contactForm: {
     name: 'Vaše jméno',
     email: 'Váš e-mail',

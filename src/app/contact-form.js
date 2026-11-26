@@ -134,7 +134,10 @@ export default function ContactForm() {
         <ArrowUpRight className="w-4 h-4" />
       </button>
       <p className="text-xs text-[rgba(255,255,255,0.5)] font-light">
-        {tf.consent}
+        {tf.consent}{' '}
+        <a href="/privacy" className="text-[#4a90d9] hover:underline">
+          {t.footer.privacy}
+        </a>
       </p>
       {status === 'error' && (
         <p className="text-xs text-[#e0796b] font-light">

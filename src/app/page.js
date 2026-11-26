@@ -1045,15 +1045,27 @@ function Contact() {
 }
 
 function Footer() {
+  const { t } = useLang();
   return (
     <footer className="py-10 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
-      <div className="max-w-5xl mx-auto flex justify-between items-center">
-        <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.35)]">
-          Buildary
-        </span>
-        <span className="text-xs tracking-[0.1em] text-[rgba(255,255,255,0.35)]">
-          © 2026 · Jakub Knotte
-        </span>
+      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+        <div>
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.4)] block mb-1.5">
+            Buildary
+          </span>
+          <span className="text-xs text-[rgba(255,255,255,0.35)]">
+            {t.footer.operator}: Jakub Knotte ·{' '}
+            <a href="mailto:jakubknotte17@gmail.com" className="hover:text-white transition-colors">
+              jakubknotte17@gmail.com
+            </a>
+          </span>
+        </div>
+        <div className="flex items-center gap-4 text-xs text-[rgba(255,255,255,0.35)]">
+          <a href="/privacy" className="hover:text-white transition-colors">
+            {t.footer.privacy}
+          </a>
+          <span>© 2026</span>
+        </div>
       </div>
     </footer>
   );
