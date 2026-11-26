@@ -107,12 +107,12 @@ export default function HeroScroll() {
   // caption opacities
   const cap1 = useTransform(scrollYProgress, [0.0, 0.05, 0.2, 0.28], [1, 1, 1, 0]);
   const cap2 = useTransform(scrollYProgress, [0.3, 0.38, 0.52, 0.6], [0, 1, 1, 0]);
-  const videoFade = useTransform(scrollYProgress, [0.6, 0.72], [1, 0.12]);
+  const videoFade = useTransform(scrollYProgress, [0.56, 0.7], [1, 0]);
 
   // phone transform
-  const phoneOpacity = useTransform(scrollYProgress, [0.6, 0.72, 1], [0, 1, 1]);
-  const phoneScale = useTransform(scrollYProgress, [0.6, 0.8], [0.82, 1]);
-  const phoneRotScroll = useTransform(scrollYProgress, [0.62, 1], [-26, 18]);
+  const phoneOpacity = useTransform(scrollYProgress, [0.58, 0.7], [0, 1]);
+  const phoneScale = useTransform(scrollYProgress, [0.58, 0.92], [0.45, 1.02]);
+  const phoneRotScroll = useTransform(scrollYProgress, [0.6, 1], [-30, 16]);
   const rotY = useTransform([phoneRotScroll, sx], ([r, p]) => r + p * 12);
   const rotX = useTransform(sy, v => v * -6);
   const cap3 = useTransform(scrollYProgress, [0.72, 0.82], [0, 1]);
@@ -153,15 +153,15 @@ export default function HeroScroll() {
           style={{ opacity: phoneOpacity }}
         >
           <motion.img
-            src="/hero/phone.jpg"
+            src="/hero/phone.png"
             alt=""
-            className="w-[min(78vw,420px)] md:w-[360px] rounded-[28px] shadow-[0_40px_120px_-20px_rgba(77,163,255,0.5)]"
+            className="w-auto h-[min(76vh,560px)] md:h-[min(80vh,680px)] md:translate-x-[14vw]"
             style={{
               scale: phoneScale,
               rotateY: isDesktop ? rotY : phoneRotScroll,
               rotateX: isDesktop ? rotX : 0,
-              maskImage: 'radial-gradient(130% 120% at 50% 45%, #000 60%, transparent 92%)',
-              WebkitMaskImage: 'radial-gradient(130% 120% at 50% 45%, #000 60%, transparent 92%)',
+              maskImage: 'radial-gradient(92% 96% at 50% 50%, #000 86%, transparent 100%)',
+              WebkitMaskImage: 'radial-gradient(92% 96% at 50% 50%, #000 86%, transparent 100%)',
             }}
           />
         </motion.div>
