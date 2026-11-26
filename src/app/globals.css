@@ -10,17 +10,17 @@
 
 html {
   scroll-behavior: smooth;
-  background: #080808;
+  background: #fbfbfc;
 }
 
 body {
-  background: #080808;
-  color: #ffffff;
+  background: #fbfbfc;
+  color: #16181d;
   font-family: var(--font-sans), system-ui, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* scroll-craft taste floor: readable wrapping */
 h1, h2, h3 {
   text-wrap: balance;
 }
@@ -28,41 +28,33 @@ p {
   text-wrap: pretty;
 }
 
-/* scroll-craft depth: fine film grain over the whole frame */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
 
 ::-webkit-scrollbar {
-  width: 3px;
+  width: 10px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #080808;
+  background: #fbfbfc;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #4a90d9;
+  background: rgba(22, 24, 29, 0.18);
+  border-radius: 10px;
+  border: 3px solid #fbfbfc;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(22, 24, 29, 0.3);
 }
 
 ::selection {
-  background: rgba(74, 144, 217, 0.2);
-  color: #ffffff;
+  background: rgba(47, 111, 184, 0.18);
+  color: #16181d;
 }
 
 .nav-link {
   position: relative;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(22, 24, 29, 0.55);
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -76,12 +68,12 @@ body::after {
   bottom: -4px;
   height: 1px;
   width: 0;
-  background: #4a90d9;
+  background: #2f6fb8;
   transition: width 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #ffffff;
+  color: #16181d;
 }
 
 .nav-link:hover::after {
@@ -89,25 +81,25 @@ body::after {
 }
 
 .project-card {
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(22, 24, 29, 0.09);
+  background: #ffffff;
   border-radius: 16px;
-  transition: all 0.4s ease;
+  box-shadow: 0 1px 2px rgba(22, 24, 29, 0.04);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 .project-card:hover {
-  border-color: rgba(74, 144, 217, 0.25);
-  background: rgba(74, 144, 217, 0.03);
+  border-color: rgba(47, 111, 184, 0.35);
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px -12px rgba(74, 144, 217, 0.2);
+  box-shadow: 0 18px 44px -18px rgba(22, 24, 29, 0.22);
 }
 
 .text-shimmer {
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.18) 0%,
-    #4a90d9 50%,
-    rgba(255, 255, 255, 0.18) 100%
+    rgba(22, 24, 29, 0.25) 0%,
+    #2f6fb8 50%,
+    rgba(22, 24, 29, 0.25) 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -124,9 +116,9 @@ body::after {
 }
 
 .skill-pill {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.04);
-  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(22, 24, 29, 0.12);
+  background: rgba(22, 24, 29, 0.03);
+  color: rgba(22, 24, 29, 0.68);
   padding: 6px 16px;
   border-radius: 999px;
   font-size: 0.78rem;
@@ -136,25 +128,25 @@ body::after {
 }
 
 .skill-pill:hover {
-  background: rgba(74, 144, 217, 0.1);
-  border-color: rgba(74, 144, 217, 0.4);
-  color: #ffffff;
+  background: rgba(47, 111, 184, 0.1);
+  border-color: rgba(47, 111, 184, 0.4);
+  color: #16181d;
 }
 
 .accent {
-  color: #4a90d9;
+  color: #2f6fb8;
 }
 
 .accent-dim {
-  color: rgba(74, 144, 217, 0.6);
+  color: rgba(47, 111, 184, 0.6);
 }
 
 .shimmer {
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.04) 25%,
-    rgba(74, 144, 217, 0.14) 50%,
-    rgba(255, 255, 255, 0.04) 75%
+    rgba(22, 24, 29, 0.04) 25%,
+    rgba(47, 111, 184, 0.14) 50%,
+    rgba(22, 24, 29, 0.04) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 1.6s linear infinite;

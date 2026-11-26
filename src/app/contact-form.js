@@ -23,7 +23,7 @@ export default function ContactForm() {
   const ready = name.trim() && email.trim() && message.trim();
 
   const inputClass =
-    'w-full bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)] rounded-lg focus:border-[#4a90d9] outline-none px-4 py-3 text-sm text-white placeholder:text-[rgba(255,255,255,0.35)] transition-colors duration-300 font-light';
+    'w-full bg-[rgba(22,24,29,0.03)] border border-[rgba(22,24,29,0.1)] rounded-lg focus:border-[#2f6fb8] outline-none px-4 py-3 text-sm text-white placeholder:text-[rgba(22,24,29,0.35)] transition-colors duration-300 font-light';
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -76,8 +76,8 @@ export default function ContactForm() {
 
   if (status === 'sent') {
     return (
-      <div className="flex items-center gap-3 text-[#4a90d9]">
-        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[rgba(74,144,217,0.15)] border border-[rgba(74,144,217,0.4)]">
+      <div className="flex items-center gap-3 text-[#2f6fb8]">
+        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[rgba(47,111,184,0.15)] border border-[rgba(47,111,184,0.4)]">
           <Check className="w-4 h-4" />
         </span>
         <span className="text-base font-light text-white">
@@ -126,16 +126,16 @@ export default function ContactForm() {
         disabled={!ready || status === 'sending'}
         className={`inline-flex items-center gap-3 text-xs tracking-[0.2em] uppercase px-8 py-3.5 rounded-full font-medium transition-all duration-300 ${
           ready && status !== 'sending'
-            ? 'text-white bg-[#4a90d9] hover:scale-[1.03] shadow-[0_0_25px_-4px_rgba(74,144,217,0.6)]'
-            : 'text-[rgba(255,255,255,0.4)] bg-[rgba(255,255,255,0.06)] cursor-not-allowed'
+            ? 'text-white bg-[#2f6fb8] hover:scale-[1.03] shadow-[0_0_25px_-4px_rgba(47,111,184,0.6)]'
+            : 'text-[rgba(22,24,29,0.4)] bg-[rgba(22,24,29,0.06)] cursor-not-allowed'
         }`}
       >
         {status === 'sending' ? tf.sending : tf.send}
         <ArrowUpRight className="w-4 h-4" />
       </button>
-      <p className="text-xs text-[rgba(255,255,255,0.5)] font-light">
+      <p className="text-xs text-[rgba(22,24,29,0.5)] font-light">
         {tf.consent}{' '}
-        <a href="/privacy" className="text-[#4a90d9] hover:underline">
+        <a href="/privacy" className="text-[#2f6fb8] hover:underline">
           {t.footer.privacy}
         </a>
       </p>
