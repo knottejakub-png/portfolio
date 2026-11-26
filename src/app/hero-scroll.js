@@ -15,7 +15,6 @@ export default function HeroScroll() {
   const h = t.hero;
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
-  const [ready, setReady] = useState(false);
   const [small, setSmall] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -43,7 +42,6 @@ export default function HeroScroll() {
     const v = videoRef.current;
     if (!v) return;
     let revoked = null, cancelled = false;
-    setReady(false);
     fetch('/hero/hero-scrub.mp4')
       .then(r => r.blob())
       .then(b => {
@@ -52,39 +50,39 @@ export default function HeroScroll() {
         v.src = revoked; v.muted = true; v.playsInline = true; v.load();
       })
       .catch(() => { v.src = '/hero/hero-scrub.mp4'; });
-    const onMeta = () => setReady(true);
-    v.addEventListener('loadedmetadata', onMeta);
     return () => {
       cancelled = true;
-      v.removeEventListener('loadedmetadata', onMeta);
       if (revoked) URL.revokeObjectURL(revoked);
     };
   }, [mounted, small]);
 
-  // Desktop scrub loop.
+  // Desktop scrub loop — runs continuously and self-corrects, so it is never
+  // left stuck after navigating away and back.
   useEffect(() => {
-    if (small || !ready) return;
+    if (!mounted || small) return;
     const v = videoRef.current;
     if (!v) return;
-    let raf = 0, cur = 0, seeking = false;
+    let raf = 0, cur = -1, seeking = false;
     const onSeeked = () => { seeking = false; };
     v.addEventListener('seeked', onSeeked);
     const SCRUB_END = 0.85;
     const loop = () => {
-      const p = scrollYProgress.get();
-      const sp = Math.min(1, Math.max(0, p / SCRUB_END));
-      const dur = v.duration || 1;
-      const target = sp * (dur - 0.05);
-      cur += (target - cur) * 0.2;
-      if (!seeking && Math.abs(v.currentTime - cur) > 0.012) {
-        seeking = true;
-        try { v.currentTime = cur; } catch (e) { seeking = false; }
+      const dur = v.duration;
+      if (dur && !isNaN(dur) && isFinite(dur)) {
+        const p = scrollYProgress.get();
+        const sp = Math.min(1, Math.max(0, p / SCRUB_END));
+        const target = sp * (dur - 0.05);
+        cur = cur < 0 ? target : cur + (target - cur) * 0.2;
+        if (!seeking && Math.abs(v.currentTime - cur) > 0.012) {
+          seeking = true;
+          try { v.currentTime = cur; } catch (e) { seeking = false; }
+        }
       }
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
     return () => { cancelAnimationFrame(raf); v.removeEventListener('seeked', onSeeked); };
-  }, [ready, small, scrollYProgress]);
+  }, [mounted, small, scrollYProgress]);
 
   // ---------- MOBILE: the whole video just plays ----------
   if (mounted && small) {
