@@ -145,9 +145,8 @@ function Navbar() {
   }, []);
 
   const links = [
+    { href: '#services', label: t.nav.services },
     { href: '#projects', label: t.nav.projects },
-    { href: '#about', label: t.nav.about },
-    { href: '#skills', label: t.nav.skills },
   ];
 
   const LangToggle = ({ className = '' }) => (
@@ -1109,11 +1108,7 @@ export default function Home() {
         <Navbar />
         <HeroScroll />
         <Services />
-        <Process />
         <Projects />
-        <Testimonials />
-        <About />
-        <Skills />
         <Contact />
         <Footer />
       </motion.div>

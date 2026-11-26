@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 const en = {
-  nav: { projects: 'Projects', about: 'About', skills: 'Skills', build: 'Build', contact: 'Contact us', contactShort: 'Contact', startProject: 'Start your project' },
+  nav: { projects: 'Work', services: 'Services', about: 'About', skills: 'Skills', build: 'Build', contact: 'Contact us', contactShort: 'Contact', startProject: 'Start your project' },
   hero: {
     eyebrow: 'Buildary — Digital product studio',
     h1a: 'We build apps',
@@ -142,7 +142,7 @@ const en = {
 };
 
 const cs = {
-  nav: { projects: 'Projekty', about: 'O nás', skills: 'Technologie', build: 'Sestavit', contact: 'Napište nám', contactShort: 'Kontakt', startProject: 'Začít projekt' },
+  nav: { projects: 'Práce', services: 'Služby', about: 'O nás', skills: 'Technologie', build: 'Sestavit', contact: 'Napište nám', contactShort: 'Kontakt', startProject: 'Začít projekt' },
   hero: {
     eyebrow: 'Buildary — Digitální produktové studio',
     h1a: 'Stavíme aplikace',
