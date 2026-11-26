@@ -134,7 +134,7 @@ function Wipe({ children, delay = 0, className = '' }) {
   );
 }
 
-function Navbar() {
+export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { lang, setLang, t } = useLang();
@@ -145,8 +145,9 @@ function Navbar() {
   }, []);
 
   const links = [
-    { href: '#services', label: t.nav.services },
-    { href: '#projects', label: t.nav.projects },
+    { href: '/#services', label: t.nav.services },
+    { href: '/#projects', label: t.nav.projects },
+    { href: '/studio', label: t.nav.about },
   ];
 
   const LangToggle = ({ className = '' }) => (
@@ -550,7 +551,7 @@ function Services() {
   );
 }
 
-function About() {
+export function About() {
   const { t } = useLang();
   return (
     <section id="about" className="py-32 px-8 md:px-20 bg-[rgba(234,240,251,0.02)] border-t border-[rgba(234,240,251,0.04)]">
@@ -717,7 +718,7 @@ function Projects() {
   );
 }
 
-function Skills() {
+export function Skills() {
   const { t } = useLang();
   return (
     <section id="skills" className="py-32 px-8 md:px-20 border-t border-[rgba(234,240,251,0.04)]">
@@ -859,7 +860,7 @@ const plans = [
   },
 ];
 
-function Testimonials() {
+export function Testimonials() {
   const { t } = useLang();
   return (
     <section id="testimonials" className="py-32 px-8 md:px-20 border-t border-[rgba(234,240,251,0.04)]">
@@ -893,7 +894,7 @@ function Testimonials() {
   );
 }
 
-function Process() {
+export function Process() {
   const { t } = useLang();
   return (
     <section id="process" className="py-32 px-8 md:px-20 border-t border-[rgba(234,240,251,0.04)]">
@@ -1069,7 +1070,7 @@ function Contact() {
   );
 }
 
-function Footer() {
+export function Footer() {
   const { t } = useLang();
   return (
     <footer className="py-10 px-8 md:px-20 border-t border-[rgba(234,240,251,0.04)]">
