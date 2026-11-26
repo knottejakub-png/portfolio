@@ -39,11 +39,17 @@ export default function HeroScroll() {
 
   useEffect(() => {
     setMounted(true);
-    const mq = window.matchMedia('(max-width: 767px)');
-    const set = () => setSmall(mq.matches);
+    // Treat phones (portrait AND landscape) and small touch tablets as "mobile":
+    // scroll-scrubbing is unreliable on touch and the sideways layout breaks, so
+    // those just autoplay the video instead.
+    const mqs = [
+      window.matchMedia('(max-width: 767px)'),
+      window.matchMedia('(pointer: coarse) and (max-width: 1024px)'),
+    ];
+    const set = () => setSmall(mqs.some(m => m.matches));
     set();
-    mq.addEventListener('change', set);
-    return () => mq.removeEventListener('change', set);
+    mqs.forEach(m => m.addEventListener('change', set));
+    return () => mqs.forEach(m => m.removeEventListener('change', set));
   }, []);
 
   useEffect(() => {
