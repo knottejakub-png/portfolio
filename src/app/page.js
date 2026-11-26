@@ -5,6 +5,7 @@ import { ArrowUpRight, Mail, ChevronDown, X, Menu } from 'lucide-react';
 import { ParticleBackground } from './shared';
 import { RentalDemo, HubDemo } from './demos';
 import ContactForm from './contact-form';
+import HeroScroll from './hero-scroll';
 import { LangProvider, useLang } from './i18n';
 
 const coreStack = ['Next.js', 'React', 'PostgreSQL'];
@@ -1106,7 +1107,7 @@ export default function Home() {
       >
         <ScrollProgress />
         <Navbar />
-        <Hero />
+        <HeroScroll />
         <Services />
         <Process />
         <Projects />
