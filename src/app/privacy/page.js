@@ -139,6 +139,7 @@ function PrivacyInner() {
 
   return (
     <>
+      <ParticleBackground />
       <main className="relative z-10 min-h-screen px-8 md:px-20 py-20">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center justify-between mb-16">
@@ -147,19 +148,19 @@ function PrivacyInner() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[rgba(22,24,29,0.5)] hover:text-[#16181d] transition-colors duration-300"
+              className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.5)] hover:text-white transition-colors duration-300"
             >
               <ArrowLeft className="w-4 h-4" />
               {c.back}
             </motion.a>
-            <div className="flex items-center gap-0.5 border border-[rgba(22,24,29,0.14)] rounded-full p-0.5">
+            <div className="flex items-center gap-0.5 border border-[rgba(255,255,255,0.14)] rounded-full p-0.5">
               {['cs', 'en'].map(l => (
                 <button
                   key={l}
                   onClick={() => setLang(l)}
                   aria-label={l === 'cs' ? 'Čeština' : 'English'}
                   className={`px-2.5 py-1 rounded-full text-[11px] tracking-[0.1em] uppercase transition-colors duration-300 ${
-                    lang === l ? 'bg-[#2f6fb8] text-white' : 'text-[rgba(22,24,29,0.5)] hover:text-[#16181d]'
+                    lang === l ? 'bg-[#4a90d9] text-white' : 'text-[rgba(255,255,255,0.5)] hover:text-white'
                   }`}
                 >
                   {l === 'cs' ? 'CZ' : 'EN'}
@@ -174,7 +175,7 @@ function PrivacyInner() {
             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <h1 className="text-4xl md:text-5xl font-light mb-3">{c.title}</h1>
-            <p className="text-xs tracking-[0.1em] uppercase text-[rgba(22,24,29,0.4)] mb-14">
+            <p className="text-xs tracking-[0.1em] uppercase text-[rgba(255,255,255,0.4)] mb-14">
               {c.updated}
             </p>
 
@@ -182,7 +183,7 @@ function PrivacyInner() {
               {c.sections.map((s, i) => (
                 <section key={i}>
                   <h2 className="text-lg md:text-xl font-light text-white mb-4">{s.h}</h2>
-                  <div className="space-y-4 text-[rgba(22,24,29,0.62)] font-light leading-relaxed text-sm md:text-base">
+                  <div className="space-y-4 text-[rgba(255,255,255,0.62)] font-light leading-relaxed text-sm md:text-base">
                     {s.p.map((para, j) => (
                       <p key={j}>{para}</p>
                     ))}
@@ -190,7 +191,7 @@ function PrivacyInner() {
                       <ul className="space-y-2 pl-1">
                         {s.list.map((item, k) => (
                           <li key={k} className="flex gap-3">
-                            <span className="text-[#2f6fb8] mt-0.5 shrink-0">—</span>
+                            <span className="text-[#4a90d9] mt-0.5 shrink-0">—</span>
                             <span>{item}</span>
                           </li>
                         ))}

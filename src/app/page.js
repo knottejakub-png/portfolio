@@ -50,7 +50,7 @@ function Spotlight() {
     const move = e => {
       const el = ref.current;
       if (!el) return;
-      el.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(47,111,184,0.07), transparent 70%)`;
+      el.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(74,144,217,0.07), transparent 70%)`;
     };
     window.addEventListener('pointermove', move);
     return () => window.removeEventListener('pointermove', move);
@@ -64,7 +64,7 @@ function ScrollProgress() {
   return (
     <motion.div
       style={{ scaleX }}
-      className="fixed top-0 left-0 right-0 h-[2px] bg-[#2f6fb8] origin-left z-50"
+      className="fixed top-0 left-0 right-0 h-[2px] bg-[#4a90d9] origin-left z-50"
     />
   );
 }
@@ -79,7 +79,7 @@ function Aurora() {
           height: 600,
           left: '-10%',
           top: '-15%',
-          background: 'radial-gradient(circle, rgba(47,111,184,0.16), transparent 70%)',
+          background: 'radial-gradient(circle, rgba(74,144,217,0.16), transparent 70%)',
         }}
         animate={{ x: ['-5%', '20%', '-5%'], y: ['0%', '12%', '0%'] }}
         transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
@@ -91,7 +91,7 @@ function Aurora() {
           height: 500,
           right: '-10%',
           bottom: '-10%',
-          background: 'radial-gradient(circle, rgba(47,111,184,0.12), transparent 70%)',
+          background: 'radial-gradient(circle, rgba(74,144,217,0.12), transparent 70%)',
         }}
         animate={{ x: ['5%', '-15%', '5%'], y: ['0%', '-10%', '0%'] }}
         transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
@@ -150,14 +150,14 @@ function Navbar() {
   ];
 
   const LangToggle = ({ className = '' }) => (
-    <div className={`flex items-center gap-0.5 border border-[rgba(22,24,29,0.14)] rounded-full p-0.5 ${className}`}>
+    <div className={`flex items-center gap-0.5 border border-[rgba(255,255,255,0.14)] rounded-full p-0.5 ${className}`}>
       {['cs', 'en'].map(l => (
         <button
           key={l}
           onClick={() => setLang(l)}
           aria-label={l === 'cs' ? 'Čeština' : 'English'}
           className={`px-2.5 py-1 rounded-full text-[11px] tracking-[0.1em] uppercase transition-colors duration-300 ${
-            lang === l ? 'bg-[#2f6fb8] text-white' : 'text-[rgba(22,24,29,0.5)] hover:text-[#16181d]'
+            lang === l ? 'bg-[#4a90d9] text-white' : 'text-[rgba(255,255,255,0.5)] hover:text-white'
           }`}
         >
           {l === 'cs' ? 'CZ' : 'EN'}
@@ -173,12 +173,12 @@ function Navbar() {
       transition={{ delay: 0.3, duration: 0.8 }}
       className={`fixed top-0 left-0 right-0 z-40 px-6 md:px-10 py-4 flex justify-between items-center transition-all duration-500 ${
         scrolled || open
-          ? 'bg-[rgba(251,251,252,0.85)] backdrop-blur-md border-b border-[rgba(47,111,184,0.12)]'
-          : 'bg-[rgba(251,251,252,0.6)] backdrop-blur-sm'
+          ? 'bg-[rgba(8,8,8,0.85)] backdrop-blur-md border-b border-[rgba(74,144,217,0.12)]'
+          : 'bg-[rgba(8,8,8,0.4)] backdrop-blur-sm'
       }`}
     >
-      <a href="/" translate="no" className="notranslate text-base md:text-lg tracking-[0.22em] uppercase text-[#16181d] font-semibold">
-        Build<span className="text-[#2f6fb8]">ary</span>
+      <a href="/" translate="no" className="notranslate text-base md:text-lg tracking-[0.22em] uppercase text-white font-semibold">
+        Build<span className="text-[#4a90d9]">ary</span>
       </a>
 
       {/* Desktop menu */}
@@ -191,7 +191,7 @@ function Navbar() {
         <LangToggle />
         <a
           href="#contact"
-          className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-white bg-[#2f6fb8] px-4 py-2 rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_-4px_rgba(47,111,184,0.7)]"
+          className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-4 py-2 rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_-4px_rgba(74,144,217,0.7)]"
         >
           {t.nav.contact}
         </a>
@@ -203,14 +203,14 @@ function Navbar() {
         <a
           href="#contact"
           onClick={() => setOpen(false)}
-          className="inline-flex items-center text-[11px] tracking-[0.15em] uppercase text-white bg-[#2f6fb8] px-3.5 py-2 rounded-full shadow-[0_0_20px_-4px_rgba(47,111,184,0.7)]"
+          className="inline-flex items-center text-[11px] tracking-[0.15em] uppercase text-white bg-[#4a90d9] px-3.5 py-2 rounded-full shadow-[0_0_20px_-4px_rgba(74,144,217,0.7)]"
         >
           {t.nav.contactShort}
         </a>
         <button
           onClick={() => setOpen(o => !o)}
           aria-label="Toggle menu"
-          className="p-1.5 text-[#16181d]"
+          className="p-1.5 text-white"
         >
           {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -224,7 +224,7 @@ function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
-            className="absolute top-full left-0 right-0 md:hidden bg-[#ffffff] backdrop-blur-md border-b border-[rgba(47,111,184,0.12)] px-6 py-6 flex flex-col gap-5"
+            className="absolute top-full left-0 right-0 md:hidden bg-[rgba(8,8,8,0.97)] backdrop-blur-md border-b border-[rgba(74,144,217,0.12)] px-6 py-6 flex flex-col gap-5"
           >
             {links.map(link => (
               <a
@@ -239,7 +239,7 @@ function Navbar() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="inline-flex w-fit items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#2f6fb8] border border-[rgba(47,111,184,0.5)] px-5 py-2.5 rounded-full"
+              className="inline-flex w-fit items-center gap-2 text-xs tracking-[0.2em] uppercase text-[#4a90d9] border border-[rgba(74,144,217,0.5)] px-5 py-2.5 rounded-full"
             >
               {t.nav.startProject}
               <ArrowUpRight className="w-4 h-4" />
@@ -279,38 +279,38 @@ function HeroMockup() {
         <motion.div
           animate={{ y: [0, -14, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-          className="rounded-xl border border-[rgba(22,24,29,0.1)] bg-[#ffffff] overflow-hidden shadow-[0_40px_90px_-20px_rgba(47,111,184,0.3)]"
+          className="rounded-xl border border-[rgba(255,255,255,0.1)] bg-[#0c0c0c] overflow-hidden shadow-[0_40px_90px_-20px_rgba(74,144,217,0.3)]"
         >
-        <div className="flex items-center gap-2 px-4 py-3 border-b border-[rgba(22,24,29,0.08)] bg-[rgba(22,24,29,0.02)]">
-          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(22,24,29,0.3)]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(22,24,29,0.3)]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(22,24,29,0.3)]" />
-          <div className="ml-3 h-4 w-40 rounded-full bg-[rgba(22,24,29,0.05)]" />
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
+          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.3)]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.3)]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.3)]" />
+          <div className="ml-3 h-4 w-40 rounded-full bg-[rgba(255,255,255,0.05)]" />
         </div>
         <div className="flex">
-          <div className="w-24 shrink-0 border-r border-[rgba(22,24,29,0.06)] p-3 space-y-3">
-            <div className="h-4 w-14 rounded bg-[rgba(47,111,184,0.4)] mb-4" />
+          <div className="w-24 shrink-0 border-r border-[rgba(255,255,255,0.06)] p-3 space-y-3">
+            <div className="h-4 w-14 rounded bg-[rgba(74,144,217,0.4)] mb-4" />
             {[0, 1, 2, 3, 4].map(i => (
-              <div key={i} className="h-2.5 rounded bg-[rgba(22,24,29,0.08)]" style={{ width: `${60 + (i % 3) * 15}%` }} />
+              <div key={i} className="h-2.5 rounded bg-[rgba(255,255,255,0.08)]" style={{ width: `${60 + (i % 3) * 15}%` }} />
             ))}
           </div>
           <div className="flex-1 p-4 space-y-4">
             <div className="flex justify-between items-center">
-              <div className="h-3 w-24 rounded bg-[rgba(22,24,29,0.12)]" />
-              <div className="h-7 w-20 rounded-md bg-[#2f6fb8]" />
+              <div className="h-3 w-24 rounded bg-[rgba(255,255,255,0.12)]" />
+              <div className="h-7 w-20 rounded-md bg-[#4a90d9]" />
             </div>
             <div className="grid grid-cols-3 gap-2">
               {[0, 1, 2].map(i => (
-                <div key={i} className="rounded-lg border border-[rgba(22,24,29,0.06)] p-2.5 space-y-2">
-                  <div className="h-2 w-2/3 rounded bg-[rgba(22,24,29,0.08)]" />
-                  <div className="h-4 w-1/2 rounded bg-[rgba(47,111,184,0.5)]" />
+                <div key={i} className="rounded-lg border border-[rgba(255,255,255,0.06)] p-2.5 space-y-2">
+                  <div className="h-2 w-2/3 rounded bg-[rgba(255,255,255,0.08)]" />
+                  <div className="h-4 w-1/2 rounded bg-[rgba(74,144,217,0.5)]" />
                 </div>
               ))}
             </div>
-            <div className="rounded-lg border border-[rgba(22,24,29,0.06)] p-3">
+            <div className="rounded-lg border border-[rgba(255,255,255,0.06)] p-3">
               <div className="flex items-end gap-1.5 h-24">
                 {[40, 65, 50, 80, 60, 75, 90, 55, 70].map((h, i) => (
-                  <div key={i} className="flex-1 rounded-t bg-[rgba(47,111,184,0.55)]" style={{ height: `${h}%` }} />
+                  <div key={i} className="flex-1 rounded-t bg-[rgba(74,144,217,0.55)]" style={{ height: `${h}%` }} />
                 ))}
               </div>
             </div>
@@ -362,7 +362,7 @@ function Hero() {
             transition={{ delay: 0.7, duration: 0.8 }}
             className="text-xl md:text-2xl font-light mb-6 h-[1.4em] flex items-baseline gap-2"
           >
-            <span className="text-[rgba(22,24,29,0.45)]">→</span>
+            <span className="text-[rgba(255,255,255,0.45)]">→</span>
             <AnimatePresence mode="wait">
               <motion.span
                 key={phraseIndex + '-pre'}
@@ -370,7 +370,7 @@ function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.35 }}
-                className="text-[rgba(22,24,29,0.62)]"
+                className="text-[rgba(255,255,255,0.62)]"
               >
                 {phrases[phraseIndex].prefix}
               </motion.span>
@@ -382,7 +382,7 @@ function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.35, delay: 0.05 }}
-                className="text-[#2f6fb8]"
+                className="text-[#4a90d9]"
               >
                 {phrases[phraseIndex].suffix}
               </motion.span>
@@ -393,7 +393,7 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
-            className="text-base md:text-lg text-[rgba(22,24,29,0.62)] max-w-md leading-relaxed font-light"
+            className="text-base md:text-lg text-[rgba(255,255,255,0.62)] max-w-md leading-relaxed font-light"
           >
             {t.hero.sub}
           </motion.p>
@@ -408,15 +408,15 @@ function Hero() {
               href="#contact"
               animate={{
                 boxShadow: [
-                  '0 0 0 0 rgba(47,111,184,0)',
-                  '0 0 30px 4px rgba(47,111,184,0.45)',
-                  '0 0 0 0 rgba(47,111,184,0)',
+                  '0 0 0 0 rgba(74,144,217,0)',
+                  '0 0 30px 4px rgba(74,144,217,0.45)',
+                  '0 0 0 0 rgba(74,144,217,0)',
                 ],
               }}
               transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              className="group inline-flex items-center justify-center gap-3 text-xs md:text-sm tracking-[0.2em] uppercase text-white bg-[#2f6fb8] px-8 py-4 rounded-full font-medium whitespace-nowrap"
+              className="group inline-flex items-center justify-center gap-3 text-xs md:text-sm tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-8 py-4 rounded-full font-medium whitespace-nowrap"
             >
               {t.hero.cta}
               <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -424,13 +424,13 @@ function Hero() {
             <div className="flex gap-6 items-center">
               <a
                 href="#projects"
-                className="text-xs tracking-[0.2em] uppercase text-[rgba(22,24,29,0.6)] hover:text-[#16181d] transition-colors duration-300"
+                className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.6)] hover:text-white transition-colors duration-300"
               >
                 {t.hero.viewWork}
               </a>
               <a
                 href="#contact"
-                className="text-xs tracking-[0.2em] uppercase text-[rgba(22,24,29,0.52)] hover:text-[rgba(22,24,29,0.8)] transition-colors duration-300"
+                className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.52)] hover:text-[rgba(255,255,255,0.8)] transition-colors duration-300"
               >
                 {t.hero.getInTouch}
               </a>
@@ -448,7 +448,7 @@ function Hero() {
         transition={{ delay: 2, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
-        <ChevronDown className="w-4 h-4 text-[rgba(47,111,184,0.4)] animate-bounce" />
+        <ChevronDown className="w-4 h-4 text-[rgba(74,144,217,0.4)] animate-bounce" />
       </motion.div>
     </section>
   );
@@ -487,17 +487,17 @@ function Services() {
   const [active, setActive] = useState(null);
 
   return (
-    <section id="services" className="py-32 px-8 md:px-20 relative bg-[rgba(22,24,29,0.02)] border-t border-[rgba(22,24,29,0.04)]">
+    <section id="services" className="py-32 px-8 md:px-20 relative bg-[rgba(255,255,255,0.02)] border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(22,24,29,0.45)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
             {t.services.eyebrow}
           </span>
         </FadeIn>
         <Wipe delay={0.1}>
           <h2 className="text-4xl md:text-5xl font-light mb-16">
             {t.services.h2a}<br />
-            <span className="text-[rgba(22,24,29,0.3)]">{t.services.h2b}</span>
+            <span className="text-[rgba(255,255,255,0.3)]">{t.services.h2b}</span>
           </h2>
         </Wipe>
 
@@ -505,14 +505,14 @@ function Services() {
           {t.services.items.map((s, i) => (
             <FadeIn key={s.num} delay={i * 0.07}>
               <motion.div
-                className="border-t border-[rgba(22,24,29,0.07)] cursor-pointer group overflow-hidden"
+                className="border-t border-[rgba(255,255,255,0.07)] cursor-pointer group overflow-hidden"
                 onClick={() => setActive(active === i ? null : i)}
               >
                 <div className="flex items-center justify-between py-6 md:py-8">
                   <div className="flex items-baseline gap-6 md:gap-10">
-                    <span className="text-xs tracking-[0.25em] text-[rgba(47,111,184,0.45)] w-6 shrink-0">{s.num}</span>
+                    <span className="text-xs tracking-[0.25em] text-[rgba(74,144,217,0.45)] w-6 shrink-0">{s.num}</span>
                     <motion.h3
-                      className="text-2xl md:text-4xl font-light text-[rgba(22,24,29,0.68)] group-hover:text-[#16181d] transition-colors duration-300"
+                      className="text-2xl md:text-4xl font-light text-[rgba(255,255,255,0.68)] group-hover:text-white transition-colors duration-300"
                     >
                       {s.title}
                     </motion.h3>
@@ -520,7 +520,7 @@ function Services() {
                   <motion.span
                     animate={{ rotate: active === i ? 45 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="text-[rgba(47,111,184,0.6)] text-2xl font-light ml-4 shrink-0"
+                    className="text-[rgba(74,144,217,0.6)] text-2xl font-light ml-4 shrink-0"
                   >
                     +
                   </motion.span>
@@ -534,7 +534,7 @@ function Services() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
                     >
-                      <p className="text-[rgba(22,24,29,0.55)] font-light leading-relaxed pb-8 pl-12 md:pl-16 max-w-2xl">
+                      <p className="text-[rgba(255,255,255,0.55)] font-light leading-relaxed pb-8 pl-12 md:pl-16 max-w-2xl">
                         {s.desc}
                       </p>
                     </motion.div>
@@ -543,7 +543,7 @@ function Services() {
               </motion.div>
             </FadeIn>
           ))}
-          <div className="border-t border-[rgba(22,24,29,0.07)]" />
+          <div className="border-t border-[rgba(255,255,255,0.07)]" />
         </div>
       </div>
     </section>
@@ -553,10 +553,10 @@ function Services() {
 function About() {
   const { t } = useLang();
   return (
-    <section id="about" className="py-32 px-8 md:px-20 bg-[rgba(22,24,29,0.02)] border-t border-[rgba(22,24,29,0.04)]">
+    <section id="about" className="py-32 px-8 md:px-20 bg-[rgba(255,255,255,0.02)] border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(22,24,29,0.45)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
             {t.about.eyebrow}
           </span>
         </FadeIn>
@@ -564,11 +564,11 @@ function About() {
           <FadeIn delay={0.1}>
             <h2 className="text-4xl md:text-5xl font-light leading-tight">
               {t.about.h2a}<br />
-              <span className="text-[rgba(22,24,29,0.3)]">{t.about.h2b}</span>
+              <span className="text-[rgba(255,255,255,0.3)]">{t.about.h2b}</span>
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <div className="space-y-6 text-[rgba(22,24,29,0.66)] font-light leading-relaxed">
+            <div className="space-y-6 text-[rgba(255,255,255,0.66)] font-light leading-relaxed">
               {t.about.p.map((para, i) => (
                 <p key={i}>{para}</p>
               ))}
@@ -614,16 +614,16 @@ function TiltCard({ p, onOpen }) {
     >
       <div className="flex justify-between items-start mb-6">
         <div>
-          <span className="text-xs tracking-[0.2em] text-[rgba(47,111,184,0.6)] uppercase block mb-2">
+          <span className="text-xs tracking-[0.2em] text-[rgba(74,144,217,0.6)] uppercase block mb-2">
             {p.id} — {p.category}
           </span>
           <h3 className="text-2xl md:text-3xl font-light">{p.name}</h3>
         </div>
-        <span className="text-xs tracking-[0.15em] uppercase text-[rgba(22,24,29,0.4)] border border-[rgba(22,24,29,0.06)] px-3 py-1 mt-1">
+        <span className="text-xs tracking-[0.15em] uppercase text-[rgba(255,255,255,0.4)] border border-[rgba(255,255,255,0.06)] px-3 py-1 mt-1">
           {p.status}
         </span>
       </div>
-      <p className="text-[rgba(22,24,29,0.6)] font-light leading-relaxed mb-8 max-w-2xl">
+      <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed mb-8 max-w-2xl">
         {p.description}
       </p>
       <div className="flex flex-wrap gap-2 mb-6">
@@ -631,7 +631,7 @@ function TiltCard({ p, onOpen }) {
           <span key={t} className="skill-pill">{t}</span>
         ))}
       </div>
-      <span className="group/btn inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-white bg-[#2f6fb8] px-6 py-3 rounded-full font-medium shadow-[0_0_25px_-4px_rgba(47,111,184,0.6)]">
+      <span className="group/btn inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-6 py-3 rounded-full font-medium shadow-[0_0_25px_-4px_rgba(74,144,217,0.6)]">
         {t.projects.openDemo}
         <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </span>
@@ -644,21 +644,21 @@ function Projects() {
   const [active, setActive] = useState(null);
 
   return (
-    <section id="projects" className="py-32 px-8 md:px-20 bg-[rgba(22,24,29,0.02)] border-t border-[rgba(22,24,29,0.04)]">
+    <section id="projects" className="py-32 px-8 md:px-20 bg-[rgba(255,255,255,0.02)] border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-start">
         <div className="lg:sticky lg:top-28 self-start">
           <FadeIn>
-            <span className="text-xs tracking-[0.3em] uppercase text-[rgba(22,24,29,0.45)] block mb-8">
+            <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-8">
               {t.projects.eyebrow}
             </span>
           </FadeIn>
           <Wipe delay={0.1}>
-            <p className="text-sm md:text-base tracking-[0.2em] uppercase text-[#2f6fb8] mb-4">
+            <p className="text-sm md:text-base tracking-[0.2em] uppercase text-[#4a90d9] mb-4">
               {t.projects.tagline}
             </p>
             <h2 className="text-4xl md:text-5xl font-light">
               {t.projects.h2a}<br />
-              <span className="text-[rgba(22,24,29,0.3)]">{t.projects.h2b}</span>
+              <span className="text-[rgba(255,255,255,0.3)]">{t.projects.h2b}</span>
             </h2>
           </Wipe>
         </div>
@@ -686,11 +686,11 @@ function Projects() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 20 }}
               transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="w-full max-w-4xl max-h-[90vh] overflow-auto bg-[#ffffff] border border-[rgba(22,24,29,0.1)] rounded-xl p-5 md:p-8"
+              className="w-full max-w-4xl max-h-[90vh] overflow-auto bg-[#0a0a0a] border border-[rgba(255,255,255,0.1)] rounded-xl p-5 md:p-8"
             >
               <div className="flex justify-between items-start mb-6">
                 <div>
-                  <span className="text-xs tracking-[0.2em] text-[rgba(47,111,184,0.6)] uppercase block mb-1">
+                  <span className="text-xs tracking-[0.2em] text-[rgba(74,144,217,0.6)] uppercase block mb-1">
                     {active.id} — {active.category}
                   </span>
                   <h3 className="text-2xl font-light">{active.name}</h3>
@@ -698,7 +698,7 @@ function Projects() {
                 <button
                   onClick={() => setActive(null)}
                   aria-label="Close"
-                  className="p-2 text-[rgba(22,24,29,0.62)] hover:text-[#16181d] transition-colors"
+                  className="p-2 text-[rgba(255,255,255,0.62)] hover:text-white transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -706,7 +706,7 @@ function Projects() {
 
               {active.preview === 'hub' ? <HubDemo /> : <RentalDemo />}
 
-              <p className="text-xs text-[rgba(22,24,29,0.5)] font-light mt-5 text-center">
+              <p className="text-xs text-[rgba(255,255,255,0.5)] font-light mt-5 text-center">
                 {t.projects.demoCaption}
               </p>
             </motion.div>
@@ -720,10 +720,10 @@ function Projects() {
 function Skills() {
   const { t } = useLang();
   return (
-    <section id="skills" className="py-32 px-8 md:px-20 border-t border-[rgba(22,24,29,0.04)]">
+    <section id="skills" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(22,24,29,0.45)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
             {t.skills.eyebrow}
           </span>
         </FadeIn>
@@ -731,11 +731,11 @@ function Skills() {
           <FadeIn delay={0.1}>
             <h2 className="text-4xl md:text-5xl font-light leading-tight">
               {t.skills.h2a}<br />
-              <span className="text-[rgba(22,24,29,0.3)]">{t.skills.h2b}</span>
+              <span className="text-[rgba(255,255,255,0.3)]">{t.skills.h2b}</span>
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <p className="text-[rgba(22,24,29,0.6)] font-light leading-relaxed">
+            <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed">
               {t.skills.intro}
             </p>
           </FadeIn>
@@ -744,14 +744,14 @@ function Skills() {
         {/* Core stack highlight */}
         <FadeIn delay={0.25}>
           <div className="project-card p-6 md:p-8 mb-12 flex flex-col sm:flex-row sm:items-center gap-5">
-            <span className="text-xs tracking-[0.25em] uppercase text-[#2f6fb8] shrink-0">
+            <span className="text-xs tracking-[0.25em] uppercase text-[#4a90d9] shrink-0">
               {t.skills.core}
             </span>
             <div className="flex flex-wrap gap-3">
               {coreStack.map(t => (
                 <span
                   key={t}
-                  className="px-5 py-2.5 rounded-full border border-[#2f6fb8] bg-[rgba(47,111,184,0.12)] text-white text-sm tracking-wide"
+                  className="px-5 py-2.5 rounded-full border border-[#4a90d9] bg-[rgba(74,144,217,0.12)] text-white text-sm tracking-wide"
                 >
                   {t}
                 </span>
@@ -765,7 +765,7 @@ function Skills() {
           {t.skills.groups.map((g, gi) => (
             <FadeIn key={g.label} delay={0.1 + gi * 0.08}>
               <div className="grid md:grid-cols-[180px_1fr] gap-4 md:gap-8 items-start">
-                <span className="text-xs tracking-[0.2em] uppercase text-[rgba(22,24,29,0.45)] pt-1">
+                <span className="text-xs tracking-[0.2em] uppercase text-[rgba(255,255,255,0.45)] pt-1">
                   {g.label}
                 </span>
                 <div className="flex flex-wrap gap-3">
@@ -862,28 +862,28 @@ const plans = [
 function Testimonials() {
   const { t } = useLang();
   return (
-    <section id="testimonials" className="py-32 px-8 md:px-20 border-t border-[rgba(22,24,29,0.04)]">
+    <section id="testimonials" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(22,24,29,0.45)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
             {t.testimonials.eyebrow}
           </span>
         </FadeIn>
         <Wipe delay={0.1}>
           <h2 className="text-4xl md:text-5xl font-light mb-20">
             {t.testimonials.h2a}<br />
-            <span className="text-[rgba(22,24,29,0.3)]">{t.testimonials.h2b}</span>
+            <span className="text-[rgba(255,255,255,0.3)]">{t.testimonials.h2b}</span>
           </h2>
         </Wipe>
         <div className="grid md:grid-cols-3 gap-6">
           {t.testimonials.items.map((item, i) => (
             <FadeIn key={i} delay={i * 0.1}>
               <div className="project-card p-8 h-full flex flex-col gap-5">
-                <div className="text-2xl font-light text-[#16181d] leading-snug">{item.stat}</div>
-                <p className="text-[rgba(22,24,29,0.6)] font-light leading-relaxed text-sm flex-1">
+                <div className="text-2xl font-light text-white leading-snug">{item.stat}</div>
+                <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed text-sm flex-1">
                   {item.desc}
                 </p>
-                <div className="text-xs tracking-[0.1em] uppercase text-[rgba(47,111,184,0.7)]">{item.tag}</div>
+                <div className="text-xs tracking-[0.1em] uppercase text-[rgba(74,144,217,0.7)]">{item.tag}</div>
               </div>
             </FadeIn>
           ))}
@@ -896,34 +896,34 @@ function Testimonials() {
 function Process() {
   const { t } = useLang();
   return (
-    <section id="process" className="py-32 px-8 md:px-20 border-t border-[rgba(22,24,29,0.04)]">
+    <section id="process" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(22,24,29,0.45)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
             {t.process.eyebrow}
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
           <h2 className="text-4xl md:text-5xl font-light mb-20">
             {t.process.h2a}<br />
-            <span className="text-[rgba(22,24,29,0.3)]">{t.process.h2b}</span>
+            <span className="text-[rgba(255,255,255,0.3)]">{t.process.h2b}</span>
           </h2>
         </FadeIn>
         <div className="space-y-0">
           {t.process.steps.map((s, i) => (
             <FadeIn key={s.num} delay={i * 0.1}>
-              <div className="grid md:grid-cols-[80px_1fr] gap-6 md:gap-12 py-10 border-t border-[rgba(22,24,29,0.07)] group">
-                <span className="text-4xl font-light text-[rgba(47,111,184,0.25)] group-hover:text-[rgba(47,111,184,0.5)] transition-colors duration-500">
+              <div className="grid md:grid-cols-[80px_1fr] gap-6 md:gap-12 py-10 border-t border-[rgba(255,255,255,0.07)] group">
+                <span className="text-4xl font-light text-[rgba(74,144,217,0.25)] group-hover:text-[rgba(74,144,217,0.5)] transition-colors duration-500">
                   {s.num}
                 </span>
                 <div>
                   <h3 className="text-xl md:text-2xl font-light mb-3">{s.title}</h3>
-                  <p className="text-[rgba(22,24,29,0.55)] font-light leading-relaxed max-w-xl">{s.desc}</p>
+                  <p className="text-[rgba(255,255,255,0.55)] font-light leading-relaxed max-w-xl">{s.desc}</p>
                 </div>
               </div>
             </FadeIn>
           ))}
-          <div className="border-t border-[rgba(22,24,29,0.07)]" />
+          <div className="border-t border-[rgba(255,255,255,0.07)]" />
         </div>
       </div>
     </section>
@@ -933,40 +933,40 @@ function Process() {
 function Pricing() {
   const [activeDemo, setActiveDemo] = useState(null);
   return (
-    <section id="pricing" className="py-32 px-8 md:px-20 border-t border-[rgba(22,24,29,0.04)]">
+    <section id="pricing" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(22,24,29,0.45)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
             / Pricing
           </span>
         </FadeIn>
         <FadeIn delay={0.1}>
           <h2 className="text-4xl md:text-5xl font-light mb-4">
             Transparent<br />
-            <span className="text-[rgba(22,24,29,0.3)]">pricing.</span>
+            <span className="text-[rgba(255,255,255,0.3)]">pricing.</span>
           </h2>
-          <p className="text-[rgba(22,24,29,0.5)] font-light mb-20 max-w-lg">
+          <p className="text-[rgba(255,255,255,0.5)] font-light mb-20 max-w-lg">
             Every project is different — these are starting points. Final price depends on complexity and scope.
           </p>
         </FadeIn>
         <div className="grid md:grid-cols-3 gap-4">
           {plans.map((p, i) => (
             <FadeIn key={p.name} delay={i * 0.1}>
-              <div className={`project-card p-8 h-full flex flex-col relative ${p.highlight ? 'border-[rgba(47,111,184,0.4)]' : ''}`}>
+              <div className={`project-card p-8 h-full flex flex-col relative ${p.highlight ? 'border-[rgba(74,144,217,0.4)]' : ''}`}>
                 {p.highlight && (
-                  <span className="absolute -top-px left-8 text-[10px] tracking-[0.25em] uppercase text-[#2f6fb8] bg-[#ffffff] px-3 py-1">
+                  <span className="absolute -top-px left-8 text-[10px] tracking-[0.25em] uppercase text-[#4a90d9] bg-[#080808] px-3 py-1">
                     Most popular
                   </span>
                 )}
                 <div className="mb-6">
                   <h3 className="text-lg font-light mb-1">{p.name}</h3>
-                  <p className="text-[rgba(22,24,29,0.45)] text-sm font-light">{p.desc}</p>
+                  <p className="text-[rgba(255,255,255,0.45)] text-sm font-light">{p.desc}</p>
                 </div>
                 <div className="text-3xl font-light text-white mb-8">{p.price}</div>
                 <ul className="space-y-3 mb-10 flex-1">
                   {p.features.map(f => (
-                    <li key={f} className="flex items-start gap-3 text-sm text-[rgba(22,24,29,0.55)] font-light">
-                      <span className="text-[#2f6fb8] mt-0.5 shrink-0">→</span>
+                    <li key={f} className="flex items-start gap-3 text-sm text-[rgba(255,255,255,0.55)] font-light">
+                      <span className="text-[#4a90d9] mt-0.5 shrink-0">→</span>
                       {f}
                     </li>
                   ))}
@@ -976,8 +976,8 @@ function Pricing() {
                     href="#contact"
                     className={`inline-flex items-center justify-center gap-2 text-xs tracking-[0.2em] uppercase px-6 py-3 transition-all duration-300 ${
                       p.highlight
-                        ? 'bg-[#2f6fb8] text-white rounded-full hover:scale-105 shadow-[0_0_25px_-4px_rgba(47,111,184,0.6)]'
-                        : 'border border-[rgba(22,24,29,0.12)] text-[rgba(22,24,29,0.6)] hover:border-[rgba(22,24,29,0.3)] hover:text-[#16181d]'
+                        ? 'bg-[#4a90d9] text-white rounded-full hover:scale-105 shadow-[0_0_25px_-4px_rgba(74,144,217,0.6)]'
+                        : 'border border-[rgba(255,255,255,0.12)] text-[rgba(255,255,255,0.6)] hover:border-[rgba(255,255,255,0.3)] hover:text-white'
                     }`}
                   >
                     {p.cta}
@@ -985,7 +985,7 @@ function Pricing() {
                   {p.demo && (
                     <button
                       onClick={() => setActiveDemo(p.demo)}
-                      className="inline-flex items-center justify-center gap-2 text-xs tracking-[0.2em] uppercase text-[rgba(47,111,184,0.7)] hover:text-[#2f6fb8] transition-colors duration-300"
+                      className="inline-flex items-center justify-center gap-2 text-xs tracking-[0.2em] uppercase text-[rgba(74,144,217,0.7)] hover:text-[#4a90d9] transition-colors duration-300"
                     >
                       See demo →
                     </button>
@@ -996,8 +996,8 @@ function Pricing() {
           ))}
         </div>
         <FadeIn delay={0.3}>
-          <p className="text-xs text-[rgba(22,24,29,0.3)] font-light mt-8 text-center">
-            Not sure which fits? <a href="#contact" className="text-[#2f6fb8] hover:underline">Describe your project</a> and we'll recommend the right approach.
+          <p className="text-xs text-[rgba(255,255,255,0.3)] font-light mt-8 text-center">
+            Not sure which fits? <a href="#contact" className="text-[#4a90d9] hover:underline">Describe your project</a> and we'll recommend the right approach.
           </p>
         </FadeIn>
       </div>
@@ -1017,7 +1017,7 @@ function Pricing() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 20 }}
               transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="w-full max-w-4xl max-h-[90vh] overflow-auto bg-[#ffffff] border border-[rgba(22,24,29,0.1)] rounded-xl p-5 md:p-8"
+              className="w-full max-w-4xl max-h-[90vh] overflow-auto bg-[#0a0a0a] border border-[rgba(255,255,255,0.1)] rounded-xl p-5 md:p-8"
             >
               <div className="flex justify-between items-start mb-6">
                 <h3 className="text-xl font-light">
@@ -1025,13 +1025,13 @@ function Pricing() {
                 </h3>
                 <button
                   onClick={() => setActiveDemo(null)}
-                  className="p-2 text-[rgba(22,24,29,0.62)] hover:text-[#16181d] transition-colors"
+                  className="p-2 text-[rgba(255,255,255,0.62)] hover:text-white transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
               {activeDemo === 'hub' ? <HubDemo /> : <RentalDemo />}
-              <p className="text-xs text-[rgba(22,24,29,0.5)] font-light mt-5 text-center">
+              <p className="text-xs text-[rgba(255,255,255,0.5)] font-light mt-5 text-center">
                 Interactive demo — sample data only; real client data is kept private.
               </p>
             </motion.div>
@@ -1045,10 +1045,10 @@ function Pricing() {
 function Contact() {
   const { t } = useLang();
   return (
-    <section id="contact" className="py-32 px-8 md:px-20 border-t border-[rgba(22,24,29,0.04)] bg-[rgba(22,24,29,0.02)]">
+    <section id="contact" className="py-32 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)] bg-[rgba(255,255,255,0.02)]">
       <div className="max-w-5xl mx-auto">
         <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(22,24,29,0.45)] block mb-16">
+          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
             {t.contact.eyebrow}
           </span>
         </FadeIn>
@@ -1057,7 +1057,7 @@ function Contact() {
             {t.contact.h2a}<br />
             <span className="text-shimmer">{t.contact.h2b}</span>
           </h2>
-          <p className="text-[rgba(22,24,29,0.6)] font-light leading-relaxed max-w-xl mb-12">
+          <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed max-w-xl mb-12">
             {t.contact.sub}
           </p>
         </Wipe>
@@ -1072,21 +1072,21 @@ function Contact() {
 function Footer() {
   const { t } = useLang();
   return (
-    <footer className="py-10 px-8 md:px-20 border-t border-[rgba(22,24,29,0.04)]">
+    <footer className="py-10 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
-          <span translate="no" className="notranslate text-xs tracking-[0.3em] uppercase text-[rgba(22,24,29,0.4)] block mb-1.5">
+          <span translate="no" className="notranslate text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.4)] block mb-1.5">
             Buildary
           </span>
-          <span className="text-xs text-[rgba(22,24,29,0.35)]">
+          <span className="text-xs text-[rgba(255,255,255,0.35)]">
             {t.footer.operator}: Jakub Knotte ·{' '}
-            <a href="mailto:jakubknotte17@gmail.com" className="hover:text-[#16181d] transition-colors">
+            <a href="mailto:jakubknotte17@gmail.com" className="hover:text-white transition-colors">
               jakubknotte17@gmail.com
             </a>
           </span>
         </div>
-        <div className="flex items-center gap-4 text-xs text-[rgba(22,24,29,0.35)]">
-          <a href="/privacy" className="hover:text-[#16181d] transition-colors">
+        <div className="flex items-center gap-4 text-xs text-[rgba(255,255,255,0.35)]">
+          <a href="/privacy" className="hover:text-white transition-colors">
             {t.footer.privacy}
           </a>
           <span>© 2026</span>
@@ -1099,6 +1099,9 @@ function Footer() {
 export default function Home() {
   return (
     <LangProvider>
+      <Aurora />
+      <Spotlight />
+      <ParticleBackground />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
