@@ -235,6 +235,22 @@ function Navbar() {
 }
 
 function HeroMockup() {
+  const rx = useMotionValue(8);
+  const ry = useMotionValue(-16);
+  const srx = useSpring(rx, { stiffness: 70, damping: 18 });
+  const sry = useSpring(ry, { stiffness: 70, damping: 18 });
+
+  useEffect(() => {
+    const onMove = e => {
+      const px = e.clientX / window.innerWidth;
+      const py = e.clientY / window.innerHeight;
+      ry.set(-16 + (px - 0.5) * 14);
+      rx.set(8 - (py - 0.5) * 12);
+    };
+    window.addEventListener('pointermove', onMove);
+    return () => window.removeEventListener('pointermove', onMove);
+  }, [rx, ry]);
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -242,12 +258,12 @@ function HeroMockup() {
       transition={{ delay: 0.6, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="block w-full max-w-sm mx-auto lg:max-w-none mt-8 lg:mt-0 [perspective:1400px]"
     >
-      <motion.div
-        animate={{ y: [0, -14, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ transform: 'rotateY(-16deg) rotateX(8deg)' }}
-        className="rounded-xl border border-[rgba(255,255,255,0.1)] bg-[#0c0c0c] overflow-hidden shadow-[0_40px_90px_-20px_rgba(74,144,217,0.3)]"
-      >
+      <motion.div style={{ rotateX: srx, rotateY: sry }} className="[transform-style:preserve-3d]">
+        <motion.div
+          animate={{ y: [0, -14, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          className="rounded-xl border border-[rgba(255,255,255,0.1)] bg-[#0c0c0c] overflow-hidden shadow-[0_40px_90px_-20px_rgba(74,144,217,0.3)]"
+        >
         <div className="flex items-center gap-2 px-4 py-3 border-b border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
           <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.3)]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[rgba(255,255,255,0.3)]" />
@@ -283,6 +299,7 @@ function HeroMockup() {
             </div>
           </div>
         </div>
+        </motion.div>
       </motion.div>
     </motion.div>
   );
@@ -312,22 +329,11 @@ function Hero() {
       >
         {/* Left — copy */}
         <div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 1 }}
-            className="mb-6"
-          >
-            <span className="text-xs tracking-[0.3em] uppercase text-[rgba(74,144,217,0.6)]">
-              {t.hero.eyebrow}
-            </span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="text-5xl md:text-7xl font-light leading-[1.05] tracking-tight mb-6"
+            transition={{ delay: 0.3, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="text-5xl md:text-7xl font-light leading-[1.02] tracking-tight mb-6"
           >
             {t.hero.h1a}<br />
             {t.hero.h1b} <span className="text-shimmer">{t.hero.h1c}</span>
@@ -393,7 +399,7 @@ function Hero() {
               transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              className="group inline-flex items-center justify-center gap-3 text-xs md:text-sm tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-8 py-4 rounded-full font-medium"
+              className="group inline-flex items-center justify-center gap-3 text-xs md:text-sm tracking-[0.2em] uppercase text-white bg-[#4a90d9] px-8 py-4 rounded-full font-medium whitespace-nowrap"
             >
               {t.hero.cta}
               <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

@@ -1,8 +1,8 @@
-import { Inter } from 'next/font/google'
+import { Outfit } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-sans' })
 
 const siteUrl = 'https://buildary.cz'
 
@@ -50,7 +50,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={outfit.variable}>
       <body className="bg-[#0a0a0a] text-cream">
         {children}
         <Analytics />
