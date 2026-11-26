@@ -160,7 +160,7 @@ function Navbar() {
           : 'bg-[rgba(8,8,8,0.4)] backdrop-blur-sm'
       }`}
     >
-      <a href="/" className="text-base md:text-lg tracking-[0.22em] uppercase text-white font-semibold">
+      <a href="/" translate="no" className="notranslate text-base md:text-lg tracking-[0.22em] uppercase text-white font-semibold">
         Build<span className="text-[#4a90d9]">ary</span>
       </a>
 
@@ -1050,7 +1050,7 @@ function Footer() {
     <footer className="py-10 px-8 md:px-20 border-t border-[rgba(255,255,255,0.04)]">
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.4)] block mb-1.5">
+          <span translate="no" className="notranslate text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.4)] block mb-1.5">
             Buildary
           </span>
           <span className="text-xs text-[rgba(255,255,255,0.35)]">
