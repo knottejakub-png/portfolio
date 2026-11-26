@@ -116,6 +116,23 @@ function FadeIn({ children, delay = 0, className = '' }) {
   );
 }
 
+// scroll-craft device: left-to-right clip wipe reveal for headings
+function Wipe({ children, delay = 0, className = '' }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ clipPath: 'inset(0 100% 0 0)', opacity: 0 }}
+      animate={inView ? { clipPath: 'inset(0 0% 0 0)', opacity: 1 } : {}}
+      transition={{ duration: 0.95, delay, ease: [0.23, 1, 0.32, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -244,8 +261,8 @@ function HeroMockup() {
     const onMove = e => {
       const px = e.clientX / window.innerWidth;
       const py = e.clientY / window.innerHeight;
-      ry.set(-16 + (px - 0.5) * 14);
-      rx.set(8 - (py - 0.5) * 12);
+      ry.set(-16 + (px - 0.5) * 28);
+      rx.set(8 - (py - 0.5) * 22);
     };
     window.addEventListener('pointermove', onMove);
     return () => window.removeEventListener('pointermove', onMove);
@@ -477,12 +494,12 @@ function Services() {
             {t.services.eyebrow}
           </span>
         </FadeIn>
-        <FadeIn delay={0.1}>
+        <Wipe delay={0.1}>
           <h2 className="text-4xl md:text-5xl font-light mb-16">
             {t.services.h2a}<br />
             <span className="text-[rgba(255,255,255,0.3)]">{t.services.h2b}</span>
           </h2>
-        </FadeIn>
+        </Wipe>
 
         <div className="space-y-0">
           {t.services.items.map((s, i) => (
@@ -628,21 +645,23 @@ function Projects() {
 
   return (
     <section id="projects" className="py-32 px-8 md:px-20 bg-[rgba(255,255,255,0.02)] border-t border-[rgba(255,255,255,0.04)]">
-      <div className="max-w-5xl mx-auto">
-        <FadeIn>
-          <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-16">
-            {t.projects.eyebrow}
-          </span>
-        </FadeIn>
-        <FadeIn delay={0.1}>
-          <p className="text-sm md:text-base tracking-[0.2em] uppercase text-[#4a90d9] mb-4">
-            {t.projects.tagline}
-          </p>
-          <h2 className="text-4xl md:text-5xl font-light mb-20">
-            {t.projects.h2a}<br />
-            <span className="text-[rgba(255,255,255,0.3)]">{t.projects.h2b}</span>
-          </h2>
-        </FadeIn>
+      <div className="max-w-5xl mx-auto grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-start">
+        <div className="lg:sticky lg:top-28 self-start">
+          <FadeIn>
+            <span className="text-xs tracking-[0.3em] uppercase text-[rgba(255,255,255,0.45)] block mb-8">
+              {t.projects.eyebrow}
+            </span>
+          </FadeIn>
+          <Wipe delay={0.1}>
+            <p className="text-sm md:text-base tracking-[0.2em] uppercase text-[#4a90d9] mb-4">
+              {t.projects.tagline}
+            </p>
+            <h2 className="text-4xl md:text-5xl font-light">
+              {t.projects.h2a}<br />
+              <span className="text-[rgba(255,255,255,0.3)]">{t.projects.h2b}</span>
+            </h2>
+          </Wipe>
+        </div>
         <div className="space-y-6">
           {t.projects.items.map((p, i) => (
             <FadeIn key={p.id} delay={i * 0.15}>
@@ -850,12 +869,12 @@ function Testimonials() {
             {t.testimonials.eyebrow}
           </span>
         </FadeIn>
-        <FadeIn delay={0.1}>
+        <Wipe delay={0.1}>
           <h2 className="text-4xl md:text-5xl font-light mb-20">
             {t.testimonials.h2a}<br />
             <span className="text-[rgba(255,255,255,0.3)]">{t.testimonials.h2b}</span>
           </h2>
-        </FadeIn>
+        </Wipe>
         <div className="grid md:grid-cols-3 gap-6">
           {t.testimonials.items.map((item, i) => (
             <FadeIn key={i} delay={i * 0.1}>
@@ -1033,7 +1052,7 @@ function Contact() {
             {t.contact.eyebrow}
           </span>
         </FadeIn>
-        <FadeIn delay={0.1}>
+        <Wipe delay={0.1}>
           <h2 className="text-5xl md:text-7xl font-light leading-tight mb-6">
             {t.contact.h2a}<br />
             <span className="text-shimmer">{t.contact.h2b}</span>
@@ -1041,7 +1060,7 @@ function Contact() {
           <p className="text-[rgba(255,255,255,0.6)] font-light leading-relaxed max-w-xl mb-12">
             {t.contact.sub}
           </p>
-        </FadeIn>
+        </Wipe>
         <FadeIn delay={0.2}>
           <ContactForm />
         </FadeIn>
