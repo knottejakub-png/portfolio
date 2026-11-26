@@ -1,14 +1,14 @@
 'use client';
 import { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useLang } from './i18n';
 
 /*
- * Cinematic scroll-scrubbed hero (desktop and mobile).
- * The video scrubs with scroll: consultation -> into the monitor -> through the
- * code. Then the finished app phone resolves and rotates. Below the sticky
- * stage the dark site continues.
+ * Cinematic hero. One continuous video tells the whole story:
+ * consultation -> into the monitor -> through the code -> the finished app.
+ * Desktop scrubs the video with scroll. Mobile just plays it (autoplay loop),
+ * which phones handle reliably, with the headline and CTA on top.
  */
 export default function HeroScroll() {
   const { t } = useLang();
@@ -24,20 +24,9 @@ export default function HeroScroll() {
     offset: ['start start', 'end end'],
   });
 
-  const px = useMotionValue(0);
-  const py = useMotionValue(0);
-  const sx = useSpring(px, { stiffness: 60, damping: 18 });
-  const sy = useSpring(py, { stiffness: 60, damping: 18 });
-
-  const cap1 = useTransform(scrollYProgress, [0.0, 0.05, 0.2, 0.28], [1, 1, 1, 0]);
-  const cap2 = useTransform(scrollYProgress, [0.3, 0.38, 0.52, 0.6], [0, 1, 1, 0]);
-  const videoFade = useTransform(scrollYProgress, [0.56, 0.7], [1, 0]);
-  const phoneOpacity = useTransform(scrollYProgress, [0.58, 0.7], [0, 1]);
-  const phoneScale = useTransform(scrollYProgress, [0.58, 0.92], [0.45, 1.02]);
-  const phoneRotScroll = useTransform(scrollYProgress, [0.6, 1], [-30, 16]);
-  const rotY = useTransform([phoneRotScroll, sx], ([r, p]) => r + p * 12);
-  const rotX = useTransform(sy, v => v * -6);
-  const cap3 = useTransform(scrollYProgress, [0.72, 0.82], [0, 1]);
+  const cap1 = useTransform(scrollYProgress, [0.0, 0.05, 0.22, 0.3], [1, 1, 1, 0]);
+  const cap2 = useTransform(scrollYProgress, [0.34, 0.42, 0.56, 0.64], [0, 1, 1, 0]);
+  const cap3 = useTransform(scrollYProgress, [0.82, 0.9], [0, 1]);
 
   useEffect(() => {
     setMounted(true);
@@ -48,26 +37,21 @@ export default function HeroScroll() {
     return () => mq.removeEventListener('change', set);
   }, []);
 
-  // Load the video as a blob for smooth seeking.
+  // Desktop: load the video as a blob for smooth scroll seeking.
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || small) return;
     const v = videoRef.current;
     if (!v) return;
-    let revoked = null;
-    let cancelled = false;
-    const src = small ? '/hero/hero-scrub-m.mp4' : '/hero/hero-scrub.mp4';
+    let revoked = null, cancelled = false;
     setReady(false);
-    fetch(src)
+    fetch('/hero/hero-scrub.mp4')
       .then(r => r.blob())
       .then(b => {
         if (cancelled) return;
         revoked = URL.createObjectURL(b);
-        v.src = revoked;
-        v.muted = true;
-        v.playsInline = true;
-        v.load();
+        v.src = revoked; v.muted = true; v.playsInline = true; v.load();
       })
-      .catch(() => { v.src = src; });
+      .catch(() => { v.src = '/hero/hero-scrub.mp4'; });
     const onMeta = () => setReady(true);
     v.addEventListener('loadedmetadata', onMeta);
     return () => {
@@ -77,15 +61,15 @@ export default function HeroScroll() {
     };
   }, [mounted, small]);
 
-  // Scrub loop: map scroll progress -> video time.
+  // Desktop scrub loop.
   useEffect(() => {
-    if (!ready) return;
+    if (small || !ready) return;
     const v = videoRef.current;
     if (!v) return;
     let raf = 0, cur = 0, seeking = false;
     const onSeeked = () => { seeking = false; };
     v.addEventListener('seeked', onSeeked);
-    const SCRUB_END = 0.66;
+    const SCRUB_END = 0.85;
     const loop = () => {
       const p = scrollYProgress.get();
       const sp = Math.min(1, Math.max(0, p / SCRUB_END));
@@ -100,66 +84,68 @@ export default function HeroScroll() {
     };
     raf = requestAnimationFrame(loop);
     return () => { cancelAnimationFrame(raf); v.removeEventListener('seeked', onSeeked); };
-  }, [ready, scrollYProgress]);
+  }, [ready, small, scrollYProgress]);
 
-  useEffect(() => {
-    const onMove = e => {
-      px.set((e.clientX / window.innerWidth - 0.5) * 2);
-      py.set((e.clientY / window.innerHeight - 0.5) * 2);
-    };
-    window.addEventListener('pointermove', onMove);
-    return () => window.removeEventListener('pointermove', onMove);
-  }, [px, py]);
+  // ---------- MOBILE: the whole video just plays ----------
+  if (mounted && small) {
+    return (
+      <section ref={sectionRef} id="top" className="relative min-h-[100svh] bg-[#070A12] overflow-hidden">
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/hero/hero-scrub-m.mp4"
+          poster="/hero/hero-poster.jpg"
+          autoPlay muted loop playsInline preload="auto"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#070A12] via-[#070A12]/35 to-[#070A12]/70" />
+        <div className="relative z-10 min-h-[100svh] flex flex-col justify-end px-7 pt-28 pb-14">
+          <h1 className="text-4xl font-light leading-[1.05] tracking-tight text-white">
+            {h.h1a} {h.h1b} <span className="text-[#4DA3FF]">{h.h1c}</span>
+          </h1>
+          <p className="mt-4 text-base text-white/75 font-light max-w-sm leading-relaxed">{h.sub}</p>
+          <div className="mt-7 flex flex-col gap-3">
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center gap-3 text-xs tracking-[0.2em] uppercase text-white bg-[#4DA3FF] px-8 py-4 rounded-full font-medium shadow-[0_0_30px_-6px_rgba(77,163,255,0.7)]"
+            >
+              {h.cta}
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+            <a href="#projects" className="text-xs tracking-[0.2em] uppercase text-white/60 text-center py-2">
+              {h.viewWork}
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
+  // ---------- DESKTOP: scroll-scrubbed video ----------
   return (
-    <section ref={sectionRef} className="relative h-[340vh] bg-[#070A12]" id="top">
-      <div className="sticky top-0 h-[100svh] overflow-hidden">
-        <motion.div className="absolute inset-0" style={{ opacity: videoFade }}>
-          <video
-            ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover"
-            preload="auto"
-            muted
-            playsInline
-            autoPlay={false}
-            poster="/hero/hero-poster.jpg"
-          />
-        </motion.div>
+    <section ref={sectionRef} className="relative h-[360vh] bg-[#070A12]" id="top">
+      <div className="sticky top-0 h-screen overflow-hidden">
+        <video
+          ref={videoRef}
+          className="absolute inset-0 w-full h-full object-cover"
+          preload="auto"
+          muted
+          playsInline
+          poster="/hero/hero-poster.jpg"
+        />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-[#070A12]/92 via-[#070A12]/50 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#070A12]/90 via-transparent to-[#070A12]/55" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#070A12]/92 via-[#070A12]/45 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#070A12]/85 via-transparent to-[#070A12]/55" />
 
-        {/* phone product */}
-        <motion.div
-          className="absolute inset-0 flex items-start md:items-center justify-center pt-[9vh] md:pt-0 pointer-events-none [perspective:1400px]"
-          style={{ opacity: phoneOpacity }}
-        >
-          <motion.img
-            src="/hero/phone.png"
-            alt=""
-            className="w-auto h-[38vh] sm:h-[52vh] md:h-[min(80vh,680px)] md:translate-x-[14vw]"
-            style={{
-              scale: phoneScale,
-              rotateY: small ? phoneRotScroll : rotY,
-              rotateX: small ? 0 : rotX,
-              maskImage: 'radial-gradient(92% 96% at 50% 50%, #000 86%, transparent 100%)',
-              WebkitMaskImage: 'radial-gradient(92% 96% at 50% 50%, #000 86%, transparent 100%)',
-            }}
-          />
-        </motion.div>
-
-        {/* captions */}
-        <div className="absolute inset-0 flex items-end md:items-center pb-16 md:pb-0 px-7 md:px-20">
+        <div className="absolute inset-0 flex items-center px-8 md:px-20">
           <div className="max-w-xl relative w-full">
-            <motion.div style={{ opacity: cap1 }} className="absolute bottom-0 md:bottom-auto left-0 max-w-[88vw] md:max-w-xl">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-light leading-[1.04] tracking-tight text-white">
+            <motion.div style={{ opacity: cap1 }} className="absolute left-0 max-w-xl">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-light leading-[1.03] tracking-tight text-white">
                 {h.h1a} {h.h1b} <span className="text-[#4DA3FF]">{h.h1c}</span>
               </h1>
             </motion.div>
-            <motion.div style={{ opacity: cap2 }} className="absolute bottom-0 md:bottom-auto left-0 max-w-[88vw] md:max-w-xl">
-              <p className="text-xl md:text-4xl font-light text-white leading-snug">{h.sub}</p>
+            <motion.div style={{ opacity: cap2 }} className="absolute left-0 max-w-xl">
+              <p className="text-2xl md:text-4xl font-light text-white leading-snug">{h.sub}</p>
             </motion.div>
-            <motion.div style={{ opacity: cap3 }} className="absolute bottom-0 md:bottom-auto left-0 max-w-[88vw] md:max-w-xl pointer-events-auto">
+            <motion.div style={{ opacity: cap3 }} className="absolute left-0 max-w-xl pointer-events-auto">
               <h2 className="text-3xl md:text-5xl font-light text-white mb-5" translate="no">Buildary</h2>
               <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
                 <a
@@ -167,9 +153,9 @@ export default function HeroScroll() {
                   className="group inline-flex items-center justify-center gap-3 text-xs md:text-sm tracking-[0.2em] uppercase text-white bg-[#4DA3FF] px-8 py-4 rounded-full font-medium whitespace-nowrap hover:scale-[1.03] transition-transform duration-300 shadow-[0_0_30px_-6px_rgba(77,163,255,0.7)]"
                 >
                   {h.cta}
-                  <ArrowUpRight className="w-4 h-4" />
+                  <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
-                <a href="#projects" className="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-white transition-colors duration-300 px-2 py-3 text-center">
+                <a href="#projects" className="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-white transition-colors duration-300 px-2 py-3">
                   {h.viewWork}
                 </a>
               </div>
@@ -179,7 +165,7 @@ export default function HeroScroll() {
 
         <motion.div
           style={{ opacity: cap1 }}
-          className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60"
         >
           <span className="text-[0.6rem] tracking-[0.25em] uppercase">Scroll</span>
           <span className="block w-5 h-8 rounded-full border border-white/25 relative">
