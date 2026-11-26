@@ -92,7 +92,7 @@ export default function HeroScroll() {
       <section ref={sectionRef} id="top" className="relative min-h-[100svh] bg-[#070A12] overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover"
-          src="/hero/hero-scrub-m.mp4"
+          src="/hero/hero-mobile.mp4"
           poster="/hero/hero-poster.jpg"
           autoPlay muted loop playsInline preload="auto"
         />
