@@ -133,7 +133,7 @@ export default function ContactForm() {
         {status === 'sending' ? tf.sending : tf.send}
         <ArrowUpRight className="w-4 h-4" />
       </button>
-      <p className="text-xs text-[rgba(234,240,251,0.5)] font-light">
+      <p className="text-xs text-[rgba(234,240,251,0.74)] font-light">
         {tf.consent}{' '}
         <a href="/privacy" className="text-[#4DA3FF] hover:underline">
           {t.footer.privacy}

@@ -3,16 +3,19 @@ import { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useLang } from './i18n';
+import { RentalDemo } from './demos';
 
 /*
- * Cinematic hero. One continuous video tells the whole story:
- * consultation -> into the monitor -> through the code -> the finished app.
- * Desktop scrubs the video with scroll. Mobile just plays it (autoplay loop),
- * which phones handle reliably, with the headline and CTA on top.
+ * Cinematic hero. One continuous video tells the story: consultation -> into
+ * the monitor -> through the code -> the finished app. Desktop scrubs the video
+ * with scroll; at the end the product turns into the real interactive demo,
+ * which slides to the right with a caption on the left. Mobile just plays the
+ * video (autoplay loop) with the headline and CTA on top.
  */
 export default function HeroScroll() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const h = t.hero;
+  const cs = lang === 'cs';
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
   const [small, setSmall] = useState(false);
@@ -23,9 +26,16 @@ export default function HeroScroll() {
     offset: ['start start', 'end end'],
   });
 
-  const cap1 = useTransform(scrollYProgress, [0.0, 0.05, 0.22, 0.3], [1, 1, 1, 0]);
-  const cap2 = useTransform(scrollYProgress, [0.34, 0.42, 0.56, 0.64], [0, 1, 1, 0]);
-  const cap3 = useTransform(scrollYProgress, [0.82, 0.9], [0, 1]);
+  const cap1 = useTransform(scrollYProgress, [0.0, 0.04, 0.18, 0.25], [1, 1, 1, 0]);
+  const cap2 = useTransform(scrollYProgress, [0.28, 0.36, 0.5, 0.58], [0, 1, 1, 0]);
+
+  // end-of-hero demo handoff
+  const videoOpacity = useTransform(scrollYProgress, [0.72, 0.82], [1, 0]);
+  const demoOpacity = useTransform(scrollYProgress, [0.74, 0.86], [0, 1]);
+  const demoX = useTransform(scrollYProgress, [0.74, 0.98], [-150, 0]);
+  const demoScale = useTransform(scrollYProgress, [0.74, 0.95], [0.92, 1]);
+  const demoPE = useTransform(demoOpacity, o => (o > 0.6 ? 'auto' : 'none'));
+  const capDemo = useTransform(scrollYProgress, [0.82, 0.9], [0, 1]);
 
   useEffect(() => {
     setMounted(true);
@@ -36,7 +46,6 @@ export default function HeroScroll() {
     return () => mq.removeEventListener('change', set);
   }, []);
 
-  // Desktop: load the video as a blob for smooth scroll seeking.
   useEffect(() => {
     if (!mounted || small) return;
     const v = videoRef.current;
@@ -50,14 +59,9 @@ export default function HeroScroll() {
         v.src = revoked; v.muted = true; v.playsInline = true; v.load();
       })
       .catch(() => { v.src = '/hero/hero-scrub.mp4'; });
-    return () => {
-      cancelled = true;
-      if (revoked) URL.revokeObjectURL(revoked);
-    };
+    return () => { cancelled = true; if (revoked) URL.revokeObjectURL(revoked); };
   }, [mounted, small]);
 
-  // Desktop scrub loop — runs continuously and self-corrects, so it is never
-  // left stuck after navigating away and back.
   useEffect(() => {
     if (!mounted || small) return;
     const v = videoRef.current;
@@ -65,7 +69,7 @@ export default function HeroScroll() {
     let raf = 0, cur = -1, seeking = false;
     const onSeeked = () => { seeking = false; };
     v.addEventListener('seeked', onSeeked);
-    const SCRUB_END = 0.85;
+    const SCRUB_END = 0.72;
     const loop = () => {
       const dur = v.duration;
       if (dur && !isNaN(dur) && isFinite(dur)) {
@@ -108,7 +112,7 @@ export default function HeroScroll() {
               {h.cta}
               <ArrowUpRight className="w-4 h-4" />
             </a>
-            <a href="#projects" className="text-xs tracking-[0.2em] uppercase text-white/60 text-center py-2">
+            <a href="#projects" className="text-xs tracking-[0.2em] uppercase text-white/75 text-center py-2">
               {h.viewWork}
             </a>
           </div>
@@ -117,24 +121,37 @@ export default function HeroScroll() {
     );
   }
 
-  // ---------- DESKTOP: scroll-scrubbed video ----------
+  // ---------- DESKTOP: scrubbed video -> interactive demo ----------
   return (
-    <section ref={sectionRef} className="relative h-[360vh] bg-[#070A12]" id="top">
+    <section ref={sectionRef} className="relative h-[460vh] bg-[#070A12]" id="top">
       <div className="sticky top-0 h-screen overflow-hidden">
-        <video
-          ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover"
-          preload="auto"
-          muted
-          playsInline
-          poster="/hero/hero-poster.jpg"
-        />
+        <motion.div className="absolute inset-0" style={{ opacity: videoOpacity }}>
+          <video
+            ref={videoRef}
+            className="absolute inset-0 w-full h-full object-cover"
+            preload="auto"
+            muted
+            playsInline
+            poster="/hero/hero-poster.jpg"
+          />
+        </motion.div>
 
         <div className="absolute inset-0 bg-gradient-to-r from-[#070A12]/92 via-[#070A12]/45 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#070A12]/85 via-transparent to-[#070A12]/55" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#070A12]/80 via-transparent to-[#070A12]/55" />
 
+        {/* interactive demo, slides in from the right */}
+        <div className="absolute inset-0 flex items-center justify-end pr-[2.5vw] pointer-events-none">
+          <motion.div
+            className="w-[54vw] max-w-[780px]"
+            style={{ opacity: demoOpacity, x: demoX, scale: demoScale, pointerEvents: demoPE }}
+          >
+            <RentalDemo />
+          </motion.div>
+        </div>
+
+        {/* captions on the left */}
         <div className="absolute inset-0 flex items-center px-8 md:px-20">
-          <div className="max-w-xl relative w-full">
+          <div className="max-w-md lg:max-w-lg relative w-full">
             <motion.div style={{ opacity: cap1 }} className="absolute left-0 max-w-xl">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-light leading-[1.03] tracking-tight text-white">
                 {h.h1a} {h.h1b} <span className="text-[#4DA3FF]">{h.h1c}</span>
@@ -143,27 +160,32 @@ export default function HeroScroll() {
             <motion.div style={{ opacity: cap2 }} className="absolute left-0 max-w-xl">
               <p className="text-2xl md:text-4xl font-light text-white leading-snug">{h.sub}</p>
             </motion.div>
-            <motion.div style={{ opacity: cap3 }} className="absolute left-0 max-w-xl pointer-events-auto">
-              <h2 className="text-3xl md:text-5xl font-light text-white mb-5" translate="no">Buildary</h2>
-              <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
-                <a
-                  href="#contact"
-                  className="group inline-flex items-center justify-center gap-3 text-xs md:text-sm tracking-[0.2em] uppercase text-white bg-[#4DA3FF] px-8 py-4 rounded-full font-medium whitespace-nowrap hover:scale-[1.03] transition-transform duration-300 shadow-[0_0_30px_-6px_rgba(77,163,255,0.7)]"
-                >
-                  {h.cta}
-                  <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-                <a href="#projects" className="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-white transition-colors duration-300 px-2 py-3">
-                  {h.viewWork}
-                </a>
+            <motion.div style={{ opacity: capDemo }} className="absolute left-0 max-w-md pointer-events-auto">
+              <div className="text-[0.7rem] tracking-[0.22em] uppercase text-[#4DA3FF] mb-4">
+                {cs ? 'Živá ukázka' : 'Live demo'}
               </div>
+              <h2 className="text-3xl md:text-5xl font-light text-white leading-tight mb-5">
+                {cs ? 'Vyzkoušej si reálnou appku.' : 'Try a real app we built.'}
+              </h2>
+              <p className="text-base text-white/85 font-light leading-relaxed mb-7">
+                {cs
+                  ? 'Tohle je skutečná aplikace, kterou jsme postavili. Proklikej si ji napravo.'
+                  : 'This is a real application we built. Click through it on the right.'}
+              </p>
+              <a
+                href="#contact"
+                className="group inline-flex items-center gap-3 text-xs md:text-sm tracking-[0.2em] uppercase text-white bg-[#4DA3FF] px-8 py-4 rounded-full font-medium shadow-[0_0_30px_-6px_rgba(77,163,255,0.7)] hover:scale-[1.03] transition-transform duration-300"
+              >
+                {h.cta}
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
             </motion.div>
           </div>
         </div>
 
         <motion.div
           style={{ opacity: cap1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/75"
         >
           <span className="text-[0.6rem] tracking-[0.25em] uppercase">Scroll</span>
           <span className="block w-5 h-8 rounded-full border border-white/25 relative">

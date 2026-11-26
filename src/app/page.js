@@ -158,7 +158,7 @@ export function Navbar() {
           onClick={() => setLang(l)}
           aria-label={l === 'cs' ? 'Čeština' : 'English'}
           className={`px-2.5 py-1 rounded-full text-[11px] tracking-[0.1em] uppercase transition-colors duration-300 ${
-            lang === l ? 'bg-[#4DA3FF] text-white' : 'text-[rgba(234,240,251,0.5)] hover:text-[#EAF0FB]'
+            lang === l ? 'bg-[#4DA3FF] text-white' : 'text-[rgba(234,240,251,0.74)] hover:text-[#EAF0FB]'
           }`}
         >
           {l === 'cs' ? 'CZ' : 'EN'}
@@ -371,7 +371,7 @@ function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.35 }}
-                className="text-[rgba(234,240,251,0.62)]"
+                className="text-[rgba(234,240,251,0.82)]"
               >
                 {phrases[phraseIndex].prefix}
               </motion.span>
@@ -394,7 +394,7 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
-            className="text-base md:text-lg text-[rgba(234,240,251,0.62)] max-w-md leading-relaxed font-light"
+            className="text-base md:text-lg text-[rgba(234,240,251,0.82)] max-w-md leading-relaxed font-light"
           >
             {t.hero.sub}
           </motion.p>
@@ -425,13 +425,13 @@ function Hero() {
             <div className="flex gap-6 items-center">
               <a
                 href="#projects"
-                className="text-xs tracking-[0.2em] uppercase text-[rgba(234,240,251,0.6)] hover:text-[#EAF0FB] transition-colors duration-300"
+                className="text-xs tracking-[0.2em] uppercase text-[rgba(234,240,251,0.8)] hover:text-[#EAF0FB] transition-colors duration-300"
               >
                 {t.hero.viewWork}
               </a>
               <a
                 href="#contact"
-                className="text-xs tracking-[0.2em] uppercase text-[rgba(234,240,251,0.52)] hover:text-[rgba(234,240,251,0.8)] transition-colors duration-300"
+                className="text-xs tracking-[0.2em] uppercase text-[rgba(234,240,251,0.76)] hover:text-[rgba(234,240,251,0.8)] transition-colors duration-300"
               >
                 {t.hero.getInTouch}
               </a>
@@ -513,7 +513,7 @@ function Services() {
                   <div className="flex items-baseline gap-6 md:gap-10">
                     <span className="text-xs tracking-[0.25em] text-[rgba(77,163,255,0.45)] w-6 shrink-0">{s.num}</span>
                     <motion.h3
-                      className="text-2xl md:text-4xl font-light text-[rgba(234,240,251,0.68)] group-hover:text-[#EAF0FB] transition-colors duration-300"
+                      className="text-2xl md:text-4xl font-light text-[rgba(234,240,251,0.86)] group-hover:text-[#EAF0FB] transition-colors duration-300"
                     >
                       {s.title}
                     </motion.h3>
@@ -535,7 +535,7 @@ function Services() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
                     >
-                      <p className="text-[rgba(234,240,251,0.55)] font-light leading-relaxed pb-8 pl-12 md:pl-16 max-w-2xl">
+                      <p className="text-[rgba(234,240,251,0.78)] font-light leading-relaxed pb-8 pl-12 md:pl-16 max-w-2xl">
                         {s.desc}
                       </p>
                     </motion.div>
@@ -624,7 +624,7 @@ function TiltCard({ p, onOpen }) {
           {p.status}
         </span>
       </div>
-      <p className="text-[rgba(234,240,251,0.6)] font-light leading-relaxed mb-8 max-w-2xl">
+      <p className="text-[rgba(234,240,251,0.8)] font-light leading-relaxed mb-8 max-w-2xl">
         {p.description}
       </p>
       <div className="flex flex-wrap gap-2 mb-6">
@@ -699,7 +699,7 @@ function Projects() {
                 <button
                   onClick={() => setActive(null)}
                   aria-label="Close"
-                  className="p-2 text-[rgba(234,240,251,0.62)] hover:text-[#EAF0FB] transition-colors"
+                  className="p-2 text-[rgba(234,240,251,0.82)] hover:text-[#EAF0FB] transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -707,7 +707,7 @@ function Projects() {
 
               {active.preview === 'hub' ? <HubDemo /> : <RentalDemo />}
 
-              <p className="text-xs text-[rgba(234,240,251,0.5)] font-light mt-5 text-center">
+              <p className="text-xs text-[rgba(234,240,251,0.74)] font-light mt-5 text-center">
                 {t.projects.demoCaption}
               </p>
             </motion.div>
@@ -736,7 +736,7 @@ export function Skills() {
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <p className="text-[rgba(234,240,251,0.6)] font-light leading-relaxed">
+            <p className="text-[rgba(234,240,251,0.8)] font-light leading-relaxed">
               {t.skills.intro}
             </p>
           </FadeIn>
@@ -881,7 +881,7 @@ export function Testimonials() {
             <FadeIn key={i} delay={i * 0.1}>
               <div className="project-card p-8 h-full flex flex-col gap-5">
                 <div className="text-2xl font-light text-[#EAF0FB] leading-snug">{item.stat}</div>
-                <p className="text-[rgba(234,240,251,0.6)] font-light leading-relaxed text-sm flex-1">
+                <p className="text-[rgba(234,240,251,0.8)] font-light leading-relaxed text-sm flex-1">
                   {item.desc}
                 </p>
                 <div className="text-xs tracking-[0.1em] uppercase text-[rgba(77,163,255,0.7)]">{item.tag}</div>
@@ -919,7 +919,7 @@ export function Process() {
                 </span>
                 <div>
                   <h3 className="text-xl md:text-2xl font-light mb-3">{s.title}</h3>
-                  <p className="text-[rgba(234,240,251,0.55)] font-light leading-relaxed max-w-xl">{s.desc}</p>
+                  <p className="text-[rgba(234,240,251,0.78)] font-light leading-relaxed max-w-xl">{s.desc}</p>
                 </div>
               </div>
             </FadeIn>
@@ -946,7 +946,7 @@ function Pricing() {
             Transparent<br />
             <span className="text-[rgba(234,240,251,0.3)]">pricing.</span>
           </h2>
-          <p className="text-[rgba(234,240,251,0.5)] font-light mb-20 max-w-lg">
+          <p className="text-[rgba(234,240,251,0.74)] font-light mb-20 max-w-lg">
             Every project is different — these are starting points. Final price depends on complexity and scope.
           </p>
         </FadeIn>
@@ -966,7 +966,7 @@ function Pricing() {
                 <div className="text-3xl font-light text-white mb-8">{p.price}</div>
                 <ul className="space-y-3 mb-10 flex-1">
                   {p.features.map(f => (
-                    <li key={f} className="flex items-start gap-3 text-sm text-[rgba(234,240,251,0.55)] font-light">
+                    <li key={f} className="flex items-start gap-3 text-sm text-[rgba(234,240,251,0.78)] font-light">
                       <span className="text-[#4DA3FF] mt-0.5 shrink-0">→</span>
                       {f}
                     </li>
@@ -978,7 +978,7 @@ function Pricing() {
                     className={`inline-flex items-center justify-center gap-2 text-xs tracking-[0.2em] uppercase px-6 py-3 transition-all duration-300 ${
                       p.highlight
                         ? 'bg-[#4DA3FF] text-white rounded-full hover:scale-105 shadow-[0_0_25px_-4px_rgba(77,163,255,0.6)]'
-                        : 'border border-[rgba(234,240,251,0.12)] text-[rgba(234,240,251,0.6)] hover:border-[rgba(234,240,251,0.3)] hover:text-[#EAF0FB]'
+                        : 'border border-[rgba(234,240,251,0.12)] text-[rgba(234,240,251,0.8)] hover:border-[rgba(234,240,251,0.3)] hover:text-[#EAF0FB]'
                     }`}
                   >
                     {p.cta}
@@ -1026,13 +1026,13 @@ function Pricing() {
                 </h3>
                 <button
                   onClick={() => setActiveDemo(null)}
-                  className="p-2 text-[rgba(234,240,251,0.62)] hover:text-[#EAF0FB] transition-colors"
+                  className="p-2 text-[rgba(234,240,251,0.82)] hover:text-[#EAF0FB] transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
               {activeDemo === 'hub' ? <HubDemo /> : <RentalDemo />}
-              <p className="text-xs text-[rgba(234,240,251,0.5)] font-light mt-5 text-center">
+              <p className="text-xs text-[rgba(234,240,251,0.74)] font-light mt-5 text-center">
                 Interactive demo — sample data only; real client data is kept private.
               </p>
             </motion.div>
@@ -1058,7 +1058,7 @@ function Contact() {
             {t.contact.h2a}<br />
             <span className="text-shimmer">{t.contact.h2b}</span>
           </h2>
-          <p className="text-[rgba(234,240,251,0.6)] font-light leading-relaxed max-w-xl mb-12">
+          <p className="text-[rgba(234,240,251,0.8)] font-light leading-relaxed max-w-xl mb-12">
             {t.contact.sub}
           </p>
         </Wipe>
