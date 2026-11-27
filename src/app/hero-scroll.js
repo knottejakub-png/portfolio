@@ -138,7 +138,7 @@ export default function HeroScroll() {
             {cs ? 'Tohle je skutečná aplikace, kterou jsme postavili.' : 'This is a real application we built.'}
           </p>
           <div className="overflow-x-auto -mx-5 px-5 pb-2">
-            <div className="min-w-[320px]">
+            <div className="min-w-[300px] origin-top" style={{ zoom: 0.78 }}>
               <RentalDemo />
             </div>
           </div>
@@ -168,7 +168,7 @@ export default function HeroScroll() {
         {/* interactive demo, slides in from the right */}
         <div className="absolute inset-0 flex items-center justify-end pr-[2.5vw] pointer-events-none">
           <motion.div
-            className="w-[54vw] max-w-[780px]"
+            className="w-[42vw] max-w-[600px]"
             style={{ opacity: demoOpacity, x: demoX, scale: demoScale, pointerEvents: demoPE }}
           >
             <RentalDemo />
