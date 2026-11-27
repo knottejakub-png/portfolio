@@ -20,6 +20,7 @@ export default function HeroScroll() {
   const videoRef = useRef(null);
   const [small, setSmall] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [fit, setFit] = useState(1);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -49,7 +50,20 @@ export default function HeroScroll() {
     const set = () => setSmall(mqs.some(m => m.matches));
     set();
     mqs.forEach(m => m.addEventListener('change', set));
-    return () => mqs.forEach(m => m.removeEventListener('change', set));
+    // Demo renders at its natural 580px width (where its layout is comfortable)
+    // and the whole thing scales down to fit smaller desktops, so the internals
+    // never cramp, overlap, or clip. Only the overall size changes.
+    const NATURAL = 580;
+    const fitDemo = () => {
+      const target = Math.min(580, Math.max(300, window.innerWidth * 0.4));
+      setFit(Math.min(1, target / NATURAL));
+    };
+    fitDemo();
+    window.addEventListener('resize', fitDemo);
+    return () => {
+      mqs.forEach(m => m.removeEventListener('change', set));
+      window.removeEventListener('resize', fitDemo);
+    };
   }, []);
 
   useEffect(() => {
@@ -168,10 +182,12 @@ export default function HeroScroll() {
         {/* interactive demo, slides in from the right */}
         <div className="absolute inset-0 flex items-center justify-end pr-[2.5vw] pointer-events-none">
           <motion.div
-            className="w-[clamp(360px,34vw,480px)] origin-right"
+            className="origin-right"
             style={{ opacity: demoOpacity, x: demoX, scale: demoScale, pointerEvents: demoPE }}
           >
-            <RentalDemo />
+            <div style={{ width: 580, zoom: fit }}>
+              <RentalDemo />
+            </div>
           </motion.div>
         </div>
 
