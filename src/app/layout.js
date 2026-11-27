@@ -35,12 +35,21 @@ export const metadata = {
     title: 'Buildary — Digital Product Builder',
     description:
       'I turn your ideas into real, working products — web & mobile apps from concept to launch.',
+    images: [
+      {
+        url: '/og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Buildary — We build apps & webs that work.',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Buildary — Digital Product Builder',
     description:
       'I turn your ideas into real, working products — web & mobile apps from concept to launch.',
+    images: ['/og.jpg'],
   },
   robots: {
     index: true,
