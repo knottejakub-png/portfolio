@@ -97,33 +97,53 @@ export default function HeroScroll() {
   // ---------- MOBILE: the whole video just plays ----------
   if (mounted && small) {
     return (
-      <section ref={sectionRef} id="top" className="relative min-h-[100svh] bg-[#070A12] overflow-hidden">
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          src="/hero/hero-mobile.mp4"
-          poster="/hero/hero-poster.jpg"
-          autoPlay muted loop playsInline preload="auto"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#070A12] via-[#070A12]/35 to-[#070A12]/70" />
-        <div className="relative z-10 min-h-[100svh] flex flex-col justify-end px-7 pt-28 pb-14">
-          <h1 className="text-4xl font-light leading-[1.05] tracking-tight text-white">
-            {h.h1a} {h.h1b} <span className="text-[#4DA3FF]">{h.h1c}</span>
-          </h1>
-          <p className="mt-4 text-base text-white/75 font-light max-w-sm leading-relaxed">{h.sub}</p>
-          <div className="mt-7 flex flex-col gap-3">
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-3 text-xs tracking-[0.2em] uppercase text-white bg-[#4DA3FF] px-8 py-4 rounded-full font-medium shadow-[0_0_30px_-6px_rgba(77,163,255,0.7)]"
-            >
-              {h.cta}
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-            <a href="#projects" className="text-xs tracking-[0.2em] uppercase text-white/75 text-center py-2">
-              {h.viewWork}
-            </a>
+      <>
+        <section ref={sectionRef} id="top" className="relative min-h-[100svh] bg-[#070A12] overflow-hidden">
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            src="/hero/hero-mobile.mp4"
+            poster="/hero/hero-poster.jpg"
+            autoPlay muted loop playsInline preload="auto"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#070A12] via-[#070A12]/35 to-[#070A12]/70" />
+          <div className="relative z-10 min-h-[100svh] flex flex-col justify-end px-7 pt-28 pb-14">
+            <h1 className="text-4xl font-light leading-[1.05] tracking-tight text-white">
+              {h.h1a} {h.h1b} <span className="text-[#4DA3FF]">{h.h1c}</span>
+            </h1>
+            <p className="mt-4 text-base text-white/75 font-light max-w-sm leading-relaxed">{h.sub}</p>
+            <div className="mt-7 flex flex-col gap-3">
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center gap-3 text-xs tracking-[0.2em] uppercase text-white bg-[#4DA3FF] px-8 py-4 rounded-full font-medium shadow-[0_0_30px_-6px_rgba(77,163,255,0.7)]"
+              >
+                {h.cta}
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+              <a href="#projects" className="text-xs tracking-[0.2em] uppercase text-white/75 text-center py-2">
+                {h.viewWork}
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* finished product -> the real demo, on mobile too */}
+        <section className="relative bg-[#070A12] px-5 pt-8 pb-16 border-t border-[rgba(234,240,251,0.06)]">
+          <div className="text-[0.66rem] tracking-[0.22em] uppercase text-[#4DA3FF] mb-3">
+            {cs ? 'Živá ukázka' : 'Live demo'}
+          </div>
+          <h2 className="text-2xl font-light text-white leading-tight mb-2">
+            {cs ? 'Vyzkoušej si reálnou appku.' : 'Try a real app we built.'}
+          </h2>
+          <p className="text-sm text-white/75 font-light mb-6 max-w-sm">
+            {cs ? 'Tohle je skutečná aplikace, kterou jsme postavili.' : 'This is a real application we built.'}
+          </p>
+          <div className="overflow-x-auto -mx-5 px-5 pb-2">
+            <div className="min-w-[320px]">
+              <RentalDemo />
+            </div>
+          </div>
+        </section>
+      </>
     );
   }
 
