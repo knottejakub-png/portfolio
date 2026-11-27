@@ -168,7 +168,7 @@ export default function HeroScroll() {
         {/* interactive demo, slides in from the right */}
         <div className="absolute inset-0 flex items-center justify-end pr-[2.5vw] pointer-events-none">
           <motion.div
-            className="w-[42vw] max-w-[600px]"
+            className="w-[clamp(360px,34vw,480px)] origin-right"
             style={{ opacity: demoOpacity, x: demoX, scale: demoScale, pointerEvents: demoPE }}
           >
             <RentalDemo />
@@ -176,7 +176,7 @@ export default function HeroScroll() {
         </div>
 
         {/* captions on the left */}
-        <div className="absolute inset-0 flex items-center px-8 md:px-20">
+        <div className="absolute inset-0 flex items-center px-8 md:px-20 pointer-events-none">
           <div className="max-w-md lg:max-w-lg relative w-full">
             <motion.div style={{ opacity: cap1 }} className="absolute left-0 max-w-xl">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-light leading-[1.03] tracking-tight text-white">

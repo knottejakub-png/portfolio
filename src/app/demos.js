@@ -182,9 +182,9 @@ export function RentalDemo() {
   const [view, setView] = useState('dashboard');
   return (
     <Frame url="cabin-manager.app/dashboard">
-      <div className="flex">
-        <div className="hidden sm:flex flex-col w-44 shrink-0 border-r border-[rgba(255,255,255,0.06)] p-3 gap-1">
-          <div className="flex items-center gap-2 px-2 py-2 mb-2">
+      <div className="flex flex-col sm:flex-row">
+        <div className="flex sm:flex-col gap-1 w-full sm:w-44 shrink-0 border-b sm:border-b-0 sm:border-r border-[rgba(255,255,255,0.06)] p-2 sm:p-3 overflow-x-auto sm:overflow-visible">
+          <div className="hidden sm:flex items-center gap-2 px-2 py-2 mb-2">
             <div className="w-6 h-6 rounded bg-[rgba(74,144,217,0.15)] flex items-center justify-center">
               <Sparkles className="w-3.5 h-3.5 text-[#4a90d9]" />
             </div>
@@ -197,7 +197,7 @@ export function RentalDemo() {
               <button
                 key={n.id}
                 onClick={() => setView(n.id)}
-                className={`flex items-center gap-2 px-2 py-1.5 rounded text-left transition-colors ${
+                className={`flex items-center gap-2 px-2.5 py-1.5 rounded text-left whitespace-nowrap shrink-0 transition-colors ${
                   active ? 'bg-[rgba(74,144,217,0.12)] text-white' : 'text-[rgba(255,255,255,0.5)] hover:text-white'
                 }`}
               >
