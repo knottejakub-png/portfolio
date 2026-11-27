@@ -1,6 +1,6 @@
 'use client';
 import { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useTransform, useMotionValue } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useLang } from './i18n';
 import { RentalDemo } from './demos';
@@ -22,21 +22,22 @@ export default function HeroScroll() {
   const [mounted, setMounted] = useState(false);
   const [fit, setFit] = useState(1);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end end'],
-  });
+  // Scroll progress (0..1) driven manually from the section's live position in
+  // the rAF loop below, instead of framer's useScroll. useScroll can fail to
+  // re-measure after a client-side route change and freeze every transform;
+  // reading getBoundingClientRect each frame always self-corrects.
+  const prog = useMotionValue(0);
 
-  const cap1 = useTransform(scrollYProgress, [0.0, 0.04, 0.18, 0.25], [1, 1, 1, 0]);
-  const cap2 = useTransform(scrollYProgress, [0.28, 0.36, 0.5, 0.58], [0, 1, 1, 0]);
+  const cap1 = useTransform(prog, [0.0, 0.04, 0.18, 0.25], [1, 1, 1, 0]);
+  const cap2 = useTransform(prog, [0.28, 0.36, 0.5, 0.58], [0, 1, 1, 0]);
 
   // end-of-hero demo handoff
-  const videoOpacity = useTransform(scrollYProgress, [0.72, 0.82], [1, 0]);
-  const demoOpacity = useTransform(scrollYProgress, [0.74, 0.86], [0, 1]);
-  const demoX = useTransform(scrollYProgress, [0.74, 0.98], [-150, 0]);
-  const demoScale = useTransform(scrollYProgress, [0.74, 0.95], [0.92, 1]);
+  const videoOpacity = useTransform(prog, [0.72, 0.82], [1, 0]);
+  const demoOpacity = useTransform(prog, [0.74, 0.86], [0, 1]);
+  const demoX = useTransform(prog, [0.74, 0.98], [-150, 0]);
+  const demoScale = useTransform(prog, [0.74, 0.95], [0.92, 1]);
   const demoPE = useTransform(demoOpacity, o => (o > 0.6 ? 'auto' : 'none'));
-  const capDemo = useTransform(scrollYProgress, [0.82, 0.9], [0, 1]);
+  const capDemo = useTransform(prog, [0.82, 0.9], [0, 1]);
 
   useEffect(() => {
     setMounted(true);
@@ -94,22 +95,33 @@ export default function HeroScroll() {
     v.addEventListener('seeked', onSeeked);
     const SCRUB_END = 0.72;
     const loop = () => {
-      const dur = v.duration;
-      if (dur && !isNaN(dur) && isFinite(dur)) {
-        const p = scrollYProgress.get();
-        const sp = Math.min(1, Math.max(0, p / SCRUB_END));
-        const target = sp * (dur - 0.05);
-        cur = cur < 0 ? target : cur + (target - cur) * 0.2;
-        if (!seeking && Math.abs(v.currentTime - cur) > 0.012) {
-          seeking = true;
-          try { v.currentTime = cur; } catch (e) { seeking = false; }
+      const sec = sectionRef.current;
+      if (sec) {
+        // Scroll progress straight from the section's live position, every
+        // frame. This both drives all the transforms (via prog) and the video
+        // scrub. After a client-side route change and back, framer's own
+        // measurement can freeze at 0; reading getBoundingClientRect here
+        // always self-corrects, so the frame never gets stuck.
+        const rect = sec.getBoundingClientRect();
+        const total = rect.height - window.innerHeight;
+        const p = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+        prog.set(p);
+        const dur = v.duration;
+        if (dur && !isNaN(dur) && isFinite(dur)) {
+          const sp = Math.min(1, Math.max(0, p / SCRUB_END));
+          const target = sp * (dur - 0.05);
+          cur = cur < 0 ? target : cur + (target - cur) * 0.2;
+          if (!seeking && Math.abs(v.currentTime - cur) > 0.012) {
+            seeking = true;
+            try { v.currentTime = cur; } catch (e) { seeking = false; }
+          }
         }
       }
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
     return () => { cancelAnimationFrame(raf); v.removeEventListener('seeked', onSeeked); };
-  }, [mounted, small, scrollYProgress]);
+  }, [mounted, small, prog]);
 
   // ---------- MOBILE: the whole video just plays ----------
   if (mounted && small) {
