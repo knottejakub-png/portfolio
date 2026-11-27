@@ -45,7 +45,10 @@ export default function HeroScroll() {
     // those just autoplay the video instead.
     const mqs = [
       window.matchMedia('(max-width: 767px)'),
-      window.matchMedia('(pointer: coarse) and (max-width: 1024px)'),
+      // Any touch device up to large-tablet width (covers every iPad, portrait
+      // AND landscape up to the 12.9" Pro at 1366px). Scroll-scrubbing is
+      // unreliable on touch, so these get the autoplay version instead.
+      window.matchMedia('(pointer: coarse) and (max-width: 1366px)'),
     ];
     const set = () => setSmall(mqs.some(m => m.matches));
     set();
